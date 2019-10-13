@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="canonical" href="https://getbootstrap.com/docs/3.3/examples/navbar-static-top/">
+
+    <title>{% block head_title %}{% endblock %}PD 110</title>
+	<style>
+		{% block style %}{% endblock %}
+	</style>
+
+	{% include "head_css.html" %}
+  </head>
+
+  <body>
+
+	{% include "navbar.html" %}
+	
+	{% block jumbotron %}
+	{% endblock %}
+
+    <div class="container">		
+
+		{% block content %}
+		{% endblock %}
+		
+		{% block pagination %}
+		{% if is_paginated %}			
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-end">
+					{% if page_obj.has_previous %}
+						<li class="page-item">
+							<a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Anterior</a>
+					    </li>
+					{% endif %}
+	
+	<!--			    <li class="page-item"><a class="page-link" href="#">1</a></li>
+	-->			    
+					<li class="page-item">
+						<span class="page-current">
+							{{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+							<!--<span class="sr-only">(current)</span>-->
+						</span>
+					</li>
+	
+	<!--			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+	-->
+				    
+					{% if page_obj.has_next %}
+						<li class="page-item">
+							<a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Siguiente</a>
+						</li>
+					{% endif %}
+				</ul>
+			</nav>			
+		{% endif %}
+		{% endblock %}
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	{% include "js.html" %}
+  </body>
+</html>

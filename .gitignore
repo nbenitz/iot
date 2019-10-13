@@ -1,0 +1,6 @@
+dispositivo/migrations/
+estructura/migrations/
+
+dispositivo/__pycache__/
+estructura/__pycache__/
+project/__pycache__/

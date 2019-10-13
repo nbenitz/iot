@@ -1,0 +1,32 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+	{% block content %}
+	<!-- Page Heading -->
+	<h1 class="h3 mb-2 text-gray-800">Sensores</h1>
+		
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">Detalles del Sensor</h6>
+		</div>
+		<div class="card-body">
+		
+			<div class='row'>
+				<div class='col-sm-6 col-sm-offset-3'>		
+				
+					<p><strong>Dispositivo:</strong><br> {{object.id_dispositivo_fk}}</p>
+					<p><strong>Tipo de Sensor:</strong><br> {{object.id_tipo_sensor_fk}}</p>
+					<p><strong>Descripci&oacute;n:</strong><br> {{object.descripcion}}</p>
+					<p><strong>Topic:</strong><br> {{object.topic}}</p>
+					
+					<a href="../" type="submit" class="btn btn-primary">
+						<i class="fas fa-caret-left"></i>
+						Volver
+					</a>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	{% endblock %}

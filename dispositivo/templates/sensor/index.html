@@ -1,0 +1,84 @@
+{% extends "dashboard/base.html" %}
+
+{% block content %}
+	<!-- Page Heading -->
+	<div class='row'>
+		<div class='col-sm-6 col-sm-offset-3'>
+			<h1 class="h3 mb-2 text-gray-800">Sensores</h1>
+		</div>
+		<div align="right" class='col-sm-6 btn_crear mb-3'>
+			<a href="crear" class="btn btn-primary">
+				<i class="fas fa-plus"></i> Nuevo Sensor</a>
+		</div>
+	</div>
+<!--          <p class="mb-4">.</p>
+-->
+	{% if messages %}
+		<ul class="messages list-group mb-3">
+			{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">Lista de Sensores</h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Controlador</th>
+							<th>Tipo Sensor</th>
+							<th>Descripci&oacute;n</th>
+							<th>Topic</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<!-- Recorremos los objetos o registros que tenemos en nuestra tabla 'sensor' y los listamos -->
+						{% for sensor in object_list %}
+							<tr>
+								<td>{{ sensor.id_dispositivo_fk }}</td>
+								<td>{{ sensor.id_tipo_sensor_fk }}</td>
+								<td>{{ sensor.descripcion }}</td>
+								<td>{{ sensor.topic }}</td>
+								<td>
+									<!-- Usaremos un formulario que realizara la tarea de eliminar un registro o postre desde la misma tabla HTML -->
+									<form method="POST" action="eliminar/{{sensor.id_sensor}}">
+										{% csrf_token %}
+										<!--<div class="btn-group">-->
+											<!-- Creamos 3 botones que son ver, Editar y Eliminar, nos sirven para gestionar nuestros registros o postres -->
+											<a href="detalle/{{sensor.id_sensor}}" title="Ver" class="btn btn-success">
+												<i class="far fa-eye"></i></i></a>
+											<a href="editar/{{sensor.id_sensor}}" title="Editar" class="btn btn-primary">
+												<i class="far fa-edit"></i></i></a>
+											<button class="btn btn-danger" onclick="return eliminar();" title="Eliminar">
+												<i class="far fa-trash-alt"></i></button>
+										<!--</div>-->
+									</form>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		function eliminar() {
+			var x = confirm("Eliminar Cliente?");
+			if (x)
+				return true;
+			else
+				return false;
+		}
+	</script>
+
+{% endblock %}
