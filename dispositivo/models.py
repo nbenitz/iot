@@ -93,7 +93,7 @@ class PublicacionActuador(models.Model):
 
 
 class PublicacionSensor(models.Model):
-    id_publicacion = models.PositiveIntegerField(primary_key=True)
+    id_publicacion = models.AutoField(primary_key=True)
     id_sensor_fk = models.ForeignKey('Sensor', models.DO_NOTHING, db_column='id_sensor_fk')
     fecha = models.DateTimeField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)

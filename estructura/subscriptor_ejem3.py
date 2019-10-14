@@ -1,7 +1,8 @@
 import paho.mqtt.client as mqtt
-broker_address = "localhost"
+broker_address = "test.mosquitto.org"
 broker_port = 1883
-topic = "casa/habitaciones/hab1/luz"
+topic = "yonestor87@gmail.com/#"
+#topic = "cetapar.19@gmail.com/#"
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))

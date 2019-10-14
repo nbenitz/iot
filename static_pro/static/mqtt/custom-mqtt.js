@@ -1,7 +1,7 @@
 
-var topic = 'clients/arduino/192.168.43.146/#';
+//var topic = 'clients/arduino/192.168.43.146/#';
 
-var ledtopic = 'clients/arduino/led'	// Web PUBlishes to ledtopic + "/cmd"
+//var ledtopic = 'clients/arduino/led'	// Web PUBlishes to ledtopic + "/cmd"
 
 var tempGauge;
 
@@ -11,23 +11,24 @@ var connected_flag = 0;
 
 var mqtt;
 var reconnectTimeOut = 2000;
-var host = 'broker.mqttdashboard.com';
-var port   = 8000;
-var stopic = 'clients/arduino/#';
+var host = 'test.mosquitto.org';
+var port   = 8080;
+var stopic = 'yonestor87@gmail.com/#';
 
 function onConnectionLost() {
 	console.log("Conexion perdida");
 	//document.getElementById("status").innerHTML = "Conexion perdida";
 	//document.getElementById("messages").innerHTML = "Conexion perdida";
 	connected_flag = 0;
-	return false;
+	MQTTconnect();
+	//return false;
 }
 
 function onFailure() {
 	console.log("Fallido");
 	//document.getElementById("messages").innerHTML = "Conexion Fallida"
 	setTimeout(MQTTconnect, reconnectTimeOut);
-	return false;
+	//return false;
 }
 
 function onMessageArrived(msg) {
@@ -36,7 +37,7 @@ function onMessageArrived(msg) {
 	console.log(out_msg);
 	document.getElementById("temperatura").innerHTML = msg.payloadString + " &deg;C";
 	
-	return false;
+	//return false;
 }
 
 function onConnected(recon, url) {
