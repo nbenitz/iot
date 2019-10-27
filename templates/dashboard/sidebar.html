@@ -14,7 +14,7 @@
 
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item active">
-			<a class="nav-link" href="{% url 'tablero' %}">
+			<a class="nav-link" href="{% url 'monitorSensor' %}">
 			<i class="fas fa-fw fa-tachometer-alt"></i>
 			<span>Tablero</span></a>
 		</li>
@@ -25,6 +25,34 @@
 		<!-- Heading -->
 		<!--<div class="sidebar-heading">
 			Recepci&oacute;n
+		</div>-->
+
+		<!-- Nav Item - Pages Collapse Menu -->
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+				<i class="fas fa-microchip"></i>
+				<span>Dispositivos</span>
+			</a>
+			<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<!--<h6 class="collapse-header">Personas:</h6>-->
+					<a class="collapse-item" href="#">Controladores</a>
+					<a class="collapse-item" href="{% url 'leerSensor' %}">Sensores</a>
+					<a class="collapse-item" href="#">Actuadores</a>
+					<div class="collapse-divider"></div>
+					<!--<h6 class="collapse-header">Estructura:</h6>-->
+					<a class="collapse-item" href="#">Tipos de Sensores</a>
+					<a class="collapse-item" href="#">Tipos de Actuadores</a>
+				</div>
+			</div>
+		</li>
+
+		<!-- Divider -->
+		<!--<hr class="sidebar-divider">-->
+
+		<!-- Heading -->
+		<!--<div class="sidebar-heading">
+			Admin
 		</div>-->
 
 		<!-- Nav Item - Pages Collapse Menu -->
@@ -43,34 +71,6 @@
 					<a class="collapse-item" href="#">Cultivos</a>
 					<a class="collapse-item" href="#">Tipos de Culivo</a>
 
-				</div>
-			</div>
-					</li>
-
-		<!-- Divider -->
-		<!--<hr class="sidebar-divider">-->
-
-		<!-- Heading -->
-		<!--<div class="sidebar-heading">
-			Admin
-		</div>-->
-
-		<!-- Nav Item - Pages Collapse Menu -->
-		<li class="nav-item">
-			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-				<i class="fas fa-database"></i>
-				<span>Dispositivos</span>
-			</a>
-			<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-				<div class="bg-white py-2 collapse-inner rounded">
-					<!--<h6 class="collapse-header">Personas:</h6>-->
-					<a class="collapse-item" href="#">Controladores</a>
-					<a class="collapse-item" href="{% url 'leerSensor' %}">Sensores</a>
-					<a class="collapse-item" href="#">Actuadores</a>
-					<div class="collapse-divider"></div>
-					<!--<h6 class="collapse-header">Estructura:</h6>-->
-					<a class="collapse-item" href="#">Tipos de Sensores</a>
-					<a class="collapse-item" href="#">Tipos de Actuadores</a>
 				</div>
 			</div>
 		</li>

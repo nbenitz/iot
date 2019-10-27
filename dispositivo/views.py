@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView 
+from django.views.generic import ListView, DetailView , TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
  
 from .models import Dispositivo, Sensor, TipoSensor, Actuador, TipoActuador, PublicacionSensor, PublicacionActuador
@@ -11,7 +11,21 @@ from django.contrib.messages.views import SuccessMessageMixin
 #=================================== SENSOR ===========================================
 
 class SensorListado(ListView): 
+    model = Sensor
+    
+class SensorMonitorr(ListView): 
     model = Sensor 
+    
+    
+class SensorMonitor(TemplateView):
+    #template_name = 'agenda/index.html'
+
+    def get_context_data(self, *args, **kwargs):
+        sensores = Sensor.objects.all()
+        actuadores = Actuador.objects.all()
+        return {'sensores': sensores, 'actuadores': actuadores}
+    
+    
     
 class SensorCrear(SuccessMessageMixin, CreateView): 
     model = Sensor

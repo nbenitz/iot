@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import include
 
+
 from .views import about, contact, inicio, tablero
 
 urlpatterns = [
@@ -26,7 +27,7 @@ urlpatterns = [
     path('', inicio, name='inicio'),
     path('contact/', contact, name='contact'),
     path('about/', about, name='about'),
-    path('tablero/', tablero, name='tablero'),
+    #path('tablero/', tablero, name='tablero'),
     #url(r'^accounts/', include('registration.backends.default.urls')),
     path('accounts/', include('registration.backends.default.urls')),
 
@@ -38,3 +39,6 @@ if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+admin.sites.AdminSite.site_header = 'Administracion' 
+#admin.sites.AdminSite.site_title = 'My site admin title' 
+#admin.sites.AdminSite.index_title = 'My site admin index'

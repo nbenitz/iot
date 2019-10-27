@@ -32,10 +32,11 @@
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>Controlador</th>
+							<th>ID</th>
+							<th>Controlador Host</th>
 							<th>Tipo Sensor</th>
 							<th>Descripci&oacute;n</th>
-							<th>Topic</th>
+							<th>Acciones</th>
 						</tr>
 					</thead>
 
@@ -43,10 +44,10 @@
 						<!-- Recorremos los objetos o registros que tenemos en nuestra tabla 'sensor' y los listamos -->
 						{% for sensor in object_list %}
 							<tr>
+								<td>{{ sensor.id_sensor }}</td>
 								<td>{{ sensor.id_dispositivo_fk }}</td>
 								<td>{{ sensor.id_tipo_sensor_fk }}</td>
 								<td>{{ sensor.descripcion }}</td>
-								<td>{{ sensor.topic }}</td>
 								<td>
 									<!-- Usaremos un formulario que realizara la tarea de eliminar un registro o postre desde la misma tabla HTML -->
 									<form method="POST" action="eliminar/{{sensor.id_sensor}}">

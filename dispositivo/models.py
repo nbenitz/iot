@@ -6,7 +6,7 @@ class Dispositivo(models.Model):
     id_dispositivo = models.AutoField(primary_key=True)
     id_invernadero_fk = models.ForeignKey(Invernadero, models.DO_NOTHING, db_column='id_invernadero_fk')
     id_cultivo_kf = models.ForeignKey(Cultivo, models.DO_NOTHING, db_column='id_cultivo_kf', blank=True, null=True)
-    nombre = models.CharField(max_length=20)
+    nombre = models.CharField(max_length=30)
     ip = models.CharField(max_length=15, blank=True, null=True)
 
     class Meta:
@@ -31,30 +31,27 @@ class TipoSensor(models.Model):
         
 class Sensor(models.Model):
     id_sensor = models.AutoField(primary_key=True)
-    id_dispositivo_fk = models.ForeignKey(
-        Dispositivo, 
-        models.DO_NOTHING, 
-        db_column='id_dispositivo_fk',
-        verbose_name="Controlador")
-    id_tipo_sensor_fk = models.ForeignKey(
-        'TipoSensor', 
-        models.DO_NOTHING, 
-        db_column='id_tipo_sensor_fk',
-        verbose_name="Tipo de Sensor")
+    id_dispositivo_fk = models.ForeignKey(Dispositivo, 
+                                          models.DO_NOTHING, 
+                                          db_column='id_dispositivo_fk',
+                                          verbose_name="Controlador")
+    id_tipo_sensor_fk = models.ForeignKey('TipoSensor', 
+                                          models.DO_NOTHING, 
+                                          db_column='id_tipo_sensor_fk',
+                                          verbose_name="Tipo de Sensor")
     descripcion = models.CharField("Descripci&oacute;n", max_length=20)
-    topic = models.CharField(max_length=100)
 
     class Meta:
         managed = True
         db_table = 'sensor'
         
     def __str__(self):
-        return self.id_dispositivo_fk + " | " + self.id_tipo_sensor_fk
+        return self.descripcion
     
     
 class TipoActuador(models.Model):
     id_tipo_actuador = models.AutoField(primary_key=True)
-    descripcion = models.PositiveIntegerField()
+    descripcion = models.CharField(max_length=50)
 
     class Meta:
         managed = True
@@ -66,16 +63,22 @@ class TipoActuador(models.Model):
 
 class Actuador(models.Model):
     id_actuador = models.AutoField(primary_key=True)
-    id_dispositivo_fk = models.ForeignKey('Dispositivo', models.DO_NOTHING, db_column='id_dispositivo_fk')
-    id_tipo_actuador_fk = models.ForeignKey('TipoActuador', models.DO_NOTHING, db_column='id_tipo_actuador_fk')
-    topic = models.CharField(max_length=100)
+    id_dispositivo_fk = models.ForeignKey(Dispositivo, 
+                                          models.DO_NOTHING, 
+                                          db_column='id_dispositivo_fk',
+                                          verbose_name="Controlador")
+    id_tipo_actuador_fk = models.ForeignKey('TipoActuador', 
+                                            models.DO_NOTHING, 
+                                            db_column='id_tipo_actuador_fk',
+                                            verbose_name="Tipo de Actuador")
+    descripcion = models.CharField("Descripci&oacute;n", max_length=20)
 
     class Meta:
         managed = True
         db_table = 'actuador'
         
     def __str__(self):
-        return self.id_dispositivo_fk + " | " + self.id_tipo_actuador_fk
+        return self.descripcion
 
 
 class PublicacionActuador(models.Model):
