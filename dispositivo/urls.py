@@ -11,6 +11,6 @@ urlpatterns = [
     path('sensor/editar/<str:pk>', SensorActualizar.as_view(template_name = "sensor/actualizar.html"), name='actualizarSensor'),
     path('sensor/eliminar/<str:pk>', SensorEliminar.as_view(), name='eliminarSensor'),
 
-    path('monitor/', SensorMonitor.as_view(template_name = "sensor/monitor.html"), name='monitorSensor'),
+    path('monitor/', SensorMonitor.as_view(template_name = "sensor/monitor2.html"), name='monitorSensor'),
 
 ]

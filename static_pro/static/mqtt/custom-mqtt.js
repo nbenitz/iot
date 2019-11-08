@@ -55,8 +55,13 @@ function onMessageArrived(msg) {
 		var id_sensor = topic_parts[2];
 		if ($("#sensor-" + id_sensor )) {
 			$("#sensor-" + id_sensor).text(msg.payloadString);
-			if ( $("#progress-" + id_sensor )) {
-				$("#progress-" + id_sensor).attr('style', 'width:' + msg.payloadString + '%');
+			if ($("#progress-" + id_sensor)) {
+				var min = $("#progress-" + id_sensor).attr('aria-valuemin');
+				var max = $("#progress-" + id_sensor).attr('aria-valuemax');
+				var now = msg.payloadString;
+				var siz = (now - min) * 100 / (max - min);	
+				$("#progress-" + id_sensor).attr('style', 'width:' + siz + '%');
+				//$("#progress-" + id_sensor).attr('style', 'width:' + msg.payloadString + '%');
 			}
 		}
 	}
