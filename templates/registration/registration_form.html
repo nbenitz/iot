@@ -1,16 +1,18 @@
-{% extends "base.html" %}
+{% extends "dashboard/base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+
+{% block head_title %}Registro{% endblock %}
 
 {% block content %}
 	<div class='row'>
 		<div class='col-sm-6 col-sm-offset-3'>
-			<h2 class='text-align-center'><strong>Registrarte Gratis!</strong></h2><br/>
+			<h2 class='text-align-center'><strong>Registro</strong></h2><br/>
 			<form method="post" action=".">
 				{% csrf_token %}
 				{{ form|crispy }}
 	
-	  			<input class='btn btn-block btn-primary' type="submit" value="{% trans 'Registrarme' %}" />
+				<input class='btn btn-block btn-primary' type="submit" value="{% trans 'Registrarme' %}" />
 			</form>
 		</div>
 	</div>

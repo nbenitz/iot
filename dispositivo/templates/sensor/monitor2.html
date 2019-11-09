@@ -10,8 +10,7 @@
 
 
 {% block content %}
-	<br>
-	
+
 	<div id="messages" class="alert alert-primary" role="alert"></div>
 
 	<!-- Page Heading -->
@@ -585,6 +584,162 @@
 					</div>
 					
 				</div>
+				
+				
+				<!-- Area Chart -->
+					<div class="col-xl-12 col-lg-7">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown -->
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-success">Cultivo en Macetas</h6>
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+										<div class="dropdown-header">Dropdown Header:</div>
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<!-- Card Body Hidroponico -->
+							<div class="card-body">
+								<!-- Titulo -->
+								<h3 class="h6 mb-1 text-gray-800">Sensores</h3>
+								<div class="row">			
+							
+									<!-- Card Humedad -->
+									<div class="col-xl-6 col-md-6 mb-4">
+										<div class="card border-left-primary shadow h-100 pb-3">
+											<div class="card-body  pb-0">
+												<div class="row no-gutters align-items-center pb-1">
+													<div class="col mr-2">
+														<div class="text-sm font-weight-bold text-primary mb-1">
+															Humedad de Suelo 1</div>
+														<div class="row no-gutters align-items-center">
+															<div class="col-auto">								
+																<div class="row no-gutters align-items-center">
+																	<div id="sensor-13" class="h5 mb-0 font-weight-bold text-gray-800">
+																		---</div>
+																	<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+																		ppm</div>											
+																</div>
+															</div>
+															<div class="col">
+																<div class="progress progress-sm mr-2">
+																	<div id="progress-13" class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="5">
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-auto dropdown no-arrow">
+														<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-wave-square fa-2x text-gray-500"></i>
+														</a>
+														<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+															<a class="dropdown-item" href="#">Chart</a>
+															<a class="dropdown-item" href="#">Editar</a>
+															<a class="dropdown-item" href="#">Ajustes</a>
+														</div>
+													</div>
+												</div>
+												<div class="text-xs text-gray-700">Rango permitido: 30 a 80%</div>
+											</div>
+										</div>
+									</div>
+									
+									
+									<!-- Card Humedad -->
+									<div class="col-xl-6 col-md-6 mb-4">
+										<div class="card border-left-primary shadow h-100 pb-3">
+											<div class="card-body  pb-0">
+												<div class="row no-gutters align-items-center pb-1">
+													<div class="col mr-2">
+														<div class="text-sm font-weight-bold text-primary mb-1">
+															Humedad de Suelo 2</div>
+														<div class="row no-gutters align-items-center">
+															<div class="col-auto">								
+																<div class="row no-gutters align-items-center">
+																	<div id="sensor-14" class="h5 mb-0 font-weight-bold text-gray-800">
+																		---</div>
+																	<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+																		ppm</div>											
+																</div>
+															</div>
+															<div class="col">
+																<div class="progress progress-sm mr-2">
+																	<div id="progress-14" class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="5">
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-auto dropdown no-arrow">
+														<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-wave-square fa-2x text-gray-500"></i>
+														</a>
+														<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+															<a class="dropdown-item" href="#">Chart</a>
+															<a class="dropdown-item" href="#">Editar</a>
+															<a class="dropdown-item" href="#">Ajustes</a>
+														</div>
+													</div>
+												</div>
+												<div class="text-xs text-gray-700">Rango permitido: 30 a 80%</div>
+											</div>
+										</div>
+									</div>
+									
+									<!-- Card Humedad -->
+									<div class="col-xl-6 col-md-6 mb-4">
+										<div class="card border-left-primary shadow h-100 pb-3">
+											<div class="card-body  pb-0">
+												<div class="row no-gutters align-items-center pb-1">
+													<div class="col mr-2">
+														<div class="text-sm font-weight-bold text-primary mb-1">
+															Humedad de Suelo 3</div>
+														<div class="row no-gutters align-items-center">
+															<div class="col-auto">								
+																<div class="row no-gutters align-items-center">
+																	<div id="sensor-15" class="h5 mb-0 font-weight-bold text-gray-800">
+																		---</div>
+																	<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+																		ppm</div>											
+																</div>
+															</div>
+															<div class="col">
+																<div class="progress progress-sm mr-2">
+																	<div id="progress-15" class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="5">
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-auto dropdown no-arrow">
+														<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-wave-square fa-2x text-gray-500"></i>
+														</a>
+														<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+															<a class="dropdown-item" href="#">Chart</a>
+															<a class="dropdown-item" href="#">Editar</a>
+															<a class="dropdown-item" href="#">Ajustes</a>
+														</div>
+													</div>
+												</div>
+												<div class="text-xs text-gray-700">Rango permitido: 30 a 80%</div>
+											</div>
+										</div>
+									</div>			
+									
+							
+								</div>
+							</div>
+						</div>
+					</div>
 					
 				
 				
@@ -594,39 +749,6 @@
 				</div>
 			</div>
 		</div>	
-	  
-		
-		
-
-		<!-- Card Luminosidad -->
-		<div class="col-xl-3 col-md-6 mb-4">
-			<div class="card border-left-warning shadow h-100 py-2">				
-				<div class="card-body">
-					<div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-								Luminosidad Interior</div>
-							<div class="row no-gutters align-items-center">
-								<div  id="sensor-4" class="h5 mb-0 font-weight-bold text-gray-800">
-									---</div>
-								<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-									lux</div>											
-							</div>
-						</div>
-						<div class="col-auto dropdown no-arrow">
-							<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-sun fa-2x text-gray-500"></i>
-							</a>
-							<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="#">Chart</a>
-								<a class="dropdown-item" href="#">Editar</a>
-								<a class="dropdown-item" href="#">Ajustes</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 				
 			
 	</div>
