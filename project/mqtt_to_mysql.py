@@ -1,11 +1,11 @@
-import settings
+from .settings import DATABASES
 import MySQLdb
 import paho.mqtt.client as mqtt
+#from background_task import background
 
 
 from functools import reduce
 import operator
-#from project.settings import DATABASES
 
 broker_address = "test.mosquitto.org"
 broker_port = 1883
@@ -15,10 +15,10 @@ topic = "yonestor87@gmail.com/#"
 def getFromDict(dataDict, mapList):
     return reduce(operator.getitem, mapList, dataDict)  
 
-host = getFromDict(settings.DATABASES, ["default", "HOST"])
-user = getFromDict(settings.DATABASES, ["default", "USER"])
-password = getFromDict(settings.DATABASES, ["default", "PASSWORD"])
-database = getFromDict(settings.DATABASES, ["default", "NAME"])
+host = getFromDict(DATABASES, ["default", "HOST"])
+user = getFromDict(DATABASES, ["default", "USER"])
+password = getFromDict(DATABASES, ["default", "PASSWORD"])
+database = getFromDict(DATABASES, ["default", "NAME"])
 
 db = MySQLdb.connect(host, user, password, database)
 cursor = db.cursor()
@@ -70,8 +70,13 @@ def on_message(client, userdata, message):
     if sub_topic == "feedback":
         registrar_feedback_mysql(id_sensor, msg)
 
-client = mqtt.Client('Cliente1', userdata="UsuarioDePrueba") 
-client.on_connect = on_connect 
-client.on_message = on_message 
-client.connect(broker_address, broker_port, 60) 
-client.loop_forever()
+
+
+#@background(schedule=5)
+def mqtt_loop():
+    client = mqtt.Client('Cliente1', userdata="UsuarioServer") 
+    client.on_connect = on_connect 
+    client.on_message = on_message 
+    client.connect(broker_address, broker_port, 60)
+    client.loop_start()
+#print("Ok")

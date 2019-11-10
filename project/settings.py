@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #apps terceros
     'crispy_forms',
+    'background_task',
     #'bootstrap4',
     #'widget_tweaks',
     #mis apps

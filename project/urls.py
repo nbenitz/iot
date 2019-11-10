@@ -21,6 +21,7 @@ from django.conf.urls import include
 
 
 from .views import about, contact, inicio, tablero
+from .mqtt_to_mysql import mqtt_loop
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,3 +43,6 @@ if settings.DEBUG:
 admin.sites.AdminSite.site_header = 'Administracion' 
 #admin.sites.AdminSite.site_title = 'My site admin title' 
 #admin.sites.AdminSite.index_title = 'My site admin index'
+
+mqtt_loop()
+
