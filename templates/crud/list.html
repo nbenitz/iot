@@ -1,0 +1,57 @@
+﻿{% extends "base.html" %}
+
+{% block head_title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+
+	{% if messages %}
+		<ul class="messages list-group mb-3">
+			{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<div class='row'>
+				<div class='col-sm-6 col-sm-offset-3'>
+					<h4 class="h4 mb-0 text-gray-800">Lista de {{ plural }}</h4>
+				</div>
+				<div align="right" class='col-sm-6 mb-0'>
+					<a href="crear" class="btn btn-primary">
+						<i class="fas fa-plus"></i> Agregar {{ titulo }}</a>
+				</div>
+			</div>	
+		</div>
+		<div class="card-body">
+			{% if object_list %}
+		
+			<div class="table-responsive">
+
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					
+					{% block table %}
+					{% endblock %}
+				
+				</table>
+
+			</div>
+			{% else %}
+				<p>No hay {{ titulo }} para mostrar.</p>
+			{% endif %}
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		function eliminar() {
+			var x = confirm("Está seguro que desea eliminarlo?");
+			if (x)
+				return true;
+			else
+				return false;
+		}
+	</script>
+
+{% endblock %}

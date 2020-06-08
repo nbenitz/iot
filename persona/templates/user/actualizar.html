@@ -1,0 +1,22 @@
+{% extends "crud/card.html" %}
+{% load crispy_forms_tags %}
+
+{% block card %}
+		
+					<form method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						{{ user_form|crispy}}
+					  
+						<button type="submit" class="btn btn-primary">
+							<i class="fas fa-save"></i>
+							Aceptar
+						</button>
+
+						<a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">
+							<i class="fas fa-caret-left"></i>
+							Cancelar
+						</a>
+					 
+					</form>
+					
+{% endblock %}

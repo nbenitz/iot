@@ -1,0 +1,27 @@
+{% extends "crud/card.html" %}
+
+	{% block card %}
+
+					<p><strong>Nombre: </strong>{{object.first_name}} {{object.last_name}}</p>
+					<p><strong>E-mail: </strong>{{object.email}}</p>
+					<p><strong>Usuario: </strong>{{object.username}}</p>
+					<p><strong>Último Ingreso: </strong>{{object.last_login}}</p>
+					<p><strong>Fecha de Registro: </strong>{{object.date_joined}}</p>
+					
+					<div class='row justify-content-center'>			
+						
+						<a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">
+							<i class="fas fa-caret-left"></i>
+							Volver
+						</a>&nbsp;
+
+						<a href="{% url 'actualizarUser' object.id %}" title="Editar" class="btn btn-success">
+							<i class="far fa-edit"></i>
+							Editar
+						</a>
+					</div><br/>
+					<div class='row justify-content-center'>
+						<p><a href="{% url 'password_change' %}">Cambiar Contraseña</a></p>
+					</div>
+
+	{% endblock %}

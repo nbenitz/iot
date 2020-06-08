@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Tablero{% endblock %}
+
+
+{% block in_head %}
+	<script src="{% static '/mqtt/custom-mqtt.js' %}"></script>	
+{% endblock %}
+
+
+{% block content %}
+
+	<div id="messages" class="alert alert-primary" role="alert"></div>
+
+	<!-- Page Heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Invernadero</h1>
+<!--		<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="return cambiar_color();">
+			<i class="fas fa-download fa-sm text-white-50"></i> Prueba</a>-->
+	</div>
+
+	<!-- Content Row -->
+	<div class="row"> 
+	
+		<!-- Card Sector -->
+		<div class="col-xl-12 col-lg-7">
+			<div class="card shadow mb-4">
+				<!-- Card Header - Dropdown -->
+				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+					<h6 class="m-0 font-weight-bold text-primary">Sector 1</h6>
+					<div class="dropdown no-arrow">
+						<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+							<div class="dropdown-header">Dropdown Header:</div>
+							<a class="dropdown-item" href="#">Action</a>
+							<a class="dropdown-item" href="#">Another action</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Something else here</a>
+						</div>
+					</div>
+				</div>
+				<!-- Card Body -->
+				<div class="card-body">
+				
+					<!-- Titulo -->
+					<h3 class="h6 mb-1 text-gray-800">Sensores</h3>
+					<div class="row">			
+				
+						<!-- Card Temperatura -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-danger shadow h-100 pb-3">				
+								<div class="card-body pb-0">				
+									<div class="row no-gutters align-items-center pb-1">
+										<div class="col mr-2">
+											<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+												Temperatura</div>
+											<div class="row no-gutters align-items-center">
+												<div id="sensor-1" class="h5 mb-0 font-weight-bold text-gray-800">
+													---</div>
+												<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+													&deg;C</div>											
+											</div>
+										</div>
+										<div class="col-auto dropdown no-arrow">
+											<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<i class="fas fa-temperature-low fa-2x text-gray-500"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+												<a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalCenter">Chart</a>
+												<a class="dropdown-item" href="/dispositivo/sensor/editar/1">Editar</a>
+												<a class="dropdown-item" href="#">Ajustes</a>
+											</div>
+										</div>
+									</div>
+									<div class="text-xs text-gray-700">Rango permitido: 30 a 40&deg;C</div>	
+								</div>
+							</div>
+						</div>
+				
+						<!-- Card Humedad -->
+						<div class="col-xl-3 col-md-6 mb-4">
+							<div class="card border-left-primary shadow h-100 pb-3">
+								<div class="card-body  pb-0">
+									<div class="row no-gutters align-items-center pb-1">
+										<div class="col mr-2">
+											<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+												Humedad Interna</div>
+											<div class="row no-gutters align-items-center">
+												<div class="col-auto">								
+													<div class="row no-gutters align-items-center">
+														<div id="sensor-3" class="h5 mb-0 font-weight-bold text-gray-800">
+															---</div>
+														<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+															%</div>											
+													</div>
+												</div>
+												<div class="col">
+													<div class="progress progress-sm mr-2">
+														<div id="progress-3" class="progress-bar bg-primary" role="progressbar" style="width: 5%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+															</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-auto dropdown no-arrow">
+											<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<i class="fas fa-tint fa-2x text-gray-500"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+												<a class="dropdown-item" href="#">Chart</a>
+												<a class="dropdown-item" href="#">Editar</a>
+												<a class="dropdown-item" href="#">Ajustes</a>
+											</div>
+										</div>
+									</div>
+									<div class="text-xs text-gray-700">Rango permitido: 75 a 80%</div>
+								</div>
+							</div>
+						</div>
+						
+						
+				
+				
+				<!-- Area Chart -->
+					<div class="col-xl-12 col-lg-7">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown -->
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-success">Sistema Hidrop&oacute;nico</h6>
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+										<div class="dropdown-header">Dropdown Header:</div>
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<!-- Card Body Hidroponico -->
+							<div class="card-body">
+								<!-- Titulo -->
+								<h3 class="h6 mb-1 text-gray-800">Controladores</h3>
+								<div class="row">			
+									<!-- Card Humedad -->
+									<div class="col-xl-3 col-md-6 mb-4">
+										<div class="card border-left-primary shadow h-100 pb-3">
+											<div class="card-body  pb-0">
+												<div class="row no-gutters align-items-center pb-1">
+													<div class="col mr-2">
+														<div class="text-sm font-weight-bold text-primary mb-1">
+															Timer</div>
+														<div class="row no-gutters align-items-center">
+															<div class="col-auto">								
+																<div class="row no-gutters align-items-center">
+																	<div id="timer-1" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+																		---</div>										
+																</div>
+															</div>
+															<div class="col">
+																<div class="progress progress-sm mr-2">
+																	<div id="progress-9" class="progress-bar bg-primary" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="14">
+																		</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-auto dropdown no-arrow">
+														<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+															<i class="fas fa-wave-square fa-2x text-gray-500"></i>
+														</a>
+														<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+															<a class="dropdown-item" href="#">Chart</a>
+															<a class="dropdown-item" href="#">Editar</a>
+															<div class="dropdown-item" id="timer-1-ajustes" data-toggle="modal" data-target=".bd-example-modal-lg">Ajustes</div>
+														</div>
+													</div>
+												</div>
+												<div class="text-xs text-gray-700">Rango permitido: 30 a 80%</div>
+											</div>
+										</div>
+
+										<template id="template">
+												<div class="row">
+													<div class="col-sm-12">
+											
+											
+															<div id="div_id_descripcion" class="form-group"> 
+																<label for="id_descripcion" class="control-label  requiredField">
+																	Descripci&oacute;n
+																	<span class="asteriskField">*</span> 
+																</label> 
+																<div class="controls ">
+																	<input type="text" name="descripcion" maxlength="20" class="textinput textInput form-control" required id="id_descripcion">
+																</div>
+															</div>
+													 
+																		  
+															<button type="submit" class="btn btn-success" data-dismiss="modal">
+																<i class="fas fa-save"></i>
+																Aceptar
+															</button>
+																			
+															<button type="submit" class="btn btn-primary" data-dismiss="modal"	>
+																<i class="fas fa-caret-left"></i>
+																Cancelar
+															</button>			
+											
+													</div>
+												</div>
+											</template>
+
+
+
+
+
+
+
+									</div>
+
+							
+									
+							
+								</div>
+							</div>
+						</div>
+					</div>	
+				
+				
+				
+			</div>
+		</div>				
+					
+					
+				
+			
+	</div>
+	
+<!-- Modal -->
+<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Chart</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+
+
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+
+
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Habitaciones Disponibles</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="close">
+					<span aria-hidden="true">x</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			
+			</div>
+		</div>
+	</div>
+</div>
+ 
+	
+
+	
+		<script type="text/javascript">
+
+			$("#timer-1-ajustes").click(function () {
+				$(".modal-body div").remove();
+				$(".modal-body").append($("#template").html());	
+				$(".modal-title").text("Ajustes - Timer 1");
+						
+			});
+
+
+			MQTTconnect();		
+		</script>
+	
+{% endblock %}

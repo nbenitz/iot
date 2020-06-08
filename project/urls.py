@@ -21,7 +21,7 @@ from django.conf.urls import include
 
 
 from .views import about, contact, inicio, tablero
-from .mqtt_to_mysql import mqtt_loop
+#from .mqtt_to_mysql import mqtt_loop
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,11 +29,12 @@ urlpatterns = [
     path('contact/', contact, name='contact'),
     path('about/', about, name='about'),
     #path('tablero/', tablero, name='tablero'),
-    #url(r'^accounts/', include('registration.backends.default.urls')),
-    path('accounts/', include('registration.backends.default.urls')),
+    #path('accounts/', include('registration.backends.default.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 
-    path('estructura/', include('estructura.urls')),
-    path('dispositivo/', include('dispositivo.urls')),
+    path('', include('estructura.urls')),
+    path('', include('dispositivo.urls')),
+    path('', include('persona.urls')),
 ]
 
 if settings.DEBUG:
@@ -44,5 +45,5 @@ admin.sites.AdminSite.site_header = 'Administracion'
 #admin.sites.AdminSite.site_title = 'My site admin title' 
 #admin.sites.AdminSite.index_title = 'My site admin index'
 
-mqtt_loop()
+#mqtt_loop()
 

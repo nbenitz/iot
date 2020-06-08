@@ -12,7 +12,7 @@
 
 	<title>{% block head_title %}{% endblock %} | My IoT</title>
 		
-	{% include "head_css.html" %}
+	{% include "includes/head_css.html" %}
 	
 	{% block in_head %}{% endblock %}
 
@@ -23,7 +23,7 @@
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
-		{#% include "dashboard/sidebar.html" %#}
+		{#% include "backup/sidebar.html" %#}
 	
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -31,7 +31,7 @@
 			<!-- Main Content -->
 			<div id="content">
 	
-			{% include "dashboard/topbar2.html" %}
+			{% include "includes/navbar.html" %}
 	
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
@@ -67,7 +67,7 @@
 	</a>
 
 
-	{% include "js.html" %}
+	{% include "includes/js.html" %}
 </body>
 
 </html>

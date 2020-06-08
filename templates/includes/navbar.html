@@ -1,9 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 
-
-	<div class="container">
-	
-	
+	<div class="container">	
 	
 		<a class="navbar-brand" href="/">
 			<div class="navbar-brand-icon rotate-n-15">
@@ -11,6 +8,7 @@
 			</div>
 			<div class="navbar-brand-text mx-3"></div>
 		</a>
+
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -21,10 +19,14 @@
 					<a class="nav-link" href="{% url 'monitorSensor' %}">Tablero</a>
 				</li>
 
+				<li class="nav-item active">
+					<a class="nav-link" href="{% url 'leerTopic' %}">Topics</a>
+				</li>
+
 				<li class="nav-item dropdown active">
 					<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dispositivos</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown04">
-						<a class="dropdown-item" href="#">Controladores</a>
+						<a class="dropdown-item" href="{% url 'leerDispositivo' %}">Controladores</a>
 						<a class="dropdown-item" href="{% url 'leerSensor' %}">Sensores</a>
 						<a class="dropdown-item" href="#">Actuadores</a>
 						<div class="dropdown-divider"></div>
@@ -39,18 +41,18 @@
 			<ul class="navbar-nav navbar-right">
 				{% if request.user.is_authenticated %}
 					<li class="nav-item active">
-						<a class="nav-link" href="{% url 'auth_logout' %}">
-							Salir</a>
-					</li>
+						<a class="nav-link" href="{% url 'detallesUser' request.user.id %}">
+							Cuenta</a></li>
+					<li class="nav-item active">
+						<a class="nav-link" href="{% url 'logout' %}">
+							Salir</a></li>
 				{% else %}
 					<li class="nav-item active">
-						<a class="nav-link" href="{% url 'registration_register' %}">
+						<a class="nav-link" href="{% url 'signup' %}">
 							Registrarme</a></li>
 					<li class="nav-item active">
-						<a class="nav-link" href="{% url 'auth_login' %}">
+						<a class="nav-link" href="{% url 'login' %}">
 							Entrar</a></li>
-							
-						
 				{% endif %}
 			</ul>
 			

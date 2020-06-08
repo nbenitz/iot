@@ -30,15 +30,16 @@ SECRET_KEY = '$@m5a#h1oh-=fn4k#!!7tln^u^=km-puzov=f1fpuf(f2x^20p'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'lucatronic.pythonanywhere.com',
+    'myiot.pythonanywhere.com',
     '127.0.0.1',
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'yonestor87@gmail.com'
-EMAIL_HOST_PASSWORD = 'electronica1'
-EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'yonestor87@gmail.com'
+EMAIL_HOST_PASSWORD = 'electronicaaf0'
 
 """
 Para usar gmail hay que desbloquear el captcha
@@ -50,7 +51,7 @@ https://accounts.google.com/displayunlockcaptcha
 
 INSTALLED_APPS = [
     #apps django
-    'registration', #should be immediately above 'django.contrib.admin'
+    #'registration', #should be immediately above 'django.contrib.admin'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,6 +66,7 @@ INSTALLED_APPS = [
     #mis apps
     'estructura',
     'dispositivo',
+    'persona',
 ]
 
 MIDDLEWARE = [
@@ -167,7 +169,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_env", "static_root")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_env", "media_root")
 
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
@@ -175,3 +177,5 @@ LOGIN_REDIRECT_URL = '/'
 
 # Activamos 'CookieStorage' que nos permite enviar los mensajes de respuesta al Crear, Eliminar y Actualizar un registro
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+AUTH_USER_MODEL = "persona.User"

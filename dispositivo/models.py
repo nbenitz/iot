@@ -1,13 +1,14 @@
 from django.db import models
-from estructura.models import Invernadero, Cultivo
+from estructura.models import Topic
 
 # Create your models here.
 class Dispositivo(models.Model):
     id_dispositivo = models.AutoField(primary_key=True)
-    id_invernadero_fk = models.ForeignKey(Invernadero, models.DO_NOTHING, db_column='id_invernadero_fk')
-    id_cultivo_kf = models.ForeignKey(Cultivo, models.DO_NOTHING, db_column='id_cultivo_kf', blank=True, null=True)
-    nombre = models.CharField(max_length=30)
-    ip = models.CharField(max_length=15, blank=True, null=True)
+    id_topic_fk = models.ForeignKey(Topic,
+                                    models.DO_NOTHING,
+                                    db_column='id_topic_fk',
+                                    verbose_name="Topic o Grupo al que pertenece")
+    nombre = models.CharField("Nombre del Controlador", max_length=30)
 
     class Meta:
         managed = True
@@ -39,7 +40,7 @@ class Sensor(models.Model):
                                           models.DO_NOTHING, 
                                           db_column='id_tipo_sensor_fk',
                                           verbose_name="Tipo de Sensor")
-    descripcion = models.CharField("Descripci&oacute;n", max_length=20)
+    descripcion = models.CharField("Descripción", max_length=20)
 
     class Meta:
         managed = True

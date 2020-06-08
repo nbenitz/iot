@@ -6,13 +6,13 @@ from .forms import ContactForm
 # Create your views here.
 
 def inicio(request):
-    return render(request, "dashboard/content.html", {})
+    return render(request, "inicio.html", {})
 
 def about(request):
     return render(request, "about.html", {})
 
 def tablero(request):
-    return render(request, "dashboard/tablero.html", {})
+    return render(request, "tablero.html", {})
 
 def contact(request):
     titulo = "Contacto"

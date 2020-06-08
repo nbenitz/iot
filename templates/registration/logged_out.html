@@ -1,7 +1,7 @@
-{% extends "dashboard/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 
 {% block content %}
 <p class='lead'>{% trans "Sesión terminada." %}</p>
-<p><a href="{% url 'auth_login' %}">Login</a></p></p>
+<p><a href="{% url 'login' %}">Login</a></p></p>
 {% endblock %}

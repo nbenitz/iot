@@ -1,7 +1,8 @@
 # estructura/urls.py
 from django.urls import path
 
-from .views import SensorListado, SensorCrear, SensorActualizar, SensorDetalle, SensorEliminar
+from .views import SensorListado, SensorCrear, SensorActualizar, SensorDetalle, SensorEliminar, \
+    DispositivoListado, DispositivoCrear, DispositivoActualizar, DispositivoDetalle, DispositivoEliminar
 from dispositivo.views import SensorMonitor
 
 urlpatterns = [
@@ -11,6 +12,12 @@ urlpatterns = [
     path('sensor/editar/<str:pk>', SensorActualizar.as_view(template_name = "sensor/actualizar.html"), name='actualizarSensor'),
     path('sensor/eliminar/<str:pk>', SensorEliminar.as_view(), name='eliminarSensor'),
 
-    path('monitor/', SensorMonitor.as_view(template_name = "sensor/monitor2.html"), name='monitorSensor'),
+    path('controlador/', DispositivoListado.as_view(template_name = "controlador/index.html"), name='leerDispositivo'),
+    path('controlador/detalle/<str:pk>', DispositivoDetalle.as_view(template_name = "controlador/detalles.html"), name='detallesDispositivo'),
+    path('controlador/crear', DispositivoCrear.as_view(template_name = "controlador/crear.html"), name='crearDispositivo'),
+    path('controlador/editar/<str:pk>', DispositivoActualizar.as_view(template_name = "controlador/actualizar.html"), name='actualizarDispositivo'),
+    path('controlador/eliminar/<str:pk>', DispositivoEliminar.as_view(), name='eliminarDispositivor'),
+
+    path('monitor/', SensorMonitor.as_view(template_name = "sensor/monitor3.html"), name='monitorSensor'),
 
 ]
