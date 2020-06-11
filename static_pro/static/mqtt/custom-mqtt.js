@@ -1,23 +1,19 @@
 
-//var topic = 'clients/arduino/192.168.43.146/#';
-
-//var ledtopic = 'clients/arduino/led'	// Web PUBlishes to ledtopic + "/cmd"
-
-var tempGauge;
-
-var arduinoTemp = new Array();
 
 var connected_flag = 0;
 
 var mqtt;
 var reconnectTimeOut = 2000;
 //var host = 'broker.hivemq.com';
-var host = 'test.mosquitto.org';
-var port   = 8080;
+//var host = 'test.mosquitto.org';
+//var port   = 8080;
+var host = 'broker.mqtt-dashboard.com'
+var port   = 8000;
+var user;
 var sensor_topic = 'yonestor87@gmail.com/sensor/#';
+var online_topic = 'yonestor87@gmail.com/online/#';
+var actuator_topic = 'yonestor87@gmail.com/control/';
 var feedback_topic = 'yonestor87@gmail.com/feedback/#';
-var lwt_topic = 'yonestor87@gmail.com/lwt/#';
-var pub_topic = 'yonestor87@gmail.com/control/';
 
 function onConnectionLost() {
 	console.log("Conexion perdida");
@@ -125,10 +121,10 @@ function MQTTconnect() {
 function sub_topics() {
 	console.log("Subscribing to topic " + sensor_topic);
 	console.log("Subscribing to topic " + feedback_topic);
-	console.log("Subscribing to topic " + lwt_topic);
+	console.log("Subscribing to topic " + online_topic);
 	mqtt.subscribe(sensor_topic);
 	mqtt.subscribe(feedback_topic);
-	mqtt.subscribe(lwt_topic);
+	mqtt.subscribe(online_topic);
 	return false;
 }
 
@@ -146,7 +142,7 @@ function enviar_msj(id) {
  	else 
 		msg = "1";
 		
-	var topic = pub_topic + id;
+	var topic = actuator_topic + id;
 	message = new Paho.MQTT.Message(msg);
 	message.destinationName = topic;
 	console.log("-> " + topic + " | " + msg);

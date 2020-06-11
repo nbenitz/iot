@@ -1,47 +1,49 @@
 #from django.shortcuts import render
 
-# Instanciamos las vistas gen�ricas de Django 
+# Instanciamos las vistas genéricas de Django 
+"""
 from django.views.generic import ListView, DetailView 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
  
-from .models import Topic
+from .models import UserDispositivo
 from django.urls import reverse
 from django.contrib import messages  
-from django.contrib.messages.views import SuccessMessageMixin 
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-#=================================== Topic ===========================================
+#=================================== UserDispositivo ===========================================
 
-class TopicListado(ListView): 
-    model = Topic 
+class UserDispositivoListado(LoginRequiredMixin, ListView): 
+    model = UserDispositivo 
     
-class TopicCrear(SuccessMessageMixin, CreateView): 
-    model = Topic
-    form = Topic
+class UserDispositivoCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = UserDispositivo
+    form = UserDispositivo
     fields = "__all__"
-    success_message = 'Topic Creado Correctamente !'
+    success_message = 'Lista de Dispositivos Creado Correctamente !'
 
     def get_success_url(self):
-        return reverse('leerTopic')
+        return reverse('leerUserDispositivo')
     
-class TopicDetalle(DetailView): 
-    model = Topic
+class UserDispositivoDetalle(LoginRequiredMixin, DetailView): 
+    model = UserDispositivo
     
-class TopicActualizar(SuccessMessageMixin, UpdateView): 
-    model = Topic
-    form = Topic
+class UserDispositivoActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView): 
+    model = UserDispositivo
+    form = UserDispositivo
     fields = "__all__" 
-    success_message = 'Topic Actualizado Correctamente !'
+    success_message = 'Lista de Dispositivos Actualizado Correctamente !'
  
     def get_success_url(self):
-        return reverse('leerTopic')
+        return reverse('leerUserDispositivo')
 
-class TopicEliminar(SuccessMessageMixin, DeleteView): 
-    model = Topic 
-    form = Topic
+class UserDispositivoEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView): 
+    model = UserDispositivo 
+    form = UserDispositivo
     fields = "__all__"     
  
     def get_success_url(self): 
-        success_message = 'Topic Eliminado Correctamente !'
+        success_message = 'Lista de Dispositivos Eliminado Correctamente !'
         messages.success (self.request, (success_message))
-        return reverse('leerTopic')
-    
+        return reverse('leerUserDispositivo')
+"""

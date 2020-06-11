@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.contrib import messages  
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from persona.models import User
+from estructura.models import UserDispositivo
 
 # Create your views here.
 
@@ -19,7 +21,14 @@ class SensorMonitorr(LoginRequiredMixin, ListView):
     
     
 class SensorMonitor(LoginRequiredMixin, TemplateView):
-    #template_name = 'agenda/index.html'
+
+    def get_context_data(self, *args, **kwargs):
+        sensores = Sensor.objects.all()
+        actuadores = Actuador.objects.all()
+        return {'sensores': sensores, 
+                'actuadores': actuadores}
+
+class SensorMonitor2(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         sensores = Sensor.objects.all()
@@ -63,9 +72,13 @@ class SensorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 #=================================== CONTROLADOR ===========================================
 
 class DispositivoListado(LoginRequiredMixin, ListView): 
-    model = Dispositivo
+    model = UserDispositivo
     extra_context={'titulo':'Controlador',
                    'plural':'Controladores'}
+
+    def get_queryset(self, **kwargs):
+        qs = self.model.objects.filter(id_user_fk=self.request.user.id)        
+        return qs
                 
     
 class DispositivoCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView): 

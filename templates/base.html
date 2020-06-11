@@ -11,9 +11,9 @@
 	<meta name="author" content="">
 
 	<title>{% block head_title %}{% endblock %} | My IoT</title>
-		
+
 	{% include "includes/head_css.html" %}
-	
+
 	{% block in_head %}{% endblock %}
 
 </head>
@@ -24,37 +24,37 @@
 	<div id="wrapper">
 
 		{#% include "backup/sidebar.html" %#}
-	
+
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
-	
+
 			<!-- Main Content -->
 			<div id="content">
-	
-			{% include "includes/navbar.html" %}
-	
+
+				{% include "includes/navbar.html" %}
+
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-					<br>
+					
 					{% block content %}
 					{% endblock %}
-		
+
 				</div>
 				<!-- /.container-fluid -->
-	
+
 			</div>
 			<!-- End of Main Content -->
-	
+
 			<!-- Footer -->
-			<!--<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
+			<footer class="sticky-footer bg-white py-4">
+				<div class="container">
+					<div class="copyright text-center">
 						<span>Copyright &copy; Your Website 2019</span>
 					</div>
 				</div>
-			</footer>-->
+			</footer>
 			<!-- End of Footer -->
-	
+
 		</div>
 		<!-- End of Content Wrapper -->
 

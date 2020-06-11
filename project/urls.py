@@ -32,7 +32,7 @@ urlpatterns = [
     #path('accounts/', include('registration.backends.default.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 
-    path('', include('estructura.urls')),
+    #path('', include('estructura.urls')),
     path('', include('dispositivo.urls')),
     path('', include('persona.urls')),
 ]

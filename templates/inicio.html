@@ -3,16 +3,130 @@
 
 {% block head_title %}Bienvenidos | {% endblock %}
 
-{% block content %}	
-	<!-- Page Heading -->
-	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Titulo</h1>
-		<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generar Reporte</a>
+{#% block content %#}
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-block">
+				<h1 class="card-text good-review-score float-left">8.0</h1>
+				<h4 class="card-title">Card on the Left 1</h4>
+				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			</div>
+			<div class="card-footer">
+				<p class="card-text text-right">Footer Text - Possible Link Out</p>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-block">
+				<h1 class="card-text good-review-score float-left">8.0</h1>
+				<h4 class="card-title">Card on the Left 2</h4>
+				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			</div>
+			<div class="card-footer">
+				<p class="card-text text-right">Footer Text - Possible Link Out</p>
+			</div>
+		</div>
 	</div>
 
-	<!-- Content Row -->
-	<div class="row">
-		<br><br><br><br><br><br><br><br><br><br>
-
+	<div class="col-md-6">
+		<div class="card">
+			<div class="card-block">
+				<h1 class="card-text good-review-score float-left">8.0</h1>
+				<h4 class="card-title">Card on the Right 1</h4>
+				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			</div>
+			<div class="card-footer">
+				<p class="card-text text-right">Footer Text - Possible Link Out</p>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-block">
+				<h1 class="card-text good-review-score float-left">8.0</h1>
+				<h4 class="card-title">Card on the Right 1</h4>
+				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			</div>
+			<div class="card-footer">
+				<p class="card-text text-right">Footer Text - Possible Link Out</p>
+			</div>
+		</div>
 	</div>
-{% endblock %}	
+</div>
+
+{#% endblock %#}
+
+{% block content %}
+<div class="row my-4">
+	<div class="col-md-12">
+		<div class="card">
+			<!-- <div class="card-body"> -->
+
+			<div class="row">
+				<div class="col-md-4">
+
+
+					<!-- Sidebar -->
+					<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+						<!-- Sidebar - Brand -->
+						<div class="h5 mx-3 my-3" style="color: darkgray;">Dispositivos</div>
+
+						<!-- Divider -->
+						<!-- <hr class="sidebar-divider py-0"> -->
+						<!-- Divider -->
+						<hr class="sidebar-divider d-none d-md-block">
+
+						<!-- Nav Item -->
+						<li class="nav-item">
+							<a class="nav-link py-2" href="#">
+								<i class="fas fa-fw fa-microchip"></i>
+								<span>Controladores</span>
+							</a>
+						</li>
+
+						<!-- Nav Item - Pages Collapse Menu -->
+						<li class="nav-item">
+							<a class="nav-link collapsed py-2" href="#" data-toggle="collapse" data-target="#collapseSensor"
+								aria-expanded="true" aria-controls="collapseSensor">
+								<i class="fas fa-fw fa-tachometer-alt"></i>
+								<span>Sensores</span>
+							</a>
+							<div id="collapseSensor" class="collapse" aria-labelledby="headingSensor"
+								data-parent="#accordionSidebar">
+								<div class="bg-white py-2 collapse-inner rounded">
+									<a class="collapse-item" href="#">Controladores</a>
+									<a class="collapse-item" href="{% url 'leerSensor' %}">Sensores</a>
+									<a class="collapse-item" href="#">Actuadores</a>
+								</div>
+							</div>
+						</li>
+
+						<!-- Nav Item - Pages Collapse Menu -->
+						<li class="nav-item">
+							<a class="nav-link collapsed py-2" href="#" data-toggle="collapse" data-target="#collapsePages"
+								aria-expanded="true" aria-controls="collapsePages">
+								<i class="fas fa-fw fa-chart-area"></i>
+								<span>Actuadores</span>
+							</a>
+							<div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+								data-parent="#accordionSidebar">
+								<div class="bg-white py-2 collapse-inner rounded">
+									<a class="collapse-item" href="#">Controladores</a>
+									<a class="collapse-item" href="{% url 'leerSensor' %}">Sensores</a>
+									<a class="collapse-item" href="#">Actuadores</a>
+								</div>
+							</div>
+						</li>
+
+
+					</ul>
+					<!-- End of Sidebar -->
+
+
+				</div>
+			</div>
+			<!-- </div> -->
+		</div>
+	</div>
+</div>
+{% endblock %}
