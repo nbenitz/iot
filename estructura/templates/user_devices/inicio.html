@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Dispositivos{% endblock %}
+
+
+{% block content %}
+
+<div class='row justify-content-center'>
+	<div class='col-md-12 col-md-offset-3'>
+		<div class="card border-0 rounded-0" style="min-height: calc(100vh - 76px);">
+
+			<div class="row justify-content-center">
+				<div class="col-md-6 card-side p-0 border-0 rounded-0" style="min-height: calc(100vh - 76px);">
+					{% if messages %}
+					<ul class="messages list-group">
+						{% for message in messages %}
+						<li{% if message.tags %}
+							class="{{ message.tags }} list-group-item list-group-item-primary rounded-0" {% endif %}>
+							{{ message }}</li>
+							{% endfor %}
+					</ul>
+					{% endif %}
+
+					<div class="row justify-content-center py-3 ">
+						<span class="h5 mb-0 font-weight-light">Administración de Dispositivos</span>
+					</div>
+
+					<div
+						class="text-light m-0 pl-4 pr-3 py-2 bg-primary d-flex flex-row align-items-center justify-content-between">
+						<span class="align-middle py-1 ">Controladores</span>
+						<a href="{% url 'crearUserDispositivo' %}" title="Agregar Controlador" class="text-light">
+							<i class="fas fa-fw fa-plus"></i></a>
+					</div>
+
+					<!-- acordion -->
+					<div class="accordion" id="accordion">
+
+						{% for controlador in object_list %}
+						<!-- acordion button -->
+						<div class="row m-0">
+							<button class="btn card-collapse text-dark" type="button" data-toggle="collapse"
+								data-target="#collapse{{ controlador.id_dispositivo_fk.id }}" aria-expanded="true"
+								aria-controls="collapse{{ controlador.id_dispositivo_fk.id }}">
+
+								<div><i class="fas fa-fw fa-microchip"></i>&nbsp;&nbsp;
+									{{ controlador.id_dispositivo_fk.nombre }}</div>
+
+								<div class="row mr-0">
+									<i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i></div>
+
+							</button>
+
+							<!-- menu -->
+							<div class="dropdown no-arrow card-callapse-right">
+								<a class="dropdown-toggle" href="#" role="button"
+									id="dropdown{{ controlador.id_dispositivo_fk.id }}" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-ellipsis-v fa-fw m-0 p-3 text-dark"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+									aria-labelledby="dropdown{{ controlador.id_dispositivo_fk.id }}">
+									<a class="dropdown-item detail_button" href="#"
+										data-href="{% url 'ajax_controller_detail' controlador.id_dispositivo_fk.id %}"
+										data-toggle="modal" data-target=".bd-modal-lg">
+										Detalles</a>
+									<a class="dropdown-item edit_button" href="#"
+										data-href="{% url 'ajax_controller_edit' controlador.id_dispositivo_fk.id %}"
+										data-toggle="modal" data-target=".bd-modal-lg">
+										Cambiar Nombre</a>
+									<!-- <a class="dropdown-item"
+										href="{% url 'eliminarUserDispositivo' controlador.id_dispositivo_fk.id %}"
+										onclick="return eliminar();">
+										Quitar</a> -->
+
+									<form method="POST"
+										action="{% url 'eliminarUserDispositivo' controlador.id %}">
+										{% csrf_token %}
+										<button class="dropdown-item btn-link" onclick="return eliminar();">
+											Quitar</button>
+									</form>
+
+
+
+								</div>
+							</div>
+						</div>
+
+						<!-- accordion collapse -->
+						<div id="collapse{{ controlador.id_dispositivo_fk.id }}" class="collapse"
+							data-parent="#accordion">
+
+							<!-- sub-accordion -->
+							<div class="accordion" id="accordion{{ controlador.id_dispositivo_fk.id }}">
+
+								<!-- sub accordion button sensor -->
+								{% if controlador.id_dispositivo_fk.sensor.all %}
+								<div class="row m-0">
+									<button class="btn card-collapse-sub text-dark" type="button" data-toggle="collapse"
+										data-target="#collapse-sens{{ controlador.id_dispositivo_fk.id }}"
+										aria-expanded="true"
+										aria-controls="collapse-sens{{ controlador.id_dispositivo_fk.id }}">
+										<div><i class="fas fa-fw fa-chart-area"></i>&nbsp;&nbsp;Sensores</div>
+										<i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i>
+									</button>
+
+									<!-- menu -->
+									<div class="dropdown no-arrow card-callapse-right" hidden>
+										<a class="dropdown-toggle" href="#" role="button"
+											id="dropdown-sens{{ controlador.id_dispositivo_fk.id }}"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fas fa-ellipsis-v fa-fw m-0 p-3 text-dark"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											aria-labelledby="dropdown-sens{{ controlador.id_dispositivo_fk.id }}">
+											<a class="dropdown-item detail_button" href="#" data-href="#"
+												data-toggle="modal" data-target=".bd-modal-lg">
+												Detalles</a>
+										</div>
+									</div>
+
+								</div>
+								<!-- accordion content collapse -->
+								<div id="collapse-sens{{ controlador.id_dispositivo_fk.id }}" class="collapse"
+									data-parent="#accordion{{ controlador.id_dispositivo_fk.id }}">
+									{% for sensor in controlador.id_dispositivo_fk.sensor.all %}
+									<button class="btn card-collapse-item text-dark" type="button">
+										{{ sensor }}
+										<i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i></button>
+									{% endfor %}
+								</div>
+								{% endif %}
+
+								<!-- sub accordion button actuador -->
+								{% if controlador.id_dispositivo_fk.actuador.all %}
+								<div class="row m-0">
+									<button class="btn card-collapse-sub text-dark" type="button" data-toggle="collapse"
+										data-target="#collapse-act{{ controlador.id_dispositivo_fk.id }}"
+										aria-expanded="true"
+										aria-controls="collapse-act{{ controlador.id_dispositivo_fk.id }}">
+										<div><i class="fas fa-fw fa-fan"></i>&nbsp;&nbsp;Actuadores</div>
+										<i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i>
+									</button>
+
+									<!-- menu -->
+									<div class="dropdown no-arrow card-callapse-right" hidden>
+										<a class="dropdown-toggle" href="#" role="button"
+											id="dropdown-act{{ controlador.id_dispositivo_fk.id }}"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fas fa-ellipsis-v fa-fw m-0 p-3 text-dark"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+											aria-labelledby="dropdown-act{{ controlador.id_dispositivo_fk.id }}">
+											<a class="dropdown-item detail_button" href="#" data-href="#"
+												data-toggle="modal" data-target=".bd-modal-lg">
+												Detalles</a>
+										</div>
+									</div>
+
+								</div>
+								<!-- accordion content collapse -->
+								<div id="collapse-act{{ controlador.id_dispositivo_fk.id }}" class="collapse"
+									data-parent="#accordion{{ controlador.id_dispositivo_fk.id }}">
+									{% for actuador in controlador.id_dispositivo_fk.actuador.all %}
+									<button class="btn card-collapse-item text-dark" type="button">
+										{{ actuador }}
+										<i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i></button>
+									{% endfor %}
+								</div>
+								{% endif %}
+
+							</div>
+
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+
+		</div> <!-- Card -->
+	</div> <!-- Col -->
+</div> <!-- Row -->
+
+<div class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body p-0" id="modal-container">
+				<!--  -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$('.detail_button').click(function (evt) {
+		evt.preventDefault();
+		const btn = $(this);
+		const url = btn.attr('data-href');
+		$.ajax({
+			method: 'GET',
+			url: url,
+			dataType: 'json',
+
+			success: function (data) {
+				$('#modal-container').html(data.result)
+			}
+		})
+	});
+
+	$('.edit_button').click(function (evt) {
+		evt.preventDefault();
+		const btn = $(this);
+		const url = btn.attr('data-href');
+		$.ajax({
+			method: 'GET',
+			url: url,
+			dataType: 'json',
+
+			success: function (data) {
+				$('#modal-container').html(data.result)
+			}
+		})
+	});
+
+	function eliminar() {
+		var x = confirm("Está seguro que desea quitar?");
+		if (x)
+			return true;
+		else
+			return false;
+	}
+
+</script>
+
+{% endblock %}

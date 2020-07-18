@@ -1,7 +1,7 @@
 
 from django.db import models
 from persona.models import User
-from dispositivo.models import Dispositivo
+from dispositivo.models import Dispositivo, Sensor, Actuador
 
 
 class UserDispositivo(models.Model):
@@ -15,17 +15,18 @@ class UserDispositivo(models.Model):
         Dispositivo,
         models.DO_NOTHING,
         db_column='id_dispositivo_fk',
-        verbose_name='Dispositivo'
+        verbose_name='Identificador del Controlador'
         )
 
     class Meta:
         db_table = 'dispositivo_user'
-        verbose_name='Dispositivos del Usuario'
+        verbose_name='Dispositivo del Usuario'
         verbose_name_plural='Dispositivos del Usuario'
         unique_together = (('id_user_fk', 'id_dispositivo_fk'),)
         
     def __str__(self):
-        return str(self.id_user_fk)
+        return str(self.id_dispositivo_fk.nombre)
+
 
 class Tablero(models.Model):
     id_user_fk = models.ForeignKey(
@@ -34,9 +35,15 @@ class Tablero(models.Model):
         db_column='id_user_fk',
         verbose_name="Usuario")
 
-    dispositivos = models.ManyToManyField(
-        UserDispositivo,
-        verbose_name='Dispositivos',
+    sensor = models.ManyToManyField(
+        Sensor,
+        verbose_name='Sensor',
+        blank=True,
+    )
+
+    actuador = models.ManyToManyField(
+        Actuador,
+        verbose_name='Actuador',
         blank=True,
     )
 

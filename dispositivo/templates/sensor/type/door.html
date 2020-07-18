@@ -1,0 +1,29 @@
+<!-- Card Temperatura -->
+<div class="col-sm-3 m-2 p-0">
+    <div id="border-{{sensor.id}}" class="card border-left-danger h-100 pb-3">
+        <div class="card-body pb-0">
+            <div class="row no-gutters align-items-center pb-1">
+                <div class="col mr-2">
+                    <div id="txt-{{sensor.id}}" class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        {{ sensor.descripcion }}</div>
+                        <div id="sensor-puerta-{{sensor.id}}" class="h5 mb-0 font-weight-bold text-gray-800">
+                            </div>
+                </div>
+                <div class="col-auto dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i id="icon-{{sensor.id}}" class="fas fa-door-closed fa-2x text-danger"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="#exampleModalCenter">Chart</a>
+                        <a class="dropdown-item" href="/dispositivo/sensor/editar/{{sensor.id}}">Editar</a>
+                        <a class="dropdown-item" href="#">Ajustes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-xs text-gray-700"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+{% for tablero in tableros %}
+<li class="nav-item active">
+    <a class="nav-link" href="{% url 'detallesTablero' tablero.id %}">{{ tablero.nombre }}</a>
+</li>
+{% endfor %}

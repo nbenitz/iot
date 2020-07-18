@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}{{ titulo }}{% endblock %}
+
+
+{% block content %}
+
+<div class='row justify-content-center'>
+	<div class='col-md-12 col-md-offset-3'>
+		<div class="card border-0 rounded-0" style="min-height: calc(100vh - 76px);">
+
+			<div class="row justify-content-center">
+				<div class="col-md-6 card-side p-0 border-0 rounded-0" style="min-height: calc(100vh - 76px);">
+
+					{% if messages %}
+					<ul class="messages list-group">
+						{% for message in messages %}
+						<li{% if message.tags %}
+							class="{{ message.tags }} list-group-item list-group-item-primary rounded-0" {% endif %}>
+							{{ message }}</li>
+							{% endfor %}
+					</ul>
+					{% endif %}
+
+					<div class="row justify-content-center py-3 ">
+						<span class="h5 mb-0 font-weight-light">Administración de Dispositivos</span>
+					</div>
+
+					<div
+						class="text-light m-0 px-4 py-2 bg-primary d-flex flex-row align-items-center justify-content-between">
+						<span class="align-middle py-1 ">Controladores</span>
+						<a href="{% url 'crearUserDispositivo' %}" title="Agregar Controlador" class="text-light">
+							<i class="fas fa-fw fa-plus"></i></a>
+					</div>
+
+					<!-- acordion -->
+					<div class="accordion" id="accordion">
+
+						{% for object in object_list %}
+						<!-- acordion button -->
+						
+						<button class="btn card-collapse" type="button" data-toggle="collapse"
+							data-target="#collapse{{ object.id_dispositivo_fk.id }}" aria-expanded="true"
+							aria-controls="collapse{{ object.id_dispositivo_fk.id }}">
+
+							<div><i class="fas fa-fw fa-microchip"></i>&nbsp;&nbsp;
+								{{ object.id_dispositivo_fk.nombre }}</div>
+
+							<div class="row mr-0">
+								<i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i>
+
+								<!-- menu -->
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button"
+										id="dropdown{{ object.id_dispositivo_fk.id }}" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v fa-fw pl-3 pr-2 text-dark"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+										aria-labelledby="dropdown{{ object.id_dispositivo_fk.id }}">
+										<a class="dropdown-item"
+											href="{% url 'detallesDispositivo' object.id_dispositivo_fk.id %}">Detalles</a>
+										<a class="dropdown-item"
+											href="{% url 'actualizarDispositivo' object.id_dispositivo_fk.id %}">Cambiar
+											Nombre</a>
+										<a class="dropdown-item" href="#">Eliminar</a>
+									</div>
+								</div>
+
+							</div>
+						</button>
+
+						<div id="collapse{{ object.id_dispositivo_fk.id }}" class="collapse" data-parent="#accordion">
+
+							<div class="accordion" id="accordion{{ object.id_dispositivo_fk.id }}1">
+								<button class="btn card-collapse-sub" type="button" data-toggle="collapse"
+									data-target="#collapse{{ object.id_dispositivo_fk.id }}1" aria-expanded="true"
+									aria-controls="collapse{{ object.id_dispositivo_fk.id }}1">
+									<div><i class="fas fa-fw fa-chart-area"></i>&nbsp;&nbsp;Sensores</div>
+									<!-- <div class="row"> -->
+									<i class="fa fa-fw fa-chevron-down" aria-hidden="true"></i>
+									<!-- <div class="dropdown no-arrow">
+											<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+												data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<i class="fas fa-ellipsis-v fa-fw px-3 mr-1 text-dark" style=""></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+												aria-labelledby="dropdownMenuLink">
+												<a class="dropdown-item" href="#">Detalles</a>
+												<a class="dropdown-item" href="#">Editar</a>
+												<a class="dropdown-item" href="#">Eliminar</a>
+											</div>
+										</div> -->
+									<!-- </div> -->
+								</button>
+								<div id="collapse{{ object.id_dispositivo_fk.id }}1" class="collapse"
+									data-parent="#accordion{{ object.id_dispositivo_fk.id }}1">
+
+									<button class="btn card-collapse-item" type="button">
+										Sensor 1<i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i></button>
+									<button class="btn card-collapse-item" type="button">
+										Sensor 2<i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i></button>
+
+								</div>
+							</div>
+
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+
+		</div> <!-- Card -->
+	</div> <!-- Col -->
+</div> <!-- Row -->
+
+{% endblock %}

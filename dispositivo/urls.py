@@ -2,7 +2,8 @@
 from django.urls import path
 
 from .views import SensorListado, SensorCrear, SensorActualizar, SensorDetalle, SensorEliminar, \
-    DispositivoListado, DispositivoCrear, DispositivoActualizar, DispositivoDetalle, DispositivoEliminar
+    DispositivoListado, DispositivoCrear, DispositivoActualizar, DispositivoDetalle, DispositivoEliminar, \
+        ajax_controlador_detalle, ajax_controlador_actualizar
 from dispositivo.views import SensorMonitor, SensorMonitor2
 
 urlpatterns = [
@@ -16,9 +17,13 @@ urlpatterns = [
     path('controlador/detalle/<str:pk>', DispositivoDetalle.as_view(template_name = "controlador/detalles.html"), name='detallesDispositivo'),
     path('controlador/crear', DispositivoCrear.as_view(template_name = "controlador/crear.html"), name='crearDispositivo'),
     path('controlador/editar/<str:pk>', DispositivoActualizar.as_view(template_name = "controlador/actualizar.html"), name='actualizarDispositivo'),
-    path('controlador/eliminar/<str:pk>', DispositivoEliminar.as_view(), name='eliminarDispositivor'),
+    path('controlador/eliminar/<str:pk>', DispositivoEliminar.as_view(), name='eliminarDispositivo'),
 
     path('monitor/', SensorMonitor.as_view(template_name = "sensor/monitor3.html"), name='monitorSensor'),
     path('monitor-example/', SensorMonitor2.as_view(template_name = "sensor/monitor3.html"), name='monitorSensor2'),
+
+    #  ajax_calls
+    path('ajax/controller-details/<int:pk>', ajax_controlador_detalle, name='ajax_controller_detail'),
+    path('ajax/controller-edit/<int:pk>', ajax_controlador_actualizar, name='ajax_controller_edit'),
 
 ]

@@ -25,14 +25,14 @@ from .views import about, contact, inicio, tablero
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', inicio, name='inicio'),
+    path('inicio/', inicio, name='inicio'),
     path('contact/', contact, name='contact'),
     path('about/', about, name='about'),
     #path('tablero/', tablero, name='tablero'),
     #path('accounts/', include('registration.backends.default.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
 
-    #path('', include('estructura.urls')),
+    path('', include('estructura.urls')),
     path('', include('dispositivo.urls')),
     path('', include('persona.urls')),
 ]

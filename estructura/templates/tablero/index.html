@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Tablero{% endblock %}
+
+{% block content %}
+<div class='row justify-content-center'>
+	<div class='col-md-12 col-md-offset-3'>
+        <div class="card border-0 rounded-0" style="min-height: calc(100vh - 76px);">
+
+            
+        </div> <!-- Card -->
+	</div> <!-- Col -->
+</div> <!-- Row -->
+
+<div class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+	style="display: none;">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body p-0" id="modal-container">
+				<!--  -->
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

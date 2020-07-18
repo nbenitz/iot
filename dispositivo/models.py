@@ -33,11 +33,13 @@ class Sensor(models.Model):
     id_dispositivo_fk = models.ForeignKey(Dispositivo, 
                                           models.DO_NOTHING, 
                                           db_column='id_dispositivo_fk',
-                                          verbose_name="Controlador")
-    id_tipo_sensor_fk = models.ForeignKey('TipoSensor', 
-                                          models.DO_NOTHING, 
-                                          db_column='id_tipo_sensor_fk',
-                                          verbose_name="Tipo de Sensor")
+                                          verbose_name="Controlador",
+                                          related_name='sensor')
+    tipo = models.ForeignKey('TipoSensor',
+                             models.DO_NOTHING,
+                             db_column='id_tipo_sensor_fk',
+                             verbose_name="Tipo de Sensor")
+
     descripcion = models.CharField("Descripción", max_length=20)
 
     class Meta:
@@ -61,12 +63,14 @@ class Actuador(models.Model):
     id_dispositivo_fk = models.ForeignKey(Dispositivo, 
                                           models.DO_NOTHING, 
                                           db_column='id_dispositivo_fk',
-                                          verbose_name="Controlador")
-    id_tipo_actuador_fk = models.ForeignKey('TipoActuador', 
-                                            models.DO_NOTHING, 
-                                            db_column='id_tipo_actuador_fk',
-                                            verbose_name="Tipo de Actuador")
-    descripcion = models.CharField("Descripci&oacute;n", max_length=20)
+                                          verbose_name="Controlador",
+                                          related_name='actuador')
+    tipo = models.ForeignKey('TipoActuador',
+                             models.DO_NOTHING,
+                             db_column='id_tipo_actuador_fk',
+                             verbose_name="Tipo de Actuador")
+
+    descripcion = models.CharField("Descripción", max_length=20)
 
     class Meta:
         db_table = 'actuador'

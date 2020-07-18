@@ -1,0 +1,17 @@
+{% extends "crud/card.html" %}
+
+{% block card %}
+
+<p><strong>ID: </strong>{{object.id}}</p>
+<p><strong>Nombre: </strong>{{object.nombre}}</p>
+
+<div class='row justify-content-center'>
+
+	<a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">
+		<i class="fas fa-caret-left"></i>
+		Volver
+	</a>&nbsp;
+
+</div><br />
+
+{% endblock %}
