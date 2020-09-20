@@ -9,8 +9,8 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.forms.models import ModelForm
 
-from .models import Dispositivo, Sensor, TipoSensor, Actuador, TipoActuador, PublicacionSensor, PublicacionActuador
-from .forms import DispositivoForm
+from dispositivo.models import Dispositivo, Sensor, TipoSensor, Actuador, TipoActuador, PublicacionSensor, PublicacionActuador
+from dispositivo.forms import DispositivoForm
 from persona.models import User
 from estructura.models import UserDispositivo
 
@@ -21,6 +21,8 @@ from estructura.models import UserDispositivo
 
 class SensorListado(LoginRequiredMixin, ListView):
     model = Sensor
+    extra_context = {'titulo': 'Sensor',
+                     'plural': 'Sensores'}
 
 
 class SensorMonitorr(LoginRequiredMixin, ListView):
@@ -50,6 +52,8 @@ class SensorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form = Sensor
     fields = "__all__"
     success_message = 'Sensor Creado Correctamente !'
+    extra_context = {'titulo': 'Crear Sensor'}
+    
 
     def get_success_url(self):
         return reverse('leerSensor')
@@ -57,6 +61,7 @@ class SensorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 class SensorDetalle(LoginRequiredMixin, DetailView):
     model = Sensor
+    extra_context = {'titulo': 'Detalles del Sensor'}
 
 
 class SensorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -64,6 +69,7 @@ class SensorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form = Sensor
     fields = "__all__"
     success_message = 'Sensor Actualizado Correctamente !'
+    extra_context = {'titulo': 'Editar Sensor'}
 
     def get_success_url(self):
         return reverse('leerSensor')
@@ -79,17 +85,57 @@ class SensorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         messages.success(self.request, (success_message))
         return reverse('leerSensor')
 
+# =================================== ACTUADOR ===========================================
+
+class ActuadorListado(LoginRequiredMixin, ListView):
+    model = Actuador
+    extra_context = {'titulo': 'Actuador',
+                     'plural': 'Actuadores'}
+
+
+class ActuadorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Actuador
+    form = Actuador
+    fields = "__all__"
+    success_message = 'Actuador Creado Correctamente !'
+    extra_context = {'titulo': 'Crear Actuador'}
+
+    def get_success_url(self):
+        return reverse('leerActuador')
+
+
+class ActuadorDetalle(LoginRequiredMixin, DetailView):
+    model = Actuador
+    extra_context = {'titulo': 'Detalles del Actuador'}
+
+
+class ActuadorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Actuador
+    form = Actuador
+    fields = "__all__"
+    success_message = 'Actuador Actualizado Correctamente !'
+    extra_context = {'titulo': 'Editar Actuador'}
+
+    def get_success_url(self):
+        return reverse('leerActuador')
+
+
+class ActuadorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Actuador
+    form = Actuador
+    fields = "__all__"
+
+    def get_success_url(self):
+        success_message = 'Actuador Eliminado Correctamente !'
+        messages.success(self.request, (success_message))
+        return reverse('leerActuador')
 
 # =================================== CONTROLADOR ===========================================
 
 class DispositivoListado(LoginRequiredMixin, ListView):
-    model = UserDispositivo
+    model = Dispositivo
     extra_context = {'titulo': 'Controlador',
                      'plural': 'Controladores'}
-
-    def get_queryset(self, **kwargs):
-        qs = self.model.objects.filter(id_user_fk=self.request.user.id)
-        return qs
 
 
 class DispositivoCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -130,6 +176,99 @@ class DispositivoEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return reverse('leerDispositivo')
 
 
+# =================================== TIPO SENSOR ===========================================
+
+class TipoSensorListado(LoginRequiredMixin, ListView):
+    model = TipoSensor
+    extra_context = {'titulo': 'Tipo de Sensor',
+                     'plural': 'Tipos de Sensores'}
+
+
+class TipoSensorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = TipoSensor
+    form = TipoSensor
+    fields = "__all__"
+    success_message = 'Tipo de Sensor Creado Correctamente !'
+    extra_context = {'titulo': 'Crear Tipo de Sensor'}
+
+    def get_success_url(self):
+        return reverse('leerTipoSensor')
+
+
+class TipoSensorDetalle(LoginRequiredMixin, DetailView):
+    model = TipoSensor
+    extra_context = {'titulo': 'Detalles del Tipo de Sensor'}
+
+
+class TipoSensorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = TipoSensor
+    form = TipoSensor
+    fields = "__all__"
+    success_message = 'Tipo de Sensor Actualizado Correctamente !'
+    extra_context = {'titulo': 'Editar Tipo de Sensor'}
+
+    def get_success_url(self):
+        return reverse('leerTipoSensor')
+
+
+class TipoSensorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = TipoSensor
+    form = TipoSensor
+    fields = "__all__"
+
+    def get_success_url(self):
+        success_message = 'Tipo de Sensor Eliminado Correctamente !'
+        messages.success(self.request, (success_message))
+        return reverse('leerTipoSensor')
+
+
+# =================================== TIPO ACTUADOR ===========================================
+
+class TipoActuadorListado(LoginRequiredMixin, ListView):
+    model = TipoActuador
+    extra_context = {'titulo': 'Tipo de Actuador',
+                     'plural': 'Tipos de Actuadores'}
+
+
+class TipoActuadorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = TipoActuador
+    form = TipoActuador
+    fields = "__all__"
+    success_message = 'Tipo de Actuador Creado Correctamente !'
+    extra_context = {'titulo': 'Crear Tipo de Actuador'}
+
+    def get_success_url(self):
+        return reverse('leerTipoActuador')
+
+
+class TipoActuadorDetalle(LoginRequiredMixin, DetailView):
+    model = TipoActuador
+    extra_context = {'titulo': 'Detalles del Tipo de Actuador'}
+
+
+class TipoActuadorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = TipoActuador
+    form = TipoActuador
+    fields = "__all__"
+    success_message = 'Tipo de Actuador Actualizado Correctamente !'
+    extra_context = {'titulo': 'Editar Tipo de Actuador'}
+
+    def get_success_url(self):
+        return reverse('leerTipoActuador')
+
+
+class TipoActuadorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = TipoActuador
+    form = TipoActuador
+    fields = "__all__"
+
+    def get_success_url(self):
+        success_message = 'Tipo de Actuador Eliminado Correctamente !'
+        messages.success(self.request, (success_message))
+        return reverse('leerTipoActuador')
+
+#===========================================================================================        
+
 def ajax_controlador_detalle(request, pk):
     controlador = get_object_or_404(Dispositivo, id=pk)
     data = dict()
@@ -137,6 +276,7 @@ def ajax_controlador_detalle(request, pk):
                                       request=request,
                                       context={'controlador': controlador})
     return JsonResponse(data)
+
 
 def ajax_controlador_actualizar(request, pk):
 

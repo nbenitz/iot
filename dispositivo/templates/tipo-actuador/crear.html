@@ -12,11 +12,10 @@
 		Aceptar
 	</button>
 
-	<div class="btn btn-primary" onClick="javascript:history.go(-1);">
+	<a href="{{request.META.HTTP_REFERER}}" type="submit" class="btn btn-primary">
 		<i class="fas fa-caret-left"></i>
 		Cancelar
-	</div>
-
+	</a>
 </form>
 
 {% endblock %}

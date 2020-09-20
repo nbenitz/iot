@@ -1,13 +1,13 @@
 <!-- Card Temperatura -->
-<div class="col-md-2 m-2 p-0">
+<div id="disp-{{sensor.id_dispositivo_fk.id}}" class="col-md-2 m-2 p-0 disp">
     <div class="card border-left-danger h-100 pb-3">
         <div class="card-body pb-0">
             <div class="row no-gutters align-items-center pb-1">
                 <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                        Temperatura</div>
+                        {{ sensor.descripcion }}</div>
                     <div class="row no-gutters align-items-center">
-                        <div id="sensor-{{sensor.id}}" class="h5 mb-0 font-weight-bold text-gray-800">
+                        <div id="sensor-{{sensor.id}}" class="h5 mb-0 font-weight-bold text-gray-800 sensor">
                             ---</div>
                         <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
                             &deg;C</div>

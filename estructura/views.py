@@ -5,8 +5,8 @@
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
  
-from .models import UserDispositivo, Tablero
-from .forms import ControllerAddForm
+from estructura.models import UserDispositivo, Tablero
+from estructura.forms import ControllerAddForm
 from dispositivo.models import Sensor, Actuador, Dispositivo
 from django.urls import reverse
 from django.contrib import messages  

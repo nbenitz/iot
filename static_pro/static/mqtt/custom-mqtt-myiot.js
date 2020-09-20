@@ -10,10 +10,10 @@ var reconnectTimeOut = 2000;
 var host = 'broker.mqtt-dashboard.com'
 var port = 8000;
 var user;
-var sensor_topic = 'myiot87/sensor/#';
-var online_topic = 'myiot87/online/#';
+var sensor_topic = 'myiot87/sensor/';
+var online_topic = 'myiot87/status/';
 var actuator_topic = 'myiot87/control/';
-var feedback_topic = 'myiot87/feedback/#';
+var feedback_topic = 'myiot87/feedback/';
 
 function onConnectionLost() {
 	console.log("Conexion perdida");
@@ -41,6 +41,7 @@ function onMessageArrived(msg) {
 	console.log(out_msg);
 
 	var topic_parts = msg.destinationName.split('/');
+
 	if (topic_parts.length < 3) {
 		return;
 	}
@@ -49,13 +50,16 @@ function onMessageArrived(msg) {
 
 	if (sub_topic == 'sensor') {
 		var id_sensor = topic_parts[2];
-		if ($("#sensor-puerta-" + id_sensor)) {
-			var state = msg.payloadString;
+		if ($("#sensor-puerta-" + id_sensor).length) {
+			var msg_parts = msg.payloadString.split(' ');
+			var state = msg_parts[0];
+			var time = msg_parts[1];
 			if (state == "0") {
 				if ($("#border-" + id_sensor).hasClass('border-left-danger')) {
 					$('#border-' + id_sensor).removeClass('border-left-danger').addClass('border-left-success');
 					$('#txt-' + id_sensor).removeClass('text-danger').addClass('text-success');
 					$('#icon-' + id_sensor).removeClass('text-danger').addClass('text-success');
+					$("#time-" + id_sensor).text("");
 				}
 			}
 			if (state == "1") {
@@ -63,10 +67,11 @@ function onMessageArrived(msg) {
 					$('#border-' + id_sensor).removeClass('border-left-success').addClass('border-left-danger');
 					$('#txt-' + id_sensor).removeClass('text-success').addClass('text-danger');
 					$('#icon-' + id_sensor).removeClass('text-success').addClass('text-danger');
+					$('#time-' + id_sensor).text('Entrada: ' + time);
 				}
 			}
 		}
-		else if ($("#sensor-" + id_sensor)) {
+		else if ($("#sensor-" + id_sensor).length) {
 			$("#sensor-" + id_sensor).text(msg.payloadString);
 			if ($("#progress-" + id_sensor)) {
 				var min = $("#progress-" + id_sensor).attr('aria-valuemin');
@@ -137,12 +142,31 @@ function MQTTconnect() {
 }
 
 function sub_topics() {
-	console.log("Subscribing to topic " + sensor_topic);
-	console.log("Subscribing to topic " + feedback_topic);
-	console.log("Subscribing to topic " + online_topic);
-	mqtt.subscribe(sensor_topic);
-	mqtt.subscribe(feedback_topic);
-	mqtt.subscribe(online_topic);
+	$('.sensor').each(function () {
+		id_parts = this.id.split('-');
+		id = id_parts[id_parts.length - 1];
+		console.log("Subscribing to topic " + sensor_topic + id);
+		mqtt.subscribe(sensor_topic + id);
+	})
+
+	$('.act').each(function () {
+		id_parts = this.id.split('-');
+		id = id_parts[id_parts.length - 1];
+		console.log("Subscribing to topic " + feedback_topic + id);
+		mqtt.subscribe(feedback_topic + id);
+	})
+
+	var disp_id = [];
+	$('.disp').each(function () {
+		id_parts = this.id.split('-');
+		id = id_parts[id_parts.length - 1];
+		if (!(disp_id.includes(id))) {
+			disp_id.push(id);
+			console.log("Subscribing to topic " + online_topic + id);
+			mqtt.subscribe(online_topic + id);
+		}
+	})
+
 	return false;
 }
 

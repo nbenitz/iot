@@ -1,15 +1,16 @@
 from .settings import DATABASES
 import MySQLdb
 import paho.mqtt.client as mqtt
+import datetime
 #from background_task import background
 
 
 from functools import reduce
 import operator
 
-broker_address = "test.mosquitto.org"
+broker_address = "broker.mqtt-dashboard.com"
 broker_port = 1883
-topic = "yonestor87@gmail.com/#"
+topic = "myiot87/#"
 #topic = "cetapar.19@gmail.com/#"
 
 def getFromDict(dataDict, mapList):
@@ -24,8 +25,10 @@ db = MySQLdb.connect(host, user, password, database)
 cursor = db.cursor()
 
 
-def registrar_sensor_mysql(id_sensor, msg):  
-    sql = "INSERT INTO `publicacion_sensor` (`id_sensor_fk`, `valor`) VALUES ('{0}', '{1}')".format(id_sensor, msg)  
+def registrar_sensor_mysql(id_sensor, msg):
+    now = datetime.datetime.now()
+    sql = "INSERT INTO `publicacion_sensor` (`id_sensor_fk`, `valor`, `fecha`) VALUES ({0}, {1}, '{2}')".format(id_sensor, msg, now.strftime("%Y-%m-%d %H:%M:%S"))  
+    #print(sql)
     try:
         cursor.execute(sql)
         db.commit()
@@ -35,14 +38,16 @@ def registrar_sensor_mysql(id_sensor, msg):
         
     db.close
     
-def registrar_feedback_mysql(id_actuador, msg):  
-    sql = "INSERT INTO `publicacion_actuador` (`id_actuador_fk`, `valor`) VALUES ('{0}', '{1}')".format(id_actuador, msg)  
+def registrar_feedback_mysql(id_actuador, msg):
+    now = datetime.datetime.now()
+    sql = "INSERT INTO `publicacion_actuador` (`id_actuador_fk`, `valor`, `fecha`) VALUES ({0}, {1}, '{2}')".format(id_actuador, msg, now.strftime("%Y-%m-%d %H:%M:%S"))  
+    #print(sql)
     try:
         cursor.execute(sql)
         db.commit()
     except:
         db.rollback()
-        print("")
+        print("error")
         
     db.close
 
@@ -74,9 +79,12 @@ def on_message(client, userdata, message):
 
 #@background(schedule=5)
 def mqtt_loop():
+    print("loop")
     client = mqtt.Client('Cliente1', userdata="UsuarioServer") 
     client.on_connect = on_connect 
     client.on_message = on_message 
     client.connect(broker_address, broker_port, 60)
-    client.loop_start()
-#print("Ok")
+    client.loop_start()    
+
+#mqtt_loop()
+#print("ok")

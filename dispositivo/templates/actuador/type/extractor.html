@@ -1,0 +1,22 @@
+<!-- Card Actuador -->
+<div id="disp-{{actuador.id_dispositivo_fk.id}}" class="col-md-2 m-2 p-0 disp">
+    <div id="act-crd-{{actuador.id}}" class="card border-left-danger shadoww">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col-8">
+                    <div id="act-txt-{{actuador.id}}"
+                        class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        {{ actuador.descripcion }}</div>
+                    <div id="actuador-{{actuador.id}}" class="text-sm text-gray-700 act">
+                        Off</div>
+                </div>
+                <div class="col-4">
+                    <button id="act-btn-{{actuador.id}}" class="btn btn-danger btn-circle btn-lg"
+                        onclick="return enviar_msj('{{actuador.id}}');">
+                        <i class="fas fa-fan"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

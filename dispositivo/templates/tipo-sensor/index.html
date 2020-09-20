@@ -5,8 +5,6 @@
 <thead>
 	<tr>
 		<th>ID</th>
-		<th>Controlador Host</th>
-		<th>Tipo Sensor</th>
 		<th>Descripción</th>
 		<th>Acciones</th>
 	</tr>
@@ -16,8 +14,6 @@
 	{% for object in object_list %}
 	<tr>
 		<td>{{ object.id }}</td>
-		<td>{{ object.id_dispositivo_fk }}</td>
-		<td>{{ object.tipo }}</td>
 		<td>{{ object.descripcion }}</td>
 		<td>
 			<!-- Usaremos un formulario que realizara la tarea de eliminar un registro o postre desde la misma tabla HTML -->

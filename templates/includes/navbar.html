@@ -56,22 +56,6 @@
 					Dispositivos</a>
 			</li>
 
-			<!-- <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle text-light" href="#" id="dropdown01" data-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false">
-					<i class="fas fa-network-wired fa-fw"></i>
-					Dispositivos</a>
-
-				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdown01">
-					<a class="dropdown-item" href="{% url 'leerUserDispositivo' %}">Controladores</a>
-					<a class="dropdown-item" href="{% url 'leerSensor' %}">Sensores</a>
-					<a class="dropdown-item" href="#">Actuadores</a>
-					<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Tipos de Sensores</a>
-						<a class="dropdown-item" href="#">Tipos de Actuadores</a>
-				</div>
-			</li> -->
-
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle text-light" href="#" id="dropdown02" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
@@ -80,12 +64,25 @@
 					Tableros</a>
 
 				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdown02">
-					<a class="dropdown-item" href="#">Crear Tablero</a>
-					<a class="dropdown-item" href="#">Editar Tablero</a>
-					<a class="dropdown-item" href="#">Eliminar Tablero</a>
-					<!-- <div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="#">Tipos de Sensores</a>
-						<a class="dropdown-item" href="#">Tipos de Actuadores</a> -->
+					<a class="dropdown-item" href="{% url 'leerTablero' %}">Tableros</a>
+					<!-- <a class="dropdown-item" href="{% url 'leerDispositivo' %}">Editar Tablero</a>
+					<a class="dropdown-item" href="{% url 'leerDispositivo' %}">Eliminar Tablero</a> -->
+				</div>
+			</li>
+
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle text-light" href="#" id="dropdown01" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">
+					<i class="fas fa-network-wired fa-fw"></i>
+					Administración</a>
+
+				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdown01">
+					<a class="dropdown-item" href="{% url 'leerDispositivo' %}">Controladores</a>
+					<a class="dropdown-item" href="{% url 'leerSensor' %}">Sensores</a>
+					<a class="dropdown-item" href="{% url 'leerActuador' %}">Actuadores</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="{% url 'leerTipoSensor' %}">Tipos de Sensores</a>
+					<a class="dropdown-item" href="{% url 'leerTipoActuador' %}">Tipos de Actuadores</a>
 				</div>
 			</li>
 
@@ -142,14 +139,14 @@
 
 	$(document).ready(function () {
 
-		if ($("#tableros")) {			
+		if ($("#tableros")) {
 			const url = $("#tableros").attr('data-href');
 			$.ajax({
 				method: 'GET',
 				url: url,
 				dataType: 'json',
 
-				success: function (data) {				
+				success: function (data) {
 					$('#tableros').html(data.result)
 				}
 			})

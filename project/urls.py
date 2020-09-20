@@ -21,11 +21,12 @@ from django.conf.urls import include
 
 
 from .views import about, contact, inicio, tablero
-#from .mqtt_to_mysql import mqtt_loop
+from .mqtt_to_mysql import mqtt_loop
+from concurrent.futures import ThreadPoolExecutor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('inicio/', inicio, name='inicio'),
+    path('', inicio, name='inicio'),
     path('contact/', contact, name='contact'),
     path('about/', about, name='about'),
     #path('tablero/', tablero, name='tablero'),
@@ -45,5 +46,7 @@ admin.sites.AdminSite.site_header = 'Administracion'
 #admin.sites.AdminSite.site_title = 'My site admin title' 
 #admin.sites.AdminSite.index_title = 'My site admin index'
 
-#mqtt_loop()
+#with ThreadPoolExecutor(max_workers=1) as executor:
+#    executor.submit(mqtt_loop())
+mqtt_loop()
 
