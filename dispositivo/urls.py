@@ -40,7 +40,7 @@ urlpatterns = [
     path('tipo-actuador/editar/<str:pk>', TipoActuadorActualizar.as_view(template_name = "tipo-actuador/actualizar.html"), name='actualizarTipoActuador'),
     path('tipo-actuador/eliminar/<str:pk>', TipoActuadorEliminar.as_view(), name='eliminarTipoActuador'),
 
-    path('monitor/', SensorMonitor.as_view(template_name = "sensor/monitor3.html"), name='monitorSensor'),
+    path('monitor/', SensorMonitor.as_view(template_name = "sensor/monitor2.html"), name='monitorSensor'),
     path('monitor-example/', SensorMonitor2.as_view(template_name = "sensor/monitor3.html"), name='monitorSensor2'),
 
     #  ajax_calls

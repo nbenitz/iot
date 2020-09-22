@@ -26,7 +26,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', inicio, name='inicio'),
+    path('inicio/', inicio, name='inicio'),
     path('contact/', contact, name='contact'),
     path('about/', about, name='about'),
     #path('tablero/', tablero, name='tablero'),
@@ -48,5 +48,5 @@ admin.sites.AdminSite.site_header = 'Administracion'
 
 #with ThreadPoolExecutor(max_workers=1) as executor:
 #    executor.submit(mqtt_loop())
-mqtt_loop()
+#mqtt_loop()
 
