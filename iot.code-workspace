@@ -4,7 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "C:\\Users\\Usuario\\Documents\\Python\\test_env\\Lib\\site-packages"
+			"path": "..\\Lib\\site-packages"
 		}
 	],
 	"settings": {}

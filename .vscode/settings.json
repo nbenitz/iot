@@ -1,5 +1,6 @@
 {
     "python.pythonPath": "C:\\Users\\Usuario\\AppData\\Local\\Programs\\Python\\Python36\\python.exe",
     "python.jediEnabled": false,
-    "python.languageServer": "Microsoft"
+    "python.languageServer": "Microsoft",
+    "python.terminal.activateEnvInCurrentTerminal": true
 }
