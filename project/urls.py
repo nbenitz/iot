@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 
 from .views import about, contact, inicio, tablero
-from .mqtt_to_mysql import mqtt_loop
+#from .mqtt_to_mysql import mqtt_loop
 from concurrent.futures import ThreadPoolExecutor
 
 urlpatterns = [
