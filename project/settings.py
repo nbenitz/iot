@@ -11,9 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import dj_database_url
 from decouple import config
-
 #from django.conf.global_settings import EMAIL_HOST, EMAIL_HOST_USER,\
 #    EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS, STATICFILES_DIRS,\
 #    LOGIN_REDIRECT_URL
@@ -27,12 +25,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$@m5a#h1oh-=fn4k#!!7tln^u^=km-puzov=f1fpuf(f2x^20p'
+SECRET_KEY = config('SECRET_KEY', default='$@m5a#h1oh-=fn4k#!!7tln^u^=km-puzov=f1fpuf(f2x^20p')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DJANGO_DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'myiot.pythonanywhere.com',
+    '127.0.0.1',
+]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -77,7 +78,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -105,9 +105,21 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-        'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',        
+        
+        'NAME': 'data',
+        'USER': 'root',
+        'PASSWORD': '1223',
+        'HOST': '127.0.0.1',
+        
+        #'NAME': 'lucatronic$gestion',
+        #'USER': 'lucatronic',
+        #'PASSWORD': 'mysql1234',
+        #'HOST': 'lucatronic.mysql.pythonanywhere-services.com',
+        
+        'PORT': '3306',
+    }
 }
 
 
@@ -149,23 +161,25 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-
+#/static/imagenes/img1.jpg
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static_pro", "static"),
     # '/var/www/static/',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static_env", "static_root")
-MEDIA_ROOT = os.path.join(BASE_DIR, "static_env", "media_root")
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_env", "static_root")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_env", "media_root")
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/inicio'
+LOGIN_REDIRECT_URL = '/tablero/detalle/4'
 
 # Activamos 'CookieStorage' que nos permite enviar los mensajes de respuesta al Crear, Eliminar y Actualizar un registro
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = "persona.User"
+
+if config('DJANGO_PRODUCTION', default=False, cast=bool):
+    from .settings_production import *
