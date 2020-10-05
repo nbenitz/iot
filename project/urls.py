@@ -38,15 +38,11 @@ urlpatterns = [
     path('', include('estructura.urls')),
     path('', include('dispositivo.urls')),
     path('', include('persona.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
-
-admin.sites.AdminSite.site_header = 'Administracion'
+admin.sites.AdminSite.site_header = 'Administración'
 #admin.sites.AdminSite.site_title = 'My site admin title'
 #admin.sites.AdminSite.index_title = 'My site admin index'
 
