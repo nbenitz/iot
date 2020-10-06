@@ -88,7 +88,7 @@ class PublicacionActuador(models.Model):
         db_table = 'publicacion_actuador'
         
     def __str__(self):
-        return self.id_actuador_fk + " | " + self.fecha
+        return str(self.id_actuador_fk) + " | " + str(self.fecha)
 
 
 class PublicacionSensor(models.Model):
@@ -100,7 +100,7 @@ class PublicacionSensor(models.Model):
         db_table = 'publicacion_sensor'
         
     def __str__(self):
-        return self.id_sensor_fk + " | " + self.fecha
+        return str(self.id_sensor_fk) + " | " + str(self.fecha)
 
 
         

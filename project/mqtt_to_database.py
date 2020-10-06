@@ -1,6 +1,8 @@
 from dispositivo.models import Sensor, Actuador, PublicacionSensor, PublicacionActuador
 import paho.mqtt.client as mqtt
 import datetime
+import random
+import string
 
 broker_address = "broker.mqtt-dashboard.com"
 broker_port = 1883
@@ -52,15 +54,11 @@ def on_message(client, userdata, message):
         registrar_feedback(id_sensor, msg)
 
 
-
-#@background(schedule=5)
 def mqtt_loop():
     print("loop")
-    client = mqtt.Client('Cliente1', userdata="UsuarioServer") 
+    cli = 'myiot87-'.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+    client = mqtt.Client(cli, userdata="UsuarioServer") 
     client.on_connect = on_connect 
     client.on_message = on_message 
     client.connect(broker_address, broker_port, 60)
-    client.loop_start()    
-
-#mqtt_loop()
-#print("ok")
+    client.loop_start()

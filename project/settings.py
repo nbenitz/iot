@@ -163,7 +163,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 #/static/imagenes/img1.jpg
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static_pro", "static"),
+    os.path.join(BASE_DIR, "static"),
     # '/var/www/static/',
 ]
 
@@ -174,7 +174,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/tablero/detalle/4'
+LOGIN_REDIRECT_URL = '/controlador/'
 
 # Activamos 'CookieStorage' que nos permite enviar los mensajes de respuesta al Crear, Eliminar y Actualizar un registro
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
