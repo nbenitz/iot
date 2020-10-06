@@ -1,12 +1,39 @@
 <!-- Card Humedad -->
 <div id="disp-{{sensor.id_dispositivo_fk.id}}" class="col-md-2 m-2 p-0 disp">
-    <div class="card border-left-primary h-100 pb-3">
-        <div class="card-body  pb-0">
-            <div class="row no-gutters align-items-center pb-1">
+    <div class="card border-left-primary h-100 py-0 pb-3">
+        <div class="card-body p-0">
+
+            <div class="d-flex flex-row align-items-center justify-content-between">
+                <span class="align-middle"></span>
+                <div class="dropdown no-arrow align-items-right mx-2">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdown{{ sensor.id_dispositivo_fk.id }}"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-xs  text-gray-500"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdown{{ sensor.id_dispositivo_fk.id }}">
+                        <a class="dropdown-item list_button" href="#"
+                            data-href="{% url 'ajax_sensor_pub' sensor.id %}"
+                            data-toggle="modal" data-target=".bd-modal-lg">
+                            Historial</a>
+                        <a class="dropdown-item detail_button" href="#"
+                            data-href="{% url 'ajax_controller_detail' sensor.id_dispositivo_fk.id %}"
+                            data-toggle="modal" data-target=".bd-modal-lg">
+                            Detalles</a>
+                        <a class="dropdown-item edit_button" href="#"
+                            data-href="{% url 'ajax_controller_edit' sensor.id_dispositivo_fk.id %}" data-toggle="modal"
+                            data-target=".bd-modal-lg">
+                            Cambiar Nombre</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters align-items-center mx-3 pb-1">
                 <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                         {{ sensor.descripcion }}</div>
-                    <div class="row no-gutters align-items-center">
+
+                    <div class="row no-gutters align-items-center pb-1">
                         <div class="col-auto">
                             <div class="row no-gutters align-items-center">
                                 <div id="sensor-{{sensor.id}}" class="h5 mb-0 font-weight-bold text-gray-800 sensor">
@@ -23,21 +50,13 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
-                <div class="col-auto dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-tint fa-2x text-gray-500"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Chart</a>
-                        <a class="dropdown-item" href="#">Editar</a>
-                        <a class="dropdown-item" href="#">Ajustes</a>
-                    </div>
+                <div class="col-auto">
+                    <i class="fas fa-tint fa-2x text-gray-500 mt-2"></i>
                 </div>
             </div>
-            <div class="text-xs text-gray-700">Rango permitido: 75 a 80%</div>
+            <div class="text-xs text-gray-700 mx-3">Rango permitido: 75 a 80%</div>
         </div>
     </div>
 </div>

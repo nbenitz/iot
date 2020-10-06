@@ -267,6 +267,19 @@ class TipoActuadorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         messages.success(self.request, (success_message))
         return reverse('leerTipoActuador')
 
+# ============================== PUBLICACION SENSOR ===========================================
+
+class SensorPubListado(LoginRequiredMixin, ListView):
+    model = PublicacionSensor
+    extra_context = {'titulo': 'Historial',
+                     'plural': 'Historial'}
+
+    def get_queryset(self, **kwargs):
+        id_sensor = self.kwargs['id_sensor']
+        sensor = Sensor.objects.get(id=id_sensor)
+        qs = self.model.objects.filter(id_sensor_fk=sensor).order_by('fecha')
+        return qs
+
 #===========================================================================================        
 
 def ajax_controlador_detalle(request, pk):
@@ -290,4 +303,14 @@ def ajax_controlador_actualizar(request, pk):
     data['result'] = render_to_string(template_name='include/editar_controlador_container.html',
                                       request=request,
                                       context={'form': form})
+    return JsonResponse(data)
+
+
+def ajax_sensor_pubs(request, id_sensor):
+    sensor = get_object_or_404(Sensor, id=id_sensor)
+    pubs = PublicacionSensor.objects.filter(id_sensor_fk=sensor).order_by('fecha')
+    data = dict()
+    data['result'] = render_to_string(template_name='include/lista_sensor_pub_container.html',
+                                      request=request,
+                                      context={'object_list': pubs})
     return JsonResponse(data)

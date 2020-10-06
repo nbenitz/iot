@@ -1,0 +1,21 @@
+{% extends "crud/list.html" %}
+
+{% block table %}
+
+<thead>
+	<tr>
+		<th>Fecha</th>
+		<th>Valor</th>
+	</tr>
+</thead>
+
+<tbody>
+	{% for object in object_list %}
+	<tr>
+		<td>{{ object.fecha }}</td>
+		<td>{{ object.valor }}</td>
+	</tr>
+	{% endfor %}
+</tbody>
+
+{% endblock %}

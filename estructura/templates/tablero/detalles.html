@@ -68,7 +68,23 @@
 				window.location.protocol = "http";
 		});
 	}
-	MQTTconnect();		
+
+	$('.list_button').click(function (evt) {
+		evt.preventDefault();
+		const btn = $(this);
+		const url = btn.attr('data-href');
+		$.ajax({
+			method: 'GET',
+			url: url,
+			dataType: 'json',
+
+			success: function (data) {
+				$('#modal-container').html(data.result)
+			}
+		})
+	});
+
+	MQTTconnect();
 </script>
 
 {% endblock %}
