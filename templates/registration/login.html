@@ -4,33 +4,35 @@
 
 {% block content %}
 
-	<!-- Page Heading -->
-	
-	<div class='row justify-content-center'>
-		<div class='col-sm-5 col-sm-offset-3'>
-			<div class="card shadow mb-4">
-			
-				<div class="card-header py-3">
-					<h5 class="m-0 font-weight-bold text-primary text-align-center">Iniciar Sesión</h5>
-				</div>
-				
-				<div class="card-body">
-		
-					<form method="post" action=".">
-						{% csrf_token %} 
-						{{ form|crispy }}
-					
-						<input class='btn btn-block btn-primary' type="submit" value="{% trans 'Iniciar sesion' %}" />
-						<input type="hidden" name="next" value="{{ next }}" /><br/>
-						
-						<p>{% trans "Has olvidado tu contraseña" %}? <a href="{% url 'password_reset' %}">{% trans "Restablecer" %}</a>!</p>
-						<p>{% trans "No tienes cuenta" %}? <a href="{% url 'signup' %}">{% trans "Registrarte" %}</a>!</p>
+<!-- Page Heading -->
 
-					</form>
-			
-				</div>
+<div class='row justify-content-center align-items-center'
+	style="min-height: calc(100vh - 76px); background-color: #918eca !important">
+	<div class='col-md-5 col-sm-offset-3'>
+		<div class="card shadow mb-4">
+
+			<div class="card-header py-3">
+				<h5 class="m-0 font-weight-bold text-primary text-align-center">Iniciar Sesión</h5>
+			</div>
+
+			<div class="card-body">
+
+				<form method="post" action=".">
+					{% csrf_token %}
+					{{ form|crispy }}
+
+					<input class='btn btn-block btn-primary' type="submit" value="{% trans 'Iniciar sesion' %}" />
+					<input type="hidden" name="next" value="{{ next }}" /><br />
+
+					<p>{% trans "Has olvidado tu contraseña" %}? <a
+							href="{% url 'password_reset' %}">{% trans "Restablecer" %}</a>!</p>
+					<p>{% trans "No tienes cuenta" %}? <a href="{% url 'signup' %}">{% trans "Registrarte" %}</a>!</p>
+
+				</form>
+
 			</div>
 		</div>
 	</div>
+</div>
 
 {% endblock %}

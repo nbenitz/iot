@@ -18,7 +18,6 @@ from estructura.models import UserDispositivo
 
 # =================================== SENSOR ===========================================
 
-
 class SensorListado(LoginRequiredMixin, ListView):
     model = Sensor
     extra_context = {'titulo': 'Sensor',

@@ -59,6 +59,9 @@ def mqtt_loop():
     cli = 'myiot87-'.join(random.choices(string.ascii_uppercase + string.digits, k=4))
     client = mqtt.Client(cli, userdata="UsuarioServer") 
     client.on_connect = on_connect 
-    client.on_message = on_message 
-    client.connect(broker_address, broker_port, 60)
-    client.loop_start()
+    client.on_message = on_message
+    try:
+        client.connect(broker_address, broker_port, 60)
+        client.loop_start()
+    except:
+        print("\nError en la conexión MQTT.\n")

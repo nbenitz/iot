@@ -1,7 +1,19 @@
-{% extends "base.html" %}
+{% extends "crud/card.html" %}
 {% load i18n %}
 
-{% block content %}
+{% block card %}
+
+
 <p class='lead'>{% trans "Sesión terminada." %}</p>
-<p><a href="{% url 'login' %}">Login</a></p></p>
+<p><a id='login' href="{% url 'login' %}">Login</a></p>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        const url = $('#login').attr('href');
+        window.location.href = url;
+    })
+
+</script>
+
 {% endblock %}

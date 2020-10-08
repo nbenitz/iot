@@ -15,37 +15,18 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarsExample04">
-		<ul class="navbar-nav mr-auto">
-			{% if request.user.is_authenticated %}
-
-			<div id="tableros" data-href="{% url 'ajax_tablero_buttons' %}">
-			</div>
-
-			<!-- <li class="nav-item">
-				<select class="custom-select custom-select-sm form-control form-control-sm">
-					<option selected>Seleccionar Tablero</option>
-					<option value="1">One</option>
-					<option value="2">Two</option>
-					<option value="3">Three</option>
-				</select>
-			</li> -->
-
-
-			<!-- <li class="nav-item active">
-					<a class="nav-link" href="{% url 'monitorSensor' %}">Tablero</a>
-				</li> -->
-
-			<!-- <li class="nav-item active">
-					<a class="nav-link" href="{#% url 'leerUserDispositivo' %#}">Dispositivos</a>
-				</li> -->
-
-
-			{% else %}
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'monitorSensor2' %}">Tableros</a>
-			</li>
-			{% endif %}
+		{% if request.user.is_authenticated %}
+		<ul class="navbar-nav mr-auto" id="tableros" data-href="{% url 'ajax_tablero_buttons' %}">
+			<!-- <div id="tableros" data-href="{% url 'ajax_tablero_buttons' %}">
+			</div> -->
 		</ul>
+		{% else %}
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link text-light" href="{% url 'monitorSensor2' %}">Tableros</a>
+			</li>
+		</ul>
+		{% endif %}
 
 		<ul class="navbar-nav navbar-right">
 
@@ -100,7 +81,7 @@
 						<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 						Cuenta
 					</a>
-					<a class="dropdown-item" href="#">
+					<a class="dropdown-item" href="{% url 'plot' %}">
 						<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 						Ajustes
 					</a>
@@ -120,11 +101,11 @@
 
 
 			{% else %}
-			<li class="nav-item active">
-				<a class="nav-link" href="{% url 'signup' %}">
+			<li class="nav-item">
+				<a class="nav-link text-light" href="{% url 'signup' %}">
 					Registrarme</a></li>
-			<li class="nav-item active">
-				<a class="nav-link" href="{% url 'login' %}">
+			<li class="nav-item">
+				<a class="nav-link text-light btn-primary rounded py-1 my-1" href="{% url 'login' %}">
 					Entrar</a></li>
 			{% endif %}
 		</ul>
