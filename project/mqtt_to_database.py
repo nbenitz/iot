@@ -1,6 +1,8 @@
 from dispositivo.models import Sensor, Actuador, PublicacionSensor, PublicacionActuador
+from django.utils import timezone
+import pytz
 import paho.mqtt.client as mqtt
-import datetime
+# import datetime
 import random
 import string
 
@@ -10,7 +12,8 @@ topic = "myiot87/#"
 
 
 def registrar_sensor(id_sensor, msg):
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now = timezone.now()
     try:
         sensor = Sensor.objects.get(id=id_sensor)
         pub = PublicacionSensor(id_sensor_fk=sensor, valor=msg, fecha=now)
@@ -20,7 +23,8 @@ def registrar_sensor(id_sensor, msg):
         
     
 def registrar_feedback(id_actuador, msg):
-    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    #now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now = timezone.now()
     try:
         actuador = Actuador.objects.get(id=id_actuador)
         pub = PublicacionActuador(id_actuador_fk=actuador, valor=msg, fecha=now)
