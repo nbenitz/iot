@@ -5,22 +5,16 @@
 {% endblock %}
 
 {% block content %}
-	<div class='row justify-content-center'>
-		<div class='col-sm-12 col-sm-offset-3'>
-			<div class="card shadow mb-4">
-				<div class="card-body">
-				
-					<h1 class="h3 mb-4 text-gray-800 text-align-center">
-						Plotly test</h1>
-												
-					<!--<br><hr>-->
-					{{plot_cases_of_a_country|safe}}
+<div class='row justify-content-center'>
+	<div class='col-md-12 col-md-offset-3'>
+		<div class="card shadow mb-4 p-0">
+			<div class="card-body">
 
-					{{example_Plot|safe}}
-						
-				</div>
+				<!--<br><hr>-->
+				{{ plot_sensor|safe }}
+
 			</div>
 		</div>
 	</div>
+</div>
 {% endblock %}
-

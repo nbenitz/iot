@@ -6,9 +6,8 @@ from .views import SensorListado, SensorCrear, SensorActualizar, SensorDetalle, 
         DispositivoListado, DispositivoCrear, DispositivoActualizar, DispositivoDetalle, DispositivoEliminar, \
             TipoSensorListado, TipoSensorCrear, TipoSensorActualizar, TipoSensorDetalle, TipoSensorEliminar, \
                 TipoActuadorListado, TipoActuadorCrear, TipoActuadorActualizar, TipoActuadorDetalle, TipoActuadorEliminar, \
-                    ajax_controlador_detalle, ajax_controlador_actualizar, SensorPubListado, ajax_sensor_pubs
+                    ajax_controlador_detalle, ajax_controlador_actualizar, SensorPubListado, ajax_sensor_pubs, ajax_sensor_plot
 from dispositivo.views import SensorMonitor, SensorMonitor2
-from .views_plot import plot
 
 urlpatterns = [
     path('controlador/', DispositivoListado.as_view(template_name = "controlador/index.html"), name='leerDispositivo'),
@@ -46,11 +45,12 @@ urlpatterns = [
 
     path('sensor/pub/<str:id_sensor>', SensorPubListado.as_view(template_name = "pub-sensor/index.html"), name='leerSensorPub'),
 
-    path('plot/', plot, name='plot'),
+    #path('plot/<int:id_sensor>', plot, name='plot'),
 
     #  ajax_calls
     path('ajax/controller-details/<int:pk>', ajax_controlador_detalle, name='ajax_controller_detail'),
     path('ajax/controller-edit/<int:pk>', ajax_controlador_actualizar, name='ajax_controller_edit'),
     path('ajax/sensor-pubs/<int:id_sensor>', ajax_sensor_pubs, name='ajax_sensor_pub'),
+    path('ajax/sensor-plot/<int:id_sensor>', ajax_sensor_plot, name='ajax_sensor_plot'),
 
 ]

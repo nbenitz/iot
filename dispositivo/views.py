@@ -13,6 +13,7 @@ from dispositivo.models import Dispositivo, Sensor, TipoSensor, Actuador, TipoAc
 from dispositivo.forms import DispositivoForm
 from persona.models import User
 from estructura.models import UserDispositivo
+from dispositivo.plot import plot_sensor
 
 # Create your views here.
 
@@ -307,9 +308,20 @@ def ajax_controlador_actualizar(request, pk):
 
 def ajax_sensor_pubs(request, id_sensor):
     sensor = get_object_or_404(Sensor, id=id_sensor)
-    pubs = PublicacionSensor.objects.filter(id_sensor_fk=sensor).order_by('fecha')
+    pubs = PublicacionSensor.objects.filter(id_sensor_fk=sensor).order_by('-fecha')
     data = dict()
     data['result'] = render_to_string(template_name='include/lista_sensor_pub_container.html',
                                       request=request,
                                       context={'object_list': pubs})
+    return JsonResponse(data)
+
+
+def ajax_sensor_plot(request, id_sensor):
+    id_sensor_list = [id_sensor,]
+    context = {"plot_sensor": plot_sensor(id_sensor_list)}
+
+    data = dict()
+    data['result'] = render_to_string(template_name='include/plot_sensor_container.html',
+                                      request=request,
+                                      context=context)
     return JsonResponse(data)
