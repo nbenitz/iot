@@ -74,7 +74,7 @@
 		$(document).ready(function () {
 			var timezone = jstz.determine();
 			var timezone_name = timezone.name();
-			console.log("Setting User Timezone");
+			console.log("Setting User Timezone to " + timezone_name);
 			$.ajax({
 				url: '/set-user-timezone/',
 				action: "GET",
