@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block content %}
-
 <div class='row justify-content-center'>
 	<div class='col-md-12 col-md-offset-3'>
 		<div class="card border-0 rounded-0" style="min-height: calc(100vh - 76px);">
@@ -19,6 +18,7 @@
 				<span class="h3 mb-0 font-weight-light">Invernadero Smart</span>
 			</div>
 
+			{% if object.sensor.all %}
 			<div class="row mx-1 p-1 ">
 				<span class="h5 mb-0 font-weight-light">Sensores</span>
 			</div>
@@ -33,7 +33,9 @@
 				{% endif %}
 				{% endfor %}
 			</div>
+			{% endif %}
 
+			{% if object.actuador.all %}
 			<div class="row mx-1 pt-3 pb-1 ">
 				<span class="h5 mb-0 font-weight-light">Actuadores</span>
 			</div>
@@ -46,6 +48,7 @@
 				{% endif %}
 				{% endfor %}
 			</div>
+			{% endif %}
 
 		</div> <!-- Card -->
 	</div> <!-- Col -->
@@ -61,29 +64,8 @@
 		</div>
 	</div>
 </div>
-<!-- 
-{% if not user_session_ok %}
-<script type="text/javascript" src="{% static 'js/jstz.min.js' %}"></script>
-<script>
-	$(document).ready(function () {
-		var timezone = jstz.determine();
-		var timezone_name = timezone.name();
-		$.ajax({
-			url: '/set-user-timezone/',
-			action: "GET",
-			data: {
-				timezone: timezone_name
-			},
-			success: function (data) {
 
-			},
-			error: function (data) {
 
-			}
-		})
-	});
-</script>
-{% endif %} -->
 
 <script type="text/javascript">
 	window.onload = function () {

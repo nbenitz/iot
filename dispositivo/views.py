@@ -319,6 +319,7 @@ def ajax_sensor_pubs(request, id_sensor):
 
 def ajax_sensor_plot(request, id_sensor):
     id_sensor_list = [id_sensor,]
+    
     timezone = request.session.get('user_timezone')
     if not timezone:
         timezone = 'America/Asuncion'

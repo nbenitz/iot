@@ -119,16 +119,7 @@ class TableroCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     
 class TableroDetalle(LoginRequiredMixin, DetailView): 
     model = Tablero
-
-    def get_context_data(self, *args, **kwargs):
-        if "user_timezone" in self.request.session:
-            user_session_ok = True
-        else:
-            user_session_ok = False
-
-        return {'object': self.model.objects.get(id=self.kwargs['pk']),
-                'titulo':'Detalles del Tablero',
-                'user_session_ok': user_session_ok}
+    extra_context={'titulo':'Detalles del Tablero'}
 
     
 class TableroActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView): 

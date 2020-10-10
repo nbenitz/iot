@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load tz %}
 <html lang="es">
 
 <head>
@@ -45,11 +46,12 @@
 			</div>
 			<!-- End of Main Content -->
 
+			{% get_current_timezone as TIME_ZONE %}
 			<!-- Footer -->
 			<footer class="sticky-footer text-light bg-dark py-2">
 				<div class="container">
 					<div class="copyright text-center">
-						<span>Copyright &copy; MyIoT 2020</span>
+						<span>Copyright &copy; MyIoT 2020 - Zona Horaria: {{ TIME_ZONE }}</span>
 					</div>
 				</div>
 			</footer>
@@ -65,7 +67,31 @@
 	<a class="scroll-to-top rounded" href="#page-top">
 		<i class="fas fa-angle-up"></i>
 	</a>
-	
+
+	{% if TIME_ZONE == "UTC" %}
+	<script type="text/javascript" src="{% static 'js/jstz.min.js' %}"></script>
+	<script>
+		$(document).ready(function () {
+			var timezone = jstz.determine();
+			var timezone_name = timezone.name();
+			console.log("Setting User Timezone");
+			$.ajax({
+				url: '/set-user-timezone/',
+				action: "GET",
+				data: {
+					timezone: timezone_name
+				},
+				success: function (data) {
+
+				},
+				error: function (data) {
+
+				}
+			})
+		});
+	</script>
+	{% endif %}
+
 	{% include "includes/js.html" %}
 </body>
 
