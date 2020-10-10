@@ -12,6 +12,7 @@ from django.template.loader import render_to_string
 from persona.tokens import account_activation_token
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
+import pytz
 
 
 # Create your views here.
@@ -92,3 +93,10 @@ def activation_sent_view(request):
 
 def activation_complete_view(request):
     return render(request, 'registration/activation_complete.html')
+
+def set_timezone(request):
+    if request.method == 'POST':
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/inicio/')
+    else:
+        return render(request, 'user/set_timezone.html', {'timezones': pytz.common_timezones})

@@ -103,4 +103,16 @@ class PublicacionSensor(models.Model):
         return str(self.id_sensor_fk) + " | " + str(self.fecha)
 
 
+class PublicacionControlador(models.Model):
+    controlador = models.ForeignKey('Dispositivo', models.DO_NOTHING, db_column='controlador')
+    fecha = models.DateTimeField()
+    valor = models.DecimalField(max_digits=1, decimal_places=0)
+
+    class Meta:
+        db_table = 'publicacion_controlador'
+        
+    def __str__(self):
+        return str(self.controlador) + " | " + str(self.fecha)
+
+
         

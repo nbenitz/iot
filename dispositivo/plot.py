@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
+import pytz
 
-# import pandas as pd
+import pandas as pd
 import plotly.offline as py
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
@@ -15,11 +17,12 @@ from .models import Sensor, PublicacionSensor
 def plot(request, id_sensor):
     id_sensor_list = [id_sensor,]
 
-    context = {"plot_sensor": plot_sensor(id_sensor_list)}
+    context = {"plot_sensor": plot_sensor(id_sensor_list, 'America/Asuncion')}
     return render(request, "plots/index.html", context)
 
 
-def plot_sensor(id_sensor_list):
+def plot_sensor(id_sensor_list, timezone_name):
+    tz = pytz.timezone(timezone_name)
 
     colors = ['red', ]
     #mode_size = [6, 8]
@@ -30,9 +33,11 @@ def plot_sensor(id_sensor_list):
     for i, id_sensor in enumerate(id_sensor_list):
         sensor = get_object_or_404(Sensor, id=id_sensor)
         qs = PublicacionSensor.objects.filter(id_sensor_fk=sensor)
-        x_data = np.array(list(qs.values_list('fecha', flat=True)))
+        x_df = pd.DataFrame(qs.values('fecha'))
+        x_df['fecha'] = x_df['fecha'].map(lambda fecha: timezone.localtime(fecha, tz))
+        x_data = np.array(list(x_df['fecha']))
         y_data = np.array(list(qs.values_list('valor', flat=True)))
-
+        print(x_data)
         fig.add_trace(go.Scatter(x=x_data, y=y_data, mode='lines+markers',
                                  name=sensor.tipo.descripcion,
                                  line=dict(

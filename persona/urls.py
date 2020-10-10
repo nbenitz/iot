@@ -2,7 +2,7 @@
 from django.urls import path
 from django.contrib.auth import get_user_model
 from persona.views import register, activation_sent_view, activate, activation_complete_view, \
-     ObjetoDetalle, edit_user
+     ObjetoDetalle, edit_user, set_timezone
 
 
 urlpatterns = [
@@ -17,6 +17,6 @@ urlpatterns = [
                                                            model = get_user_model(),
                                                            extra_context={'titulo':'Cuenta'}
                                                            ), name='detallesUser'),
-    
+    path('user/set-timezone/', set_timezone, name='setTimezone'),
 ]
 

@@ -1,6 +1,10 @@
 from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_GET
+from django.http import HttpResponse
+import json
 
 from .forms import ContactForm
 # Create your views here.
@@ -49,3 +53,14 @@ def contact(request):
         "form": form,
     }
     return render(request, "contact.html", context)
+
+
+@login_required
+@require_GET
+def set_user_timezone(request):
+    timezone = request.GET.get('timezone')
+    request.session['user_timezone'] = timezone
+    response_data = {}
+    response_data['status'] = 'true'
+    response_data['message'] = 'user timezone set successfully.'
+    return HttpResponse(json.dumps(response_data))

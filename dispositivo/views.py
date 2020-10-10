@@ -309,6 +309,7 @@ def ajax_controlador_actualizar(request, pk):
 def ajax_sensor_pubs(request, id_sensor):
     sensor = get_object_or_404(Sensor, id=id_sensor)
     pubs = PublicacionSensor.objects.filter(id_sensor_fk=sensor).order_by('-fecha')
+    
     data = dict()
     data['result'] = render_to_string(template_name='include/lista_sensor_pub_container.html',
                                       request=request,
@@ -318,7 +319,11 @@ def ajax_sensor_pubs(request, id_sensor):
 
 def ajax_sensor_plot(request, id_sensor):
     id_sensor_list = [id_sensor,]
-    context = {"plot_sensor": plot_sensor(id_sensor_list)}
+    timezone = request.session.get('user_timezone')
+    if not timezone:
+        timezone = 'America/Asuncion'
+
+    context = {"plot_sensor": plot_sensor(id_sensor_list, timezone)}
 
     data = dict()
     data['result'] = render_to_string(template_name='include/plot_sensor_container.html',

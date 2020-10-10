@@ -22,7 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-from .views import about, contact, inicio, tablero
+from .views import about, contact, inicio, tablero, set_user_timezone
 from .mqtt_to_database import mqtt_loop
 # from concurrent.futures import ThreadPoolExecutor
 
@@ -34,6 +34,7 @@ urlpatterns = [
     #path('tablero/', tablero, name='tablero'),
     #path('accounts/', include('registration.backends.default.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('set-user-timezone/', set_user_timezone, name='set_user_timezone'),
 
     path('', include('estructura.urls')),
     path('', include('dispositivo.urls')),

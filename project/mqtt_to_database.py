@@ -1,4 +1,4 @@
-from dispositivo.models import Sensor, Actuador, PublicacionSensor, PublicacionActuador
+from dispositivo.models import Sensor, Actuador, Dispositivo, PublicacionSensor, PublicacionActuador, PublicacionControlador
 from django.utils import timezone
 import pytz
 import paho.mqtt.client as mqtt
@@ -12,7 +12,6 @@ topic = "myiot87/#"
 
 
 def registrar_sensor(id_sensor, msg):
-    # now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     now = timezone.now()
     try:
         sensor = Sensor.objects.get(id=id_sensor)
@@ -23,11 +22,20 @@ def registrar_sensor(id_sensor, msg):
         
     
 def registrar_feedback(id_actuador, msg):
-    #now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     now = timezone.now()
     try:
         actuador = Actuador.objects.get(id=id_actuador)
         pub = PublicacionActuador(id_actuador_fk=actuador, valor=msg, fecha=now)
+        pub.save()
+    except:
+        print("\nError :(\n")
+
+
+def registrar_status(id_controlador, msg):
+    now = timezone.now()
+    try:
+        controlador = Dispositivo.objects.get(id=id_controlador)
+        pub = PublicacionControlador(controlador=controlador, valor=msg, fecha=now)
         pub.save()
     except:
         print("\nError :(\n")
@@ -49,13 +57,16 @@ def on_message(client, userdata, message):
     print("")
     topic_parts = message.topic.split('/')
     sub_topic = topic_parts[1]
-    id_sensor = topic_parts[2]
-    print("Topic: ", sub_topic, ",  id: ", id_sensor)
+    id_disp = topic_parts[2]
+    print("Topic: ", sub_topic, ",  id: ", id_disp)
     if sub_topic == "sensor":
-        registrar_sensor(id_sensor, msg)
+        registrar_sensor(id_disp, msg)
         
     if sub_topic == "feedback":
-        registrar_feedback(id_sensor, msg)
+        registrar_feedback(id_disp, msg)
+
+    if sub_topic == "status":
+        registrar_status(id_disp, msg)
 
 
 def mqtt_loop():
