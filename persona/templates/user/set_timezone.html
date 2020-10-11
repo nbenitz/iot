@@ -1,4 +1,7 @@
+{% extends "crud/card.html" %}
 {% load tz %}
+
+{% block card %}
 {% get_current_timezone as TIME_ZONE %}
 <form action="{% url 'setTimezone' %}" method="POST">
     {% csrf_token %}
@@ -8,5 +11,6 @@
         <option value="{{ tz }}" {% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
         {% endfor %}
     </select>
-    <input type="submit" value="Set">
+    <input type="submit" value="Set" class="btn btn-primary">
 </form>
+{% endblock %}

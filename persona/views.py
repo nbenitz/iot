@@ -96,7 +96,7 @@ def activation_complete_view(request):
 
 def set_timezone(request):
     if request.method == 'POST':
-        request.session['django_timezone'] = request.POST['timezone']
+        request.session['user_timezone'] = request.POST['timezone']
         return redirect('/inicio/')
     else:
         return render(request, 'user/set_timezone.html', {'timezones': pytz.common_timezones})
