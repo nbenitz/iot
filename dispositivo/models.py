@@ -4,12 +4,6 @@ from persona.models import User
 
 # Create your models here.
 class Dispositivo(models.Model):
-    #users = models.ManyToManyField(
-    #    User,
-    #    verbose_name='users',
-    #    blank=True,
-    #)
-
     nombre = models.CharField("Nombre del Controlador", max_length=30)
 
     class Meta:

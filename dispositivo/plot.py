@@ -9,7 +9,7 @@ from plotly.subplots import make_subplots
 import numpy as np
 import plotly.express as px
 from .covid19_data_clean import clean_data
-from .models import Sensor, PublicacionSensor
+from .models import Sensor, Dispositivo, PublicacionSensor, PublicacionControlador
 
 
 # Create your views here.
@@ -37,7 +37,6 @@ def plot_sensor(id_sensor_list, timezone_name):
         x_df['fecha'] = x_df['fecha'].map(lambda fecha: timezone.localtime(fecha, tz))
         x_data = np.array(list(x_df['fecha']))
         y_data = np.array(list(qs.values_list('valor', flat=True)))
-        print(x_data)
         fig.add_trace(go.Scatter(x=x_data, y=y_data, mode='lines+markers',
                                  name=sensor.tipo.descripcion,
                                  line=dict(
@@ -47,11 +46,62 @@ def plot_sensor(id_sensor_list, timezone_name):
                                  text=sensor.tipo.descripcion + \
                                  " Actual: " + str(y_data[-1])
                                  ),
-                      secondary_y=bool(i),)
+                                 secondary_y=bool(i),)
         max_val = 100
         min_val = 0
         fig.update_yaxes(type="linear", range=[
                          min_val, max_val], secondary_y=bool(i))
+
+    fig.update_layout(
+        #title='Diagrama de Tiempo',
+        xaxis_title=None,
+        yaxis_title=None,
+        margin=dict(l=10, r=10, t=10, b=10),
+        #width = 800,
+        # paper_bgcolor="lightgrey",
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        )
+    )
+
+    # fig.update_yaxes(type="linear", range=[0, 9], , secondary_y=False)
+    plot_div = py.plot(fig, include_plotlyjs=False, output_type='div')
+
+    return plot_div
+
+def plot_controller(id_controller_list, timezone_name):
+    tz = pytz.timezone(timezone_name)
+
+    colors = ['red', ]
+    #mode_size = [6, 8]
+
+    #fig = go.Figure()
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    for i, id_controller in enumerate(id_controller_list):
+        controller = get_object_or_404(Dispositivo, id=id_controller)
+        qs = PublicacionControlador.objects.filter(controlador=controller)
+        x_df = pd.DataFrame(qs.values('fecha'))
+        x_df['fecha'] = x_df['fecha'].map(lambda fecha: timezone.localtime(fecha, tz))
+        x_data = np.array(list(x_df['fecha']))
+        y_data = np.array(list(qs.values_list('valor', flat=True)))
+        fig.add_trace(go.Scatter(x=x_data, y=y_data, mode='lines+markers',
+                                 name=controller.nombre,
+                                 line=dict(
+                                     # color=colors[i],
+                                     width=1),
+                                 connectgaps=True,
+                                 text=controller.nombre + \
+                                 " Actual: " + str(y_data[-1])
+                                 ),
+                                 secondary_y=bool(i),)
+        max_val = 1
+        min_val = 0
+        fig.update_yaxes(type="linear", secondary_y=bool(i))
 
     fig.update_layout(
         #title='Diagrama de Tiempo',

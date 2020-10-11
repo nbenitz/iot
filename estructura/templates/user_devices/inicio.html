@@ -3,6 +3,10 @@
 
 {% block head_title %}Dispositivos{% endblock %}
 
+{% block in_head %}
+<script src="{% static '/plotly/plotly-latest.min.js' %}"></script>
+{% endblock %}
+
 
 {% block content %}
 
@@ -68,17 +72,15 @@
 										data-href="{% url 'ajax_controller_edit' controlador.id_dispositivo_fk.id %}"
 										data-toggle="modal" data-target=".bd-modal-lg">
 										Cambiar Nombre</a>
-									<!-- <a class="dropdown-item"
-										href="{% url 'eliminarUserDispositivo' controlador.id_dispositivo_fk.id %}"
-										onclick="return eliminar();">
-										Quitar</a> -->
-
-									<form method="POST"
-										action="{% url 'eliminarUserDispositivo' controlador.id %}">
+									<form method="POST" action="{% url 'eliminarUserDispositivo' controlador.id %}">
 										{% csrf_token %}
 										<button class="dropdown-item btn-link" onclick="return eliminar();">
 											Quitar</button>
 									</form>
+									<a class="dropdown-item chart_button" href="#"
+										data-href="{% url 'ajax_controller_plot' controlador.id_dispositivo_fk.id %}"
+										data-toggle="modal" data-target=".bd-modal-lg">
+										Gráfico Conexión</a>
 
 
 
@@ -209,6 +211,21 @@
 	});
 
 	$('.edit_button').click(function (evt) {
+		evt.preventDefault();
+		const btn = $(this);
+		const url = btn.attr('data-href');
+		$.ajax({
+			method: 'GET',
+			url: url,
+			dataType: 'json',
+
+			success: function (data) {
+				$('#modal-container').html(data.result)
+			}
+		})
+	});
+
+	$('.chart_button').click(function (evt) {
 		evt.preventDefault();
 		const btn = $(this);
 		const url = btn.attr('data-href');

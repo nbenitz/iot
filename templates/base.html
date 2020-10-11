@@ -46,14 +46,11 @@
 			</div>
 			<!-- End of Main Content -->
 
-			{% get_current_timezone as TIME_ZONE %}
 			<!-- Footer -->
 			<footer class="sticky-footer text-light bg-dark py-2">
 				<div class="container">
 					<div class="copyright text-center">
-						<span>Copyright &copy; MyIoT 2020 - Zona Horaria: {{ TIME_ZONE }} - 
-							user_timezone: {{ request.session.user_timezone }}
-						</span>
+						<span>Copyright &copy; MyIoT 2020</span>
 					</div>
 				</div>
 			</footer>
@@ -70,6 +67,7 @@
 		<i class="fas fa-angle-up"></i>
 	</a>
 
+	{% get_current_timezone as TIME_ZONE %}
 	{% if TIME_ZONE == "UTC" %}
 	<script type="text/javascript" src="{% static 'js/jstz.min.js' %}"></script>
 	<script>

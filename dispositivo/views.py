@@ -13,7 +13,7 @@ from dispositivo.models import Dispositivo, Sensor, TipoSensor, Actuador, TipoAc
 from dispositivo.forms import DispositivoForm
 from persona.models import User
 from estructura.models import UserDispositivo
-from dispositivo.plot import plot_sensor
+from dispositivo.plot import plot_sensor, plot_controller
 
 # Create your views here.
 
@@ -325,6 +325,22 @@ def ajax_sensor_plot(request, id_sensor):
         timezone = 'America/Asuncion'
 
     context = {"plot_sensor": plot_sensor(id_sensor_list, timezone)}
+
+    data = dict()
+    data['result'] = render_to_string(template_name='include/plot_sensor_container.html',
+                                      request=request,
+                                      context=context)
+    return JsonResponse(data)
+
+
+def ajax_controller_plot(request, id_controller):
+    id_controller_list = [id_controller,]
+    
+    timezone = request.session.get('user_timezone')
+    if not timezone:
+        timezone = 'America/Asuncion'
+
+    context = {"plot_sensor": plot_controller(id_controller_list, timezone)}
 
     data = dict()
     data['result'] = render_to_string(template_name='include/plot_sensor_container.html',
