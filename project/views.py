@@ -15,7 +15,7 @@ def inicio(request):
 
 
 def about(request):
-    return render(request, "about.html", {})
+    return render(request, "prueba.html", {})
 
 
 def tablero(request):

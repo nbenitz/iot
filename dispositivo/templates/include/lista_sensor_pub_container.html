@@ -1,44 +1,30 @@
-<div class="card m-0 border-0">
+{% if object_list %}
 
-    <div class="modal-header py-3">
-        <h6 class="modal-title font-weight-bold text-primary" id="myLargeModalLabel">Historial</h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="close">
-            <span aria-hidden="true">x</span>
-        </button>
-    </div>
+<div class="table-responsive mt-3">
 
-    <div class="card-body">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 
-        {% if object_list %}
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
 
-        <div class="table-responsive">
+        <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.fecha }}</td>
+                <td>{{ object.valor }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
 
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Valor</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {% for object in object_list %}
-                    <tr>
-                        <td>{{ object.fecha }}</td>
-                        <td>{{ object.valor }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-
-            </table>
-
-        </div>
-        {% else %}
-        <p>No hay datos para mostrar.</p>
-        {% endif %}
-
-
-    </div>
+    </table>
 
 </div>
+{% else %}
+<div class='row justify-content-center my-5 py-5'>
+    No hay resultador para el rango de fechas
+</div>
+{% endif %}

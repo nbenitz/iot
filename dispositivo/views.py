@@ -8,6 +8,10 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.forms.models import ModelForm
+from django.utils import timezone
+import pytz
+from datetime import datetime, timedelta
+from project.settings import TIME_ZONE
 
 from dispositivo.models import Dispositivo, Sensor, TipoSensor, Actuador, TipoActuador, PublicacionSensor, PublicacionActuador
 from dispositivo.forms import DispositivoForm
@@ -18,6 +22,7 @@ from dispositivo.plot import plot_sensor, plot_controller
 # Create your views here.
 
 # =================================== SENSOR ===========================================
+
 
 class SensorListado(LoginRequiredMixin, ListView):
     model = Sensor
@@ -53,7 +58,6 @@ class SensorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     fields = "__all__"
     success_message = 'Sensor Creado Correctamente !'
     extra_context = {'titulo': 'Crear Sensor'}
-    
 
     def get_success_url(self):
         return reverse('leerSensor')
@@ -86,6 +90,7 @@ class SensorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return reverse('leerSensor')
 
 # =================================== ACTUADOR ===========================================
+
 
 class ActuadorListado(LoginRequiredMixin, ListView):
     model = Actuador
@@ -131,6 +136,7 @@ class ActuadorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return reverse('leerActuador')
 
 # =================================== CONTROLADOR ===========================================
+
 
 class DispositivoListado(LoginRequiredMixin, ListView):
     model = Dispositivo
@@ -269,6 +275,7 @@ class TipoActuadorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
 # ============================== PUBLICACION SENSOR ===========================================
 
+
 class SensorPubListado(LoginRequiredMixin, ListView):
     model = PublicacionSensor
     extra_context = {'titulo': 'Historial',
@@ -280,7 +287,8 @@ class SensorPubListado(LoginRequiredMixin, ListView):
         qs = self.model.objects.filter(id_sensor_fk=sensor).order_by('fecha')
         return qs
 
-#===========================================================================================        
+# ===========================================================================================
+
 
 def ajax_controlador_detalle(request, pk):
     controlador = get_object_or_404(Dispositivo, id=pk)
@@ -307,9 +315,27 @@ def ajax_controlador_actualizar(request, pk):
 
 
 def ajax_sensor_pubs(request, id_sensor):
-    sensor = get_object_or_404(Sensor, id=id_sensor)
-    pubs = PublicacionSensor.objects.filter(id_sensor_fk=sensor).order_by('-fecha')
+    start = request.GET.get('start')
+    end = request.GET.get('end')
+
+    timezone_name = request.session.get('user_timezone')
+    if not timezone_name:
+        timezone_name = 'America/Asuncion'
+    tz = pytz.timezone(timezone_name)
     
+    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone(TIME_ZONE))
+    timezone.localtime(start, tz)
+
+    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone(TIME_ZONE))
+    end = end + timedelta(days=1)
+    timezone.localtime(end, tz)
+
+    sensor = get_object_or_404(Sensor, id=id_sensor)
+    pubs = PublicacionSensor.objects.filter(
+        id_sensor_fk=sensor,
+        fecha__range=[start, end]
+    ).order_by('-fecha')
+
     data = dict()
     data['result'] = render_to_string(template_name='include/lista_sensor_pub_container.html',
                                       request=request,
@@ -318,13 +344,15 @@ def ajax_sensor_pubs(request, id_sensor):
 
 
 def ajax_sensor_plot(request, id_sensor):
-    id_sensor_list = [id_sensor,]
-    
+    id_sensor_list = [id_sensor, ]
+    start = request.GET.get('start')
+    end = request.GET.get('end')
     timezone = request.session.get('user_timezone')
     if not timezone:
         timezone = 'America/Asuncion'
 
-    context = {"plot_sensor": plot_sensor(id_sensor_list, timezone)}
+    context = {"plot_sensor": plot_sensor(
+        id_sensor_list, timezone, start, end)}
 
     data = dict()
     data['result'] = render_to_string(template_name='include/plot_sensor_container.html',
@@ -334,8 +362,8 @@ def ajax_sensor_plot(request, id_sensor):
 
 
 def ajax_controller_plot(request, id_controller):
-    id_controller_list = [id_controller,]
-    
+    id_controller_list = [id_controller, ]
+
     timezone = request.session.get('user_timezone')
     if not timezone:
         timezone = 'America/Asuncion'
