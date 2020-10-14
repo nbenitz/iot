@@ -170,10 +170,12 @@
 
 	$("#id_fecha_inicial").change(function () {
 		fecha_inicial = $(this).val().split("/").reverse().join("-");
+		console.log(fecha_inicial);
 	});
 
 	$("#id_fecha_final").change(function () {
 		fecha_final = $(this).val().split("/").reverse().join("-");
+		console.log(fecha_final);
 	});
 
 	$('#btn-date').click(function (evt) {

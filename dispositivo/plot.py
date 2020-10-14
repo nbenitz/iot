@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 import pytz
 from datetime import datetime, timedelta
-from project.settings import TIME_ZONE
 
 import pandas as pd
 import plotly.offline as py
@@ -17,12 +16,14 @@ from .models import Sensor, Dispositivo, PublicacionSensor, PublicacionControlad
 def plot_sensor(id_sensor_list, timezone_name, start, end):
     tz = pytz.timezone(timezone_name)
     
-    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone(TIME_ZONE))
+    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
     timezone.localtime(start, tz)
 
-    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone(TIME_ZONE))
+    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
     end = end + timedelta(days=1)
     timezone.localtime(end, tz)
+    print(start)
+    print(end)
 
     colors = ['red', ]
     #mode_size = [6, 8]

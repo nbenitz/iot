@@ -11,7 +11,6 @@ from django.forms.models import ModelForm
 from django.utils import timezone
 import pytz
 from datetime import datetime, timedelta
-from project.settings import TIME_ZONE
 
 from dispositivo.models import Dispositivo, Sensor, TipoSensor, Actuador, TipoActuador, PublicacionSensor, PublicacionActuador
 from dispositivo.forms import DispositivoForm
@@ -323,10 +322,10 @@ def ajax_sensor_pubs(request, id_sensor):
         timezone_name = 'America/Asuncion'
     tz = pytz.timezone(timezone_name)
     
-    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone(TIME_ZONE))
+    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
     timezone.localtime(start, tz)
 
-    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone(TIME_ZONE))
+    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
     end = end + timedelta(days=1)
     timezone.localtime(end, tz)
 
