@@ -5,10 +5,13 @@ import paho.mqtt.client as mqtt
 # import datetime
 import random
 import string
+# from decouple import config
 
 broker_address = "broker.mqtt-dashboard.com"
 broker_port = 1883
 topic = "myiot87/#"
+client_name = 'myiot87-'.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+# client_name = config('MQTT_CLIENT', default='myiot87-django')
 
 
 def registrar_sensor(id_sensor, msg, retain):
@@ -47,7 +50,7 @@ def registrar_status(id_controlador, msg, retain):
 def registrar_log(log):
     now = timezone.now()
     try:
-        pub = Logs(fecha=now, evento=log)
+        pub = Logs(fecha=now, evento= client_name + " | " + log)
         pub.save()
     except:
         print("\nError :(\n")
@@ -81,14 +84,14 @@ def on_message(client, userdata, message):
     sub_topic = topic_parts[1]
     id_disp = topic_parts[2]
     print("Topic: ", sub_topic, ",  id: ", id_disp)
-    # if sub_topic == "sensor":
-    #     registrar_sensor(id_disp, msg, retain)
+    if sub_topic == "sensor":
+        registrar_sensor(id_disp, msg, retain)
 
-    # if sub_topic == "feedback":
-    #     registrar_feedback(id_disp, msg, retain)
+    if sub_topic == "feedback":
+        registrar_feedback(id_disp, msg, retain)
 
-    # if sub_topic == "status":
-    #     registrar_status(id_disp, msg, retain)
+    if sub_topic == "status":
+        registrar_status(id_disp, msg, retain)
 
 
 def on_disconnect(client, userdata, rc):
@@ -99,9 +102,7 @@ def on_disconnect(client, userdata, rc):
 
 def mqtt_loop():
     print("loop")
-    cli = 'myiot87-'.join(random.choices(string.ascii_uppercase +
-                                         string.digits, k=4))
-    client = mqtt.Client(cli, userdata="UsuarioServer")
+    client = mqtt.Client(client_name, userdata="UsuarioServer")
     client.on_connect = on_connect
     client.on_message = on_message
     client.on_disconnect = on_disconnect
