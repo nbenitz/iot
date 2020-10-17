@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Dispositivo, Sensor, TipoSensor, Actuador, TipoActuador, PublicacionSensor, \
-    PublicacionActuador, PublicacionControlador
+    PublicacionActuador, PublicacionControlador, Logs
 
 admin.site.register(Dispositivo)
 admin.site.register(Sensor)
@@ -12,3 +12,4 @@ admin.site.register(TipoActuador)
 admin.site.register(PublicacionSensor)
 admin.site.register(PublicacionActuador)
 admin.site.register(PublicacionControlador)
+admin.site.register(Logs)
