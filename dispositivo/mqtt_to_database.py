@@ -19,12 +19,12 @@ def registrar_sensor(id_sensor, msg, retain):
     now = timezone.now()
     try:
         sensor = Sensor.objects.get(id=id_sensor)
-        last_pub = PublicacionSensor.objects.filter(id_sensor_fk=sensor).last()
-        seconds_diff = (now - last_pub.fecha).total_seconds()
-        if seconds_diff > 60:
-            pub = PublicacionSensor(id_sensor_fk=sensor,
-                                    valor=msg, fecha=now, retain=retain)
-            pub.save()
+        # last_pub = PublicacionSensor.objects.filter(id_sensor_fk=sensor).last()
+        # seconds_diff = (now - last_pub.fecha).total_seconds()
+        # if seconds_diff > 60:
+        pub = PublicacionSensor(id_sensor_fk=sensor,
+                                valor=msg, fecha=now, retain=retain)
+        pub.save()
     except:
         print("\nError :(\n")
 
@@ -33,12 +33,12 @@ def registrar_feedback(id_actuador, msg, retain):
     now = timezone.now()
     try:
         actuador = Actuador.objects.get(id=id_actuador)
-        last_pub = PublicacionActuador.objects.filter(id_actuador_fk=actuador).last()
-        seconds_diff = (now - last_pub.fecha).total_seconds()
-        if seconds_diff > 60:
-            pub = PublicacionActuador(
-                id_actuador_fk=actuador, valor=msg, fecha=now, retain=retain)
-            pub.save()
+        # last_pub = PublicacionActuador.objects.filter(id_actuador_fk=actuador).last()
+        # seconds_diff = (now - last_pub.fecha).total_seconds()
+        # if seconds_diff > 60:
+        pub = PublicacionActuador(
+            id_actuador_fk=actuador, valor=msg, fecha=now, retain=retain)
+        pub.save()
     except:
         print("\nError :(\n")
 
@@ -47,12 +47,12 @@ def registrar_status(id_controlador, msg, retain):
     now = timezone.now()
     try:
         controlador = Dispositivo.objects.get(id=id_controlador)
-        last_pub = PublicacionControlador.objects.filter(controlador=controlador).last()
-        seconds_diff = (now - last_pub.fecha).total_seconds()
-        if seconds_diff > 60:
-            pub = PublicacionControlador(
-                controlador=controlador, valor=msg, fecha=now, retain=retain)
-            pub.save()
+        # last_pub = PublicacionControlador.objects.filter(controlador=controlador).last()
+        # seconds_diff = (now - last_pub.fecha).total_seconds()
+        # if seconds_diff > 60:
+        pub = PublicacionControlador(
+            controlador=controlador, valor=msg, fecha=now, retain=retain)
+        pub.save()
     except:
         print("\nError :(\n")
 
