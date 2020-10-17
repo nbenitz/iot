@@ -10,7 +10,7 @@ import string
 broker_address = "broker.mqtt-dashboard.com"
 broker_port = 1883
 topic = "myiot87/#"
-client_name = 'myiot87-'.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+client_name = 'myiot87-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
 # client_name = config('MQTT_CLIENT', default='myiot87-django')
 
 
