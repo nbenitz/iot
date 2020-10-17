@@ -54,51 +54,7 @@
 	</div> <!-- Col -->
 </div> <!-- Row -->
 
-<div class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
-	style="display: none;">
-	<div class="modal-dialog modal-lg modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-body p-0">
-				<div class="card m-0 border-0">
-
-					<div class="modal-header py-3">
-						<h6 class="modal-title font-weight-bold text-primary" id="myLargeModalLabel">Gráfico</h6>
-						<button type="button" class="close" data-dismiss="modal" aria-label="close">
-							<span aria-hidden="true">x</span>
-						</button>
-					</div>
-
-					<div class="card-body">
-
-						<div class="span5 col-md-5" id="sandbox-container">
-							<div class="input-daterange input-group input-group-sm" id="datepicker">
-								<input type="text" id="id_fecha_inicial" class="dateinput form-control"
-									placeholder="Fecha Inicial" required="">
-								<div class="input-group-prepend">
-									<span class="input-group-text">a</span>
-								</div>
-								<input type="text" id="id_fecha_final" class="dateinput form-control"
-									placeholder="Fecha Final" required="" />
-								<div class="input-group-append">
-									<button class="btn btn-secondary" type="button" id="btn-date">Ver</button>
-								</div>
-							</div>
-						</div>
-
-						<div id="modal-container">
-
-						</div>
-
-					</div>
-
-				</div>
-				<!--  -->
-			</div>
-		</div>
-	</div>
-</div>
-
-
+{% include "include/modal_historial.html" %}
 
 <script type="text/javascript">
 
@@ -109,89 +65,6 @@
 		});
 	}
 	MQTTconnect();
-
-	var fecha_inicial;
-	var fecha_final;
-	var url;
-
-	function reset_datapiker() {
-		var today = new Date();
-		var dd = String(today.getDate()).padStart(2, '0');
-		var mm = String(today.getMonth() + 1).padStart(2, '0');
-		var yyyy = today.getFullYear();
-		today = dd + '/' + mm + '/' + yyyy;
-		$("#id_fecha_inicial").val(today);
-		$("#id_fecha_final").val(today);
-		fecha_inicial = yyyy + '-' + mm + '-' + dd;
-		fecha_final = fecha_inicial;
-	}
-
-	function insert_modal(btn) {
-		reset_datapiker();
-		url = btn.attr('data-href');
-		$("#myLargeModalLabel").text(btn.text())
-		spinner();
-		call_ajax();
-	}
-
-	function spinner() {
-		$("#modal-container div").remove();
-		$("#modal-container").append(
-			"<div class='fa-3x row justify-content-center my-5 py-5'>" +
-			"<i class='fas fa-spinner fa-spin'></i>" +
-			"</div>"
-		);
-	}
-
-	function call_ajax() {
-		$.ajax({
-			method: 'GET',
-			url: url,
-			data: {
-				'start': fecha_inicial,
-				'end': fecha_final
-			},
-			dataType: 'json',
-			success: function (data) {
-				$('#modal-container').html(data.result)
-			}
-		})
-	}
-
-	$('.list_button').click(function (evt) {
-		evt.preventDefault();
-		insert_modal($(this))
-	});
-
-	$('.chart_button').click(function (evt) {
-		evt.preventDefault();
-		insert_modal($(this))
-	});
-
-	$("#id_fecha_inicial").change(function () {
-		fecha_inicial = $(this).val().split("/").reverse().join("-");
-		console.log(fecha_inicial);
-	});
-
-	$("#id_fecha_final").change(function () {
-		fecha_final = $(this).val().split("/").reverse().join("-");
-		console.log(fecha_final);
-	});
-
-	$('#btn-date').click(function (evt) {
-		spinner();
-		call_ajax();
-	});
-
-	$(document).ready(function () {
-		$('#sandbox-container .input-daterange').datepicker({
-			format: "dd/mm/yyyy",
-			language: "es",
-			forceParse: false,
-			autoclose: true,
-			todayHighlight: true
-		});
-	});
 
 </script>
 

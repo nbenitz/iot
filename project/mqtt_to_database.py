@@ -11,31 +11,31 @@ broker_port = 1883
 topic = "myiot87/#"
 
 
-def registrar_sensor(id_sensor, msg):
+def registrar_sensor(id_sensor, msg, retain):
     now = timezone.now()
     try:
         sensor = Sensor.objects.get(id=id_sensor)
-        pub = PublicacionSensor(id_sensor_fk=sensor, valor=msg, fecha=now)
+        pub = PublicacionSensor(id_sensor_fk=sensor, valor=msg, fecha=now, retain=retain)
         pub.save()
     except:
         print("\nError :(\n")
         
     
-def registrar_feedback(id_actuador, msg):
+def registrar_feedback(id_actuador, msg, retain):
     now = timezone.now()
     try:
         actuador = Actuador.objects.get(id=id_actuador)
-        pub = PublicacionActuador(id_actuador_fk=actuador, valor=msg, fecha=now)
+        pub = PublicacionActuador(id_actuador_fk=actuador, valor=msg, fecha=now, retain=retain)
         pub.save()
     except:
         print("\nError :(\n")
 
 
-def registrar_status(id_controlador, msg):
+def registrar_status(id_controlador, msg, retain):
     now = timezone.now()
     try:
         controlador = Dispositivo.objects.get(id=id_controlador)
-        pub = PublicacionControlador(controlador=controlador, valor=msg, fecha=now)
+        pub = PublicacionControlador(controlador=controlador, valor=msg, fecha=now, retain=retain)
         pub.save()
     except:
         print("\nError :(\n")
@@ -49,10 +49,11 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, message):
     msg = str(message.payload.decode("utf-8"))
+    retain = bool(message.retain)
     print("Mensaje recibido=", msg)
     print("Topic=", message.topic)
     print("Nivel de calidad [0|1|2]=", message.qos)
-    print("Flag de retención=", message.retain)
+    print("Flag de retención=", retain)
     print("---------------------------------------------")
     print("")
     topic_parts = message.topic.split('/')
@@ -60,13 +61,13 @@ def on_message(client, userdata, message):
     id_disp = topic_parts[2]
     print("Topic: ", sub_topic, ",  id: ", id_disp)
     if sub_topic == "sensor":
-        registrar_sensor(id_disp, msg)
+        registrar_sensor(id_disp, msg, retain)
         
     if sub_topic == "feedback":
-        registrar_feedback(id_disp, msg)
+        registrar_feedback(id_disp, msg, retain)
 
     if sub_topic == "status":
-        registrar_status(id_disp, msg)
+        registrar_status(id_disp, msg, retain)
 
 
 def mqtt_loop():

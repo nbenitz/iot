@@ -33,8 +33,9 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
     for i, id_sensor in enumerate(id_sensor_list):
         sensor = get_object_or_404(Sensor, id=id_sensor)
         qs = PublicacionSensor.objects.filter(
-            id_sensor_fk=sensor).filter(
-                fecha__range=[start, end]
+            id_sensor_fk=sensor,
+            retain=0,
+            fecha__range=[start, end]
         )
 
         if not qs.exists():
@@ -90,8 +91,15 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
     return plot_div
 
 
-def plot_controller(id_controller_list, timezone_name):
+def plot_controller(id_controller_list, timezone_name, start, end):
     tz = pytz.timezone(timezone_name)
+
+    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    timezone.localtime(start, tz)
+
+    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    end = end + timedelta(days=1)
+    timezone.localtime(end, tz)
 
     colors = ['red', ]
     #mode_size = [6, 8]
@@ -101,7 +109,10 @@ def plot_controller(id_controller_list, timezone_name):
 
     for i, id_controller in enumerate(id_controller_list):
         controller = get_object_or_404(Dispositivo, id=id_controller)
-        qs = PublicacionControlador.objects.filter(controlador=controller)
+        qs = PublicacionControlador.objects.filter(
+            controlador=controller, 
+            retain=0,
+            fecha__range=[start, end])
         x_df = pd.DataFrame(qs.values('fecha'))
         x_df['fecha'] = x_df['fecha'].map(
             lambda fecha: timezone.localtime(fecha, tz))

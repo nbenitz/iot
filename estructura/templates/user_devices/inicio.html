@@ -66,23 +66,25 @@
 									aria-labelledby="dropdown{{ controlador.id_dispositivo_fk.id }}">
 									<a class="dropdown-item detail_button" href="#"
 										data-href="{% url 'ajax_controller_detail' controlador.id_dispositivo_fk.id %}"
-										data-toggle="modal" data-target=".bd-modal-lg">
+										data-toggle="modal" data-target=".bd-modal-lg-2">
 										Detalles</a>
 									<a class="dropdown-item edit_button" href="#"
 										data-href="{% url 'ajax_controller_edit' controlador.id_dispositivo_fk.id %}"
-										data-toggle="modal" data-target=".bd-modal-lg">
+										data-toggle="modal" data-target=".bd-modal-lg-2">
 										Cambiar Nombre</a>
 									<form method="POST" action="{% url 'eliminarUserDispositivo' controlador.id %}">
 										{% csrf_token %}
 										<button class="dropdown-item btn-link" onclick="return eliminar();">
 											Quitar</button>
 									</form>
+									<a class="dropdown-item list_button" href="#"
+										data-href="{% url 'ajax_status_pub' controlador.id_dispositivo_fk.id %}"
+										data-toggle="modal" data-target=".bd-modal-lg">
+										Hirtorial Conexión</a>
 									<a class="dropdown-item chart_button" href="#"
 										data-href="{% url 'ajax_controller_plot' controlador.id_dispositivo_fk.id %}"
 										data-toggle="modal" data-target=".bd-modal-lg">
 										Gráfico Conexión</a>
-
-
 
 								</div>
 							</div>
@@ -116,7 +118,7 @@
 										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
 											aria-labelledby="dropdown-sens{{ controlador.id_dispositivo_fk.id }}">
 											<a class="dropdown-item detail_button" href="#" data-href="#"
-												data-toggle="modal" data-target=".bd-modal-lg">
+												data-toggle="modal" data-target=".bd-modal-lg-2">
 												Detalles</a>
 										</div>
 									</div>
@@ -154,7 +156,7 @@
 										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
 											aria-labelledby="dropdown-act{{ controlador.id_dispositivo_fk.id }}">
 											<a class="dropdown-item detail_button" href="#" data-href="#"
-												data-toggle="modal" data-target=".bd-modal-lg">
+												data-toggle="modal" data-target=".bd-modal-lg-2">
 												Detalles</a>
 										</div>
 									</div>
@@ -183,16 +185,18 @@
 	</div> <!-- Col -->
 </div> <!-- Row -->
 
-<div class="modal fade bd-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
+<div class="modal fade bd-modal-lg-2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel2" aria-hidden="true"
 	style="display: none;">
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
-			<div class="modal-body p-0" id="modal-container">
-				<!--  -->
+			<div class="modal-body p-0" id="modal-container-2">
+
 			</div>
 		</div>
 	</div>
 </div>
+
+{% include "include/modal_historial.html" %}
 
 <script>
 	$('.detail_button').click(function (evt) {
@@ -205,7 +209,7 @@
 			dataType: 'json',
 
 			success: function (data) {
-				$('#modal-container').html(data.result)
+				$('#modal-container-2').html(data.result)
 			}
 		})
 	});
@@ -220,22 +224,7 @@
 			dataType: 'json',
 
 			success: function (data) {
-				$('#modal-container').html(data.result)
-			}
-		})
-	});
-
-	$('.chart_button').click(function (evt) {
-		evt.preventDefault();
-		const btn = $(this);
-		const url = btn.attr('data-href');
-		$.ajax({
-			method: 'GET',
-			url: url,
-			dataType: 'json',
-
-			success: function (data) {
-				$('#modal-container').html(data.result)
+				$('#modal-container-2').html(data.result)
 			}
 		})
 	});

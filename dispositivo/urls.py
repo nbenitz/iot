@@ -7,7 +7,7 @@ from .views import SensorListado, SensorCrear, SensorActualizar, SensorDetalle, 
             TipoSensorListado, TipoSensorCrear, TipoSensorActualizar, TipoSensorDetalle, TipoSensorEliminar, \
                 TipoActuadorListado, TipoActuadorCrear, TipoActuadorActualizar, TipoActuadorDetalle, TipoActuadorEliminar, \
                     ajax_controlador_detalle, ajax_controlador_actualizar, SensorPubListado, ajax_sensor_pubs, ajax_sensor_plot, \
-                        ajax_controller_plot
+                        ajax_controller_plot, ajax_status_pubs
 from dispositivo.views import SensorMonitor, SensorMonitor2
 
 urlpatterns = [
@@ -52,6 +52,7 @@ urlpatterns = [
     path('ajax/controller-details/<int:pk>', ajax_controlador_detalle, name='ajax_controller_detail'),
     path('ajax/controller-edit/<int:pk>', ajax_controlador_actualizar, name='ajax_controller_edit'),
     path('ajax/sensor-pubs/<int:id_sensor>', ajax_sensor_pubs, name='ajax_sensor_pub'),
+    path('ajax/status-pubs/<int:id_controller>', ajax_status_pubs, name='ajax_status_pub'),
     path('ajax/sensor-plot/<int:id_sensor>', ajax_sensor_plot, name='ajax_sensor_plot'),
     path('ajax/controller-plot/<int:id_controller>', ajax_controller_plot, name='ajax_controller_plot'),
 

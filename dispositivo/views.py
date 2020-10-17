@@ -12,7 +12,7 @@ from django.utils import timezone
 import pytz
 from datetime import datetime, timedelta
 
-from dispositivo.models import Dispositivo, Sensor, TipoSensor, Actuador, TipoActuador, PublicacionSensor, PublicacionActuador
+from dispositivo.models import Dispositivo, Sensor, TipoSensor, Actuador, TipoActuador, PublicacionSensor, PublicacionActuador, PublicacionControlador
 from dispositivo.forms import DispositivoForm
 from persona.models import User
 from estructura.models import UserDispositivo
@@ -332,6 +332,36 @@ def ajax_sensor_pubs(request, id_sensor):
     sensor = get_object_or_404(Sensor, id=id_sensor)
     pubs = PublicacionSensor.objects.filter(
         id_sensor_fk=sensor,
+        retain=0,
+        fecha__range=[start, end]
+    ).order_by('-fecha')
+
+    data = dict()
+    data['result'] = render_to_string(template_name='include/lista_sensor_pub_container.html',
+                                      request=request,
+                                      context={'object_list': pubs})
+    return JsonResponse(data)
+
+def ajax_status_pubs(request, id_controller):
+    start = request.GET.get('start')
+    end = request.GET.get('end')
+
+    timezone_name = request.session.get('user_timezone')
+    if not timezone_name:
+        timezone_name = 'America/Asuncion'
+    tz = pytz.timezone(timezone_name)
+    
+    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    timezone.localtime(start, tz)
+
+    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    end = end + timedelta(days=1)
+    timezone.localtime(end, tz)
+
+    controller = get_object_or_404(Dispositivo, id=id_controller)
+    pubs = PublicacionControlador.objects.filter(
+        controlador=controller,
+        retain=0,
         fecha__range=[start, end]
     ).order_by('-fecha')
 
@@ -362,12 +392,13 @@ def ajax_sensor_plot(request, id_sensor):
 
 def ajax_controller_plot(request, id_controller):
     id_controller_list = [id_controller, ]
-
+    start = request.GET.get('start')
+    end = request.GET.get('end')
     timezone = request.session.get('user_timezone')
     if not timezone:
         timezone = 'America/Asuncion'
 
-    context = {"plot_sensor": plot_controller(id_controller_list, timezone)}
+    context = {"plot_sensor": plot_controller(id_controller_list, timezone, start, end)}
 
     data = dict()
     data['result'] = render_to_string(template_name='include/plot_sensor_container.html',
