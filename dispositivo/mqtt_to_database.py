@@ -60,7 +60,7 @@ def registrar_status(id_controlador, msg, retain):
 def registrar_log(log):
     now = timezone.now()
     try:
-        pub = Logs(fecha=now, evento=client_name + " | " + log)
+        pub = Logs(fecha=now, evento=log)
         pub.save()
     except:
         print("\nError :(\n")
