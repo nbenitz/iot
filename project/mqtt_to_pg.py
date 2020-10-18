@@ -131,3 +131,8 @@ def mqtt_loop():
 
 # if __name__ == '__main__':
 #     mqtt_loop()
+
+# host = 'ec2-3-220-222-72.compute-1.amazonaws.com'
+# user = 'btbksvqrjwykvd'
+# password = 'a2f6eeb62ac81de354af615b8806acf25ed5f6595f1b68c4113a9db71781b814'
+# database = 'dfhdbe2c627oct'

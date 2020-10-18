@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 
 
 from .views import about, contact, inicio, tablero, set_user_timezone
-from .mqtt_to_pg import mqtt_loop
+# from .mqtt_to_pg import mqtt_loop
 # from concurrent.futures import ThreadPoolExecutor
 
 urlpatterns = [
@@ -49,4 +49,4 @@ admin.sites.AdminSite.site_header = 'Administración'
 
 # with ThreadPoolExecutor(max_workers=1) as executor:
 #    executor.submit(mqtt_loop())
-mqtt_loop()
+# mqtt_loop()
