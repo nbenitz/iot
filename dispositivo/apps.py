@@ -8,7 +8,11 @@ class DispositivoConfig(AppConfig):
         from .models import Logs
         event = 'MQTT to Database connected OK. Returned code = 0'
         last_pub = Logs.objects.filter(evento=event).last()
-        seconds_diff = (timezone.now() - last_pub.fecha).total_seconds()
-        print(seconds_diff)
-        if seconds_diff > 120:
-            mqtt_loop() # startup code here
+        if last_pub:          
+            seconds_diff = (timezone.now() - last_pub.fecha).total_seconds()
+            if seconds_diff > 120:
+                mqtt_loop()
+        else:
+            mqtt_loop()
+       
+            
