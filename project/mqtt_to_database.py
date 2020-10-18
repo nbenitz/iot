@@ -1,3 +1,4 @@
+import settings
 from dispositivo.models import Sensor, Actuador, Dispositivo, PublicacionSensor, PublicacionActuador, PublicacionControlador, Logs
 from django.utils import timezone
 import pytz
