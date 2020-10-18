@@ -29,8 +29,6 @@ db = psycopg2.connect(
 
 cursor = db.cursor()
 
-
-
 def registrar_sensor(id_sensor, msg, retain):
     now = datetime.datetime.now().astimezone(pytz.timezone('UTC'))
     sql = "INSERT INTO publicacion_sensor (id_sensor_fk, valor, fecha, retain) VALUES(%s, %s, %s, %s)"
@@ -48,6 +46,18 @@ def registrar_feedback(id_actuador, msg, retain):
     sql = "INSERT INTO publicacion_actuador (id_actuador_fk, valor, fecha, retain) VALUES(%s, %s, %s, %s)"
     try:
         cursor.execute(sql, (id_actuador, msg, now.strftime("%Y-%m-%d %H:%M:%S"), bool(retain)))
+        db.commit()
+    except:
+        db.rollback()
+        print("error")
+        
+    db.close
+
+def registrar_status(id_controlador, msg, retain):
+    now = datetime.datetime.now().astimezone(pytz.timezone('UTC'))
+    sql = "INSERT INTO publicacion_controlador (controlador, valor, fecha, retain) VALUES(%s, %s, %s, %s)"
+    try:
+        cursor.execute(sql, (id_controlador, msg, now.strftime("%Y-%m-%d %H:%M:%S"), bool(retain)))
         db.commit()
     except:
         db.rollback()
@@ -109,11 +119,15 @@ def on_disconnect(client, userdata, rc):
 
 def mqtt_loop():
     print("loop")
-    client = mqtt.Client('Cliente1', userdata="UsuarioServer") 
-    client.on_connect = on_connect 
-    client.on_message = on_message 
-    client.connect(broker_address, broker_port, 60)
-    client.loop_start()
+    client = mqtt.Client(client_name, userdata="UsuarioServer")
+    client.on_connect = on_connect
+    client.on_message = on_message
+    client.on_disconnect = on_disconnect
+    try:
+        client.connect(broker_address, broker_port, 60)
+        client.loop_start()
+    except:
+        registrar_log("Error en la conexión MQTT.")
 
-if __name__ == '__main__':
-    mqtt_loop()
+# if __name__ == '__main__':
+#     mqtt_loop()
