@@ -22,38 +22,27 @@ user = getFromDict(DATABASES, ["default", "USER"])
 password = getFromDict(DATABASES, ["default", "PASSWORD"])
 database = getFromDict(DATABASES, ["default", "NAME"])
 
-# connect to the PostgreSQL server
 db = psycopg2.connect(
     host=host,
     database=database,
     user=user,
     password=password)
 
-# create a cursor
 cursor = db.cursor()
 
-now = datetime.datetime.now().astimezone(pytz.timezone('UTC'))
-sql = "INSERT INTO `publicacion_sensor` (`id_sensor_fk`, `valor`, `fecha`, `retain`) VALUES ({0}, {1}, '{2}', '{3}')".format(26, '50', now, 1)  
-try:
-    cursor.execute(sql)
-    db.commit()
-    print("\nInsert Ok\n")
-except:
-    db.rollback()
-    print("\nerror :(\n")
-        
-db.close
+
 
 def registrar_sensor(id_sensor, msg, retain):
-    now = timezone.now()
-    sql = "INSERT INTO `publicacion_sensor` (`id_sensor_fk`, `valor`, `fecha`, `retain`) VALUES ({0}, {1}, '{2}', '{3}')".format(id_sensor, msg, now, retain)  
+    now = datetime.datetime.now().astimezone(pytz.timezone('UTC'))
+    sql = "INSERT INTO publicacion_sensor (id_sensor_fk, valor, fecha, retain) VALUES(%s, %s, %s, %s)"
     try:
-        cursor.execute(sql)
+        cursor.execute(sql, (id_sensor, msg, now.strftime("%Y-%m-%d %H:%M:%S"), bool(retain)))
         db.commit()
+        print("\nInsert Ok\n")
     except:
         db.rollback()
         print("\nerror :(\n")
-        
+
     db.close
     
 def registrar_feedback_mysql(id_actuador, msg):
