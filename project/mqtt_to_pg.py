@@ -2,6 +2,7 @@ from settings import DATABASES
 import psycopg2
 import paho.mqtt.client as mqtt
 import datetime
+import pytz
 from functools import reduce
 import operator
 import random
@@ -31,7 +32,7 @@ db = psycopg2.connect(
 # create a cursor
 cursor = db.cursor()
 
-now = timezone.now()
+now = datetime.datetime.now().astimezone(pytz.timezone('UTC'))
 sql = "INSERT INTO `publicacion_sensor` (`id_sensor_fk`, `valor`, `fecha`, `retain`) VALUES ({0}, {1}, '{2}', '{3}')".format(26, '50', now, 1)  
 try:
     cursor.execute(sql)
