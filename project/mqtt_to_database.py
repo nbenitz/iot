@@ -1,3 +1,5 @@
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 import settings
 from dispositivo.models import Sensor, Actuador, Dispositivo, PublicacionSensor, PublicacionActuador, PublicacionControlador, Logs
 from django.utils import timezone
