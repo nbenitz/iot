@@ -6,6 +6,7 @@ from functools import reduce
 import operator
 import random
 import string
+from django.utils import timezone
 
 broker_address = "broker.mqtt-dashboard.com"
 broker_port = 1883
@@ -29,6 +30,18 @@ db = psycopg2.connect(
 
 # create a cursor
 cursor = db.cursor()
+
+now = timezone.now()
+sql = "INSERT INTO `publicacion_sensor` (`id_sensor_fk`, `valor`, `fecha`, `retain`) VALUES ({0}, {1}, '{2}', '{3}')".format(26, '50', now, 1)  
+try:
+    cursor.execute(sql)
+    db.commit()
+    print("\nInsert Ok\n")
+except:
+    db.rollback()
+    print("\nerror :(\n")
+        
+db.close
 
 def registrar_sensor(id_sensor, msg, retain):
     now = timezone.now()
