@@ -184,4 +184,4 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 AUTH_USER_MODEL = "persona.User"
 
 if config('DJANGO_PRODUCTION', default=False, cast=bool):
-    from .settings_production import *
+    from project.settings_production import *
