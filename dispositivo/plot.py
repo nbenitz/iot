@@ -16,11 +16,10 @@ from .models import Sensor, Dispositivo, PublicacionSensor, PublicacionControlad
 def plot_sensor(id_sensor_list, timezone_name, start, end):
     tz = pytz.timezone(timezone_name)
 
-    start = datetime.strptime(
-        start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    start = datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
     timezone.localtime(start, tz)
 
-    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    end = datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
     end = end + timedelta(days=1)
     timezone.localtime(end, tz)
     print(start)
@@ -127,11 +126,10 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
 def plot_controller(id_controller_list, timezone_name, start, end):
     tz = pytz.timezone(timezone_name)
 
-    start = datetime.strptime(
-        start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    start = datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
     timezone.localtime(start, tz)
 
-    end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    end = datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
     end = end + timedelta(days=1)
     timezone.localtime(end, tz)
 
