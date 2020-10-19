@@ -324,11 +324,11 @@ def ajax_sensor_pubs(request, id_sensor):
     utc = pytz.timezone('UTC')
     
     start = datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S").astimezone(lz)
-    timezone.localtime(start, utc)
+    # timezone.localtime(start, utc)
 
     end = datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S").astimezone(lz)
     end = end + timedelta(days=1)
-    timezone.localtime(end, utc)
+    # timezone.localtime(end, utc)
 
     sensor = get_object_or_404(Sensor, id=id_sensor)
     pubs = PublicacionSensor.objects.filter(
