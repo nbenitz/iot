@@ -14,16 +14,15 @@ from .models import Sensor, Dispositivo, PublicacionSensor, PublicacionControlad
 
 
 def plot_sensor(id_sensor_list, timezone_name, start, end):
-    tz = pytz.timezone(timezone_name)
+    lz = pytz.timezone(timezone_name)
+    utc = pytz.timezone('UTC')
 
-    start = datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
-    timezone.localtime(start, tz)
+    start = datetime.strptime(str(start), "%Y-%m-%d")
+    start = lz.localize(start).astimezone(utc)
 
-    end = datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
+    end = datetime.strptime(str(end), "%Y-%m-%d")
+    end = lz.localize(end).astimezone(utc)
     end = end + timedelta(days=1)
-    timezone.localtime(end, tz)
-    print(start)
-    print(end)
 
     colors = ['red', ]
     #mode_size = [6, 8]
@@ -44,7 +43,7 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
 
         x_df = pd.DataFrame(qs.values('fecha'))
         x_df['fecha'] = x_df['fecha'].map(
-            lambda fecha: timezone.localtime(fecha, tz))
+            lambda fecha: timezone.localtime(fecha, lz))
 
         x_data = np.array(list(x_df['fecha']))
         y_data = np.array(list(qs.values_list('valor', flat=True)))
@@ -124,14 +123,15 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
 
 
 def plot_controller(id_controller_list, timezone_name, start, end):
-    tz = pytz.timezone(timezone_name)
+    lz = pytz.timezone(timezone_name)
+    utc = pytz.timezone('UTC')
 
-    start = datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
-    timezone.localtime(start, tz)
+    start = datetime.strptime(str(start), "%Y-%m-%d")
+    start = lz.localize(start).astimezone(utc)
 
-    end = datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
+    end = datetime.strptime(str(end), "%Y-%m-%d")
+    end = lz.localize(end).astimezone(utc)
     end = end + timedelta(days=1)
-    timezone.localtime(end, tz)
 
     colors = ['red', ]
     #mode_size = [6, 8]
@@ -145,9 +145,13 @@ def plot_controller(id_controller_list, timezone_name, start, end):
             controlador=controller,
             retain=0,
             fecha__range=[start, end])
+
+        if not qs.exists():
+            return "<div class='row justify-content-center my-5 py-5'>" + \
+                "No hay resultados para el rango de fechas</div>"
+
         x_df = pd.DataFrame(qs.values('fecha'))
-        x_df['fecha'] = x_df['fecha'].map(
-            lambda fecha: timezone.localtime(fecha, tz))
+        x_df['fecha'] = x_df['fecha'].map(lambda fecha: timezone.localtime(fecha, lz))
         x_data = np.array(list(x_df['fecha']))
         y_data = np.array(list(qs.values_list('valor', flat=True)))
         fig.add_trace(go.Scatter(x=x_data,

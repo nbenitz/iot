@@ -55,7 +55,7 @@
 		today = dd + '/' + mm + '/' + yyyy;
 		$("#id_fecha_inicial").val(today);
 		$("#id_fecha_final").val(today);
-		fecha_inicial = yyyy + '-' + mm + '-' + dd + ' 03:00:00';
+		fecha_inicial = yyyy + '-' + mm + '-' + dd;
 		fecha_final = fecha_inicial;
 	}
 
@@ -102,13 +102,13 @@
 	});
 
 	$("#id_fecha_inicial").change(function () {
-		fecha_inicial = $(this).val().split("/").reverse().join("-") + ' 03:00:00';
-		console.log($(this).val());
+		fecha_inicial = $(this).val().split("/").reverse().join("-");
+		console.log(fecha_inicial);
 	});
 
 	$("#id_fecha_final").change(function () {
-		fecha_final = $(this).val().split("/").reverse().join("-") + ' 03:00:00';
-		console.log($(this).val());
+		fecha_final = $(this).val().split("/").reverse().join("-");
+		console.log(fecha_final);
 	});
 
 	$('#btn-date').click(function (evt) {

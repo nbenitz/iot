@@ -323,12 +323,12 @@ def ajax_sensor_pubs(request, id_sensor):
     lz = pytz.timezone(timezone_name)
     utc = pytz.timezone('UTC')
     
-    start = datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S").astimezone(lz)
-    # timezone.localtime(start, utc)
+    start = datetime.strptime(str(start), "%Y-%m-%d")
+    start = lz.localize(start).astimezone(utc)
 
-    end = datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S").astimezone(lz)
+    end = datetime.strptime(str(end), "%Y-%m-%d")
+    end = lz.localize(end).astimezone(utc)
     end = end + timedelta(days=1)
-    # timezone.localtime(end, utc)
 
     sensor = get_object_or_404(Sensor, id=id_sensor)
     pubs = PublicacionSensor.objects.filter(
@@ -350,14 +350,15 @@ def ajax_status_pubs(request, id_controller):
     timezone_name = request.session.get('user_timezone')
     if not timezone_name:
         timezone_name = 'America/Asuncion'
-    tz = pytz.timezone(timezone_name)
-    
-    start = datetime.strptime(str(start), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
-    timezone.localtime(start, tz)
+    lz = pytz.timezone(timezone_name)
+    utc = pytz.timezone('UTC')
 
-    end = datetime.strptime(str(end), "%Y-%m-%d %H:%M:%S").astimezone(pytz.timezone('UTC'))
+    start = datetime.strptime(str(start), "%Y-%m-%d")
+    start = lz.localize(start).astimezone(utc)
+
+    end = datetime.strptime(str(end), "%Y-%m-%d")
+    end = lz.localize(end).astimezone(utc)
     end = end + timedelta(days=1)
-    timezone.localtime(end, tz)
 
     controller = get_object_or_404(Dispositivo, id=id_controller)
     pubs = PublicacionControlador.objects.filter(
