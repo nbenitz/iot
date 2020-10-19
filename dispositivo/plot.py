@@ -15,8 +15,9 @@ from .models import Sensor, Dispositivo, PublicacionSensor, PublicacionControlad
 
 def plot_sensor(id_sensor_list, timezone_name, start, end):
     tz = pytz.timezone(timezone_name)
-    
-    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+
+    start = datetime.strptime(
+        start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
     timezone.localtime(start, tz)
 
     end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
@@ -40,7 +41,7 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
 
         if not qs.exists():
             return "<div class='row justify-content-center my-5 py-5'>" + \
-                "No hay resultador para el rango de fechas</div>"
+                "No hay resultados para el rango de fechas</div>"
 
         x_df = pd.DataFrame(qs.values('fecha'))
         x_df['fecha'] = x_df['fecha'].map(
@@ -75,6 +76,7 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
         yaxis_title=None,
         margin=dict(l=10, r=10, t=10, b=10),
         #width = 800,
+        height=300,
         # paper_bgcolor="lightgrey",
         legend=dict(
             orientation="h",
@@ -82,6 +84,37 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
             y=1.02,
             xanchor="right",
             x=1
+        )
+    )
+
+    # Add range slider
+    fig.update_layout(
+        xaxis=go.layout.XAxis(
+            # rangeselector=dict(
+            #     buttons=list([
+            #         dict(count=1,
+            #             label="1m",
+            #             step="month",
+            #             stepmode="backward"),
+            #         dict(count=6,
+            #             label="6m",
+            #             step="month",
+            #             stepmode="backward"),
+            #         dict(count=1,
+            #             label="YTD",
+            #             step="year",
+            #             stepmode="todate"),
+            #         dict(count=1,
+            #             label="1y",
+            #             step="year",
+            #             stepmode="backward"),
+            #         dict(step="all")
+            #     ])
+            # ),
+            rangeslider=dict(
+                visible=True
+            ),
+            type="date"
         )
     )
 
@@ -94,7 +127,8 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
 def plot_controller(id_controller_list, timezone_name, start, end):
     tz = pytz.timezone(timezone_name)
 
-    start = datetime.strptime(start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
+    start = datetime.strptime(
+        start, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
     timezone.localtime(start, tz)
 
     end = datetime.strptime(end, "%Y-%m-%d").astimezone(pytz.timezone('UTC'))
@@ -110,7 +144,7 @@ def plot_controller(id_controller_list, timezone_name, start, end):
     for i, id_controller in enumerate(id_controller_list):
         controller = get_object_or_404(Dispositivo, id=id_controller)
         qs = PublicacionControlador.objects.filter(
-            controlador=controller, 
+            controlador=controller,
             retain=0,
             fecha__range=[start, end])
         x_df = pd.DataFrame(qs.values('fecha'))

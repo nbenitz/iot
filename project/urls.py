@@ -44,9 +44,5 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.sites.AdminSite.site_header = 'Administración'
-#admin.sites.AdminSite.site_title = 'My site admin title'
-#admin.sites.AdminSite.index_title = 'My site admin index'
 
-# with ThreadPoolExecutor(max_workers=1) as executor:
-#    executor.submit(mqtt_loop())
 # mqtt_loop()
