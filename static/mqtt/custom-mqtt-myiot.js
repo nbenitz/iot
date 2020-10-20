@@ -38,6 +38,7 @@ function onFailure() {
 
 function onMessageArrived(msg) {
 	out_msg = "<- " + msg.destinationName + " | " + msg.payloadString;
+	retain = msg.retained;
 	console.log(out_msg);
 
 	var topic_parts = msg.destinationName.split('/');
@@ -73,13 +74,14 @@ function onMessageArrived(msg) {
 		}
 		else if ($("#sensor-" + id_sensor).length) {
 			$("#sensor-" + id_sensor).text(msg.payloadString);
+			if (!retain)
+				$("#uh-" + id_sensor).text('Última lectura a las ' + timeNow() + ' hs');
 			if ($("#progress-" + id_sensor)) {
 				var min = $("#progress-" + id_sensor).attr('aria-valuemin');
 				var max = $("#progress-" + id_sensor).attr('aria-valuemax');
 				var now = msg.payloadString;
 				var siz = (now - min) * 100 / (max - min);
 				$("#progress-" + id_sensor).attr('style', 'width:' + siz + '%');
-				//$("#progress-" + id_sensor).attr('style', 'width:' + msg.payloadString + '%');
 			}
 		}
 	}
@@ -139,6 +141,13 @@ function MQTTconnect() {
 	//mqtt.onConnected = onConnected;
 	mqtt.connect(options);
 	return false;
+}
+
+function timeNow() {
+	var d = new Date(),
+		h = (d.getHours() < 10 ? '0' : '') + d.getHours(),
+		m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+	return h + ':' + m;
 }
 
 function sub_topics() {
