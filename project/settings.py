@@ -118,8 +118,14 @@ DATABASES = {
         #'USER': 'lucatronic',
         #'PASSWORD': 'mysql1234',
         #'HOST': 'lucatronic.mysql.pythonanywhere-services.com',
+
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'inubudje',
+        # 'USER': 'inubudje',
+        # 'PASSWORD': 'D2JMU26UZ29wGaVqNorCAaAb5U5n_g3D',
+        # 'HOST': 'lallah.db.elephantsql.com',
+
         
-        'PORT': '3306',
     }
 }
 

@@ -333,7 +333,6 @@ def ajax_sensor_pubs(request, id_sensor):
     sensor = get_object_or_404(Sensor, id=id_sensor)
     pubs = PublicacionSensor.objects.filter(
         id_sensor_fk=sensor,
-        retain=0,
         fecha__range=[start, end]
     ).order_by('-fecha')
 
@@ -363,7 +362,6 @@ def ajax_status_pubs(request, id_controller):
     controller = get_object_or_404(Dispositivo, id=id_controller)
     pubs = PublicacionControlador.objects.filter(
         controlador=controller,
-        retain=0,
         fecha__range=[start, end]
     ).order_by('-fecha')
 

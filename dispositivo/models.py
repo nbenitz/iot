@@ -77,7 +77,6 @@ class PublicacionActuador(models.Model):
     id_actuador_fk = models.ForeignKey(Actuador, models.DO_NOTHING, db_column='id_actuador_fk')
     fecha = models.DateTimeField()
     valor = models.DecimalField(max_digits=3, decimal_places=0)
-    retain = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'publicacion_actuador'
@@ -90,7 +89,6 @@ class PublicacionSensor(models.Model):
     id_sensor_fk = models.ForeignKey('Sensor', models.DO_NOTHING, db_column='id_sensor_fk')
     fecha = models.DateTimeField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
-    retain = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'publicacion_sensor'
@@ -103,7 +101,6 @@ class PublicacionControlador(models.Model):
     controlador = models.ForeignKey('Dispositivo', models.DO_NOTHING, db_column='controlador')
     fecha = models.DateTimeField()
     valor = models.DecimalField(max_digits=1, decimal_places=0)
-    retain = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'publicacion_controlador'

@@ -128,7 +128,6 @@ class TableroDetalle(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         tablero = self.model.objects.get(id=self.kwargs['pk'])
         sensores = tablero.sensor.all()
-        print(sensores)
         sens_last_pub = PublicacionSensor.objects.values(
             'id_sensor_fk__id'
         ).annotate(
@@ -136,7 +135,6 @@ class TableroDetalle(LoginRequiredMixin, DetailView):
         ).filter(
             id_sensor_fk__in=sensores
         )
-        print(sens_last_pub)
         context.update(locals())
         return context
 

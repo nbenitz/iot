@@ -33,7 +33,6 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
         sensor = get_object_or_404(Sensor, id=id_sensor)
         qs = PublicacionSensor.objects.filter(
             id_sensor_fk=sensor,
-            retain=0,
             fecha__range=[start, end]
         )
 
@@ -143,7 +142,6 @@ def plot_controller(id_controller_list, timezone_name, start, end):
         controller = get_object_or_404(Dispositivo, id=id_controller)
         qs = PublicacionControlador.objects.filter(
             controlador=controller,
-            retain=0,
             fecha__range=[start, end])
 
         if not qs.exists():
