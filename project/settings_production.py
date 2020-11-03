@@ -106,8 +106,14 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-        'default': dj_database_url.config(
-        default=config('DATABASE_URL_ELEPHANTSQL')
+        # 'default': dj_database_url.config(
+        # default=config('DATABASE_URL')
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'inubudje',
+        'USER': 'inubudje',
+        'PASSWORD': 'D2JMU26UZ29wGaVqNorCAaAb5U5n_g3D',
+        'HOST': 'lallah.db.elephantsql.com',
     )
 }
 
