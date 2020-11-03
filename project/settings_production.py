@@ -14,7 +14,7 @@ import os
 import dj_database_url
 from decouple import config
 
-#from django.conf.global_settings import EMAIL_HOST, EMAIL_HOST_USER,\
+# from django.conf.global_settings import EMAIL_HOST, EMAIL_HOST_USER,\
 #    EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS, STATICFILES_DIRS,\
 #    LOGIN_REDIRECT_URL
 #from test_app.settings import SITE_ID
@@ -50,8 +50,8 @@ https://accounts.google.com/displayunlockcaptcha
 # Application definition
 
 INSTALLED_APPS = [
-    #apps django
-    #'registration', #should be immediately above 'django.contrib.admin'
+    # apps django
+    # 'registration', #should be immediately above 'django.contrib.admin'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,11 +59,11 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #apps terceros
+    # apps terceros
     'crispy_forms',
-    #'bootstrap4',
-    #'widget_tweaks',
-    #mis apps
+    # 'bootstrap4',
+    # 'widget_tweaks',
+    # mis apps
     'estructura',
     'dispositivo',
     'persona',
@@ -106,15 +106,16 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-        # 'default': dj_database_url.config(
-        # default=config('DATABASE_URL')
-
+    # 'default': dj_database_url.config(
+    #     default=config('DATABASE_URL')
+    # )
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'inubudje',
         'USER': 'inubudje',
         'PASSWORD': 'D2JMU26UZ29wGaVqNorCAaAb5U5n_g3D',
-        'HOST': 'lallah.db.elephantsql.com',
-    )
+        'HOST': 'lallah.db.elephantsql.com',       
+    }
 }
 
 
