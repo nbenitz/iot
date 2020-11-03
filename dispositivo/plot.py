@@ -34,7 +34,7 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
         qs = PublicacionSensor.objects.filter(
             id_sensor_fk=sensor,
             fecha__range=[start, end]
-        )
+        ).order_by('-fecha')
 
         if not qs.exists():
             return "<div class='row justify-content-center my-5 py-5'>" + \
