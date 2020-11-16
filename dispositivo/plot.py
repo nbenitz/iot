@@ -31,10 +31,9 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
 
     for i, id_sensor in enumerate(id_sensor_list):
         sensor = get_object_or_404(Sensor, id=id_sensor)
-        qs = PublicacionSensor.objects.filter(
-            id_sensor_fk=sensor,
-            fecha__range=[start, end]
-        ).order_by('fecha')
+        qs = PublicacionSensor.objects.filter(id_sensor_fk=sensor,
+                                              fecha__range=[start, end]
+                                              ).order_by('fecha')
 
         if not qs.exists():
             return "<div class='row justify-content-center my-5 py-5'>" + \
@@ -62,6 +61,10 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
             max_val = 60
         elif sensor.tipo.descripcion == 'Humedad':
             max_val = 100
+        elif sensor.tipo.descripcion == 'Ph':
+            max_val = 14
+        elif sensor.tipo.descripcion == 'Ec':
+            max_val = 1000
 
         fig.update_yaxes(type="linear",
                          range=[min_val, max_val],
@@ -142,14 +145,15 @@ def plot_controller(id_controller_list, timezone_name, start, end):
         controller = get_object_or_404(Dispositivo, id=id_controller)
         qs = PublicacionControlador.objects.filter(
             controlador=controller,
-            fecha__range=[start, end])
+            fecha__range=[start, end]).order_by('fecha')
 
         if not qs.exists():
             return "<div class='row justify-content-center my-5 py-5'>" + \
                 "No hay resultados para el rango de fechas</div>"
 
         x_df = pd.DataFrame(qs.values('fecha'))
-        x_df['fecha'] = x_df['fecha'].map(lambda fecha: timezone.localtime(fecha, lz))
+        x_df['fecha'] = x_df['fecha'].map(
+            lambda fecha: timezone.localtime(fecha, lz))
         x_data = np.array(list(x_df['fecha']))
         y_data = np.array(list(qs.values_list('valor', flat=True)))
         fig.add_trace(go.Scatter(x=x_data,
@@ -173,6 +177,7 @@ def plot_controller(id_controller_list, timezone_name, start, end):
         yaxis_title=None,
         margin=dict(l=10, r=10, t=10, b=10),
         #width = 800,
+        height=200,
         # paper_bgcolor="lightgrey",
         legend=dict(
             orientation="h",

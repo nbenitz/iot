@@ -28,6 +28,10 @@
 				{% include "sensor/type/temperature.html" %}
 				{% elif sensor.tipo|stringformat:"s" == "Humedad" %}
 				{% include "sensor/type/humidity.html" %}
+				{% elif sensor.tipo|stringformat:"s" == "Ph" %}
+				{% include "sensor/type/ph.html" %}
+				{% elif sensor.tipo|stringformat:"s" == "Ec" %}
+				{% include "sensor/type/tds.html" %}
 				{% elif sensor.tipo|stringformat:"s" == "Sensor de Puerta" %}
 				{% include "sensor/type/door.html" %}
 				{% endif %}

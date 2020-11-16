@@ -96,6 +96,8 @@ class PublicacionSensor(models.Model):
     def __str__(self):
         return str(self.id_sensor_fk) + " | " + str(self.fecha)
 
+    
+
 
 class PublicacionControlador(models.Model):
     controlador = models.ForeignKey('Dispositivo', models.DO_NOTHING, db_column='controlador')

@@ -15,7 +15,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.http import JsonResponse
-from django.db.models import Max
+# from django.db.models import Max
 
 # =================================== UserDispositivo ===========================================
 
@@ -127,14 +127,16 @@ class TableroDetalle(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         tablero = self.model.objects.get(id=self.kwargs['pk'])
-        sensores = tablero.sensor.all()
-        sens_last_pub = PublicacionSensor.objects.values(
-            'id_sensor_fk__id'
-        ).annotate(
-            Max('fecha')
-        ).filter(
-            id_sensor_fk__in=sensores
-        )
+        context.update(locals())
+        return context
+
+
+class TableroStats(LoginRequiredMixin, DetailView):
+    model = Tablero
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tablero = self.model.objects.get(id=self.kwargs['pk'])
         context.update(locals())
         return context
 

@@ -3,7 +3,7 @@
 from django.urls import path
 
 from .views import UserDispositivoListado, UserDispositivoCrear, UserDispositivoActualizar, UserDispositivoDetalle, UserDispositivoEliminar, \
-    TableroListado, TableroCrear, TableroActualizar, TableroDetalle, TableroEliminar, \
+    TableroListado, TableroCrear, TableroActualizar, TableroDetalle, TableroStats, TableroEliminar, \
         ajax_tablero_buttons
 
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
 
     path('tablero/', TableroListado.as_view(template_name = "tablero/index.html"), name='leerTablero'),
     path('tablero/detalle/<str:pk>', TableroDetalle.as_view(template_name = "tablero/detalles.html"), name='detallesTablero'),
+    path('tablero/stats/<str:pk>', TableroStats.as_view(template_name = "tablero/stats.html"), name='statsTablero'),
     path('tablero/crear', TableroCrear.as_view(template_name = "tablero/crear.html"), name='crearTablero'),
     path('tablero/editar/<str:pk>', TableroActualizar.as_view(template_name = "tablero/actualizar.html"), name='actualizarTablero'),
     path('tablero/eliminar/<str:pk>', TableroEliminar.as_view(), name='eliminarTablero'),
