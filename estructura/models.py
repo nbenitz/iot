@@ -1,7 +1,7 @@
 
 from django.db import models
 from persona.models import User
-from dispositivo.models import Dispositivo, Sensor, Actuador, PublicacionSensor
+from dispositivo.models import Dispositivo, Sensor, Actuador, PublicacionSensor, PublicacionActuador
 from django.db.models import Max
 from django.utils import timezone
 
@@ -68,15 +68,26 @@ class Tablero(models.Model):
         )  
         return last_pub
 
-    def today_avg(self):
-        sensor_list = self.sensor.all()
-        for i, sensor in enumerate(sensor_list):
-            # sensor = self.sensor.get(id=id_sensor)
-            # sensor = get_object_or_404(Sensor, id=id_sensor)
-            now = timezone.now()
-            print(now.strftime("%Y-%m-%d"))
-            qs = PublicacionSensor.objects.filter(id_sensor_fk=sensor,
-                                                  fecha__gte=now.strftime("%Y-%m-%d"),
-                                                  )
-            print(qs)
-        return qs
+    def act_last_pub(self):
+        actuadores = self.actuador.all()
+        last_pub = PublicacionActuador.objects.values(
+            'id_actuador_fk__id'
+        ).annotate(
+            Max('fecha')
+        ).filter(
+            id_actuador_fk__in=actuadores
+        )  
+        return last_pub
+
+    # def today_avg(self):
+    #     sensor_list = self.sensor.all()
+    #     for i, sensor in enumerate(sensor_list):
+    #         # sensor = self.sensor.get(id=id_sensor)
+    #         # sensor = get_object_or_404(Sensor, id=id_sensor)
+    #         now = timezone.now()
+    #         print(now.strftime("%Y-%m-%d"))
+    #         qs = PublicacionSensor.objects.filter(id_sensor_fk=sensor,
+    #                                               fecha__gte=now.strftime("%Y-%m-%d"),
+    #                                               )
+    #         print(qs)
+    #     return qs

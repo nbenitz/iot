@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from estructura.models import UserDispositivo, Tablero
+from django.db.models import Avg
 from estructura.forms import ControllerAddForm
 from dispositivo.models import Sensor, Actuador, Dispositivo, PublicacionSensor, PublicacionActuador, PublicacionControlador
 from django.urls import reverse
@@ -15,6 +16,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.utils import timezone
+import pytz
+from datetime import datetime
 # from django.db.models import Max
 
 # =================================== UserDispositivo ===========================================
@@ -137,6 +141,27 @@ class TableroStats(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         tablero = self.model.objects.get(id=self.kwargs['pk'])
+
+        timezone_name = self.request.session.get('user_timezone')
+        if not timezone_name:
+            timezone_name = 'America/Asuncion'
+        lz = pytz.timezone(timezone_name)
+        utc = pytz.timezone('UTC')
+
+        now = datetime.strptime(
+            timezone.now().strftime("%Y-%m-%d"), "%Y-%m-%d")
+        now = lz.localize(now).astimezone(utc)
+
+        sensor_list = tablero.sensor.all()
+        # pub = PublicacionSensor.objects.none
+        # for i, sensor in enumerate(sensor_list):
+        # sensor = self.sensor.get(id=id_sensor)
+        # sensor = get_object_or_404(Sensor, id=id_sensor)
+        pub = PublicacionSensor.objects.filter(id_sensor_fk__in=sensor_list,
+                                               fecha__gte=now,
+                                               ).aggregate(Avg('valor'))
+        # print(pub)
+
         context.update(locals())
         return context
 

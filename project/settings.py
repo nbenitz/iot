@@ -107,23 +107,23 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.mysql',        
+        'ENGINE': 'django.db.backends.mysql',        
     
-        # 'NAME': 'data',
-        # 'USER': 'root',
-        # 'PASSWORD': '1223',
-        # 'HOST': '127.0.0.1',
+        'NAME': 'data',
+        'USER': 'root',
+        'PASSWORD': '1223',
+        'HOST': '127.0.0.1',
         
         #'NAME': 'lucatronic$gestion',
         #'USER': 'lucatronic',
         #'PASSWORD': 'mysql1234',
         #'HOST': 'lucatronic.mysql.pythonanywhere-services.com',
 
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'inubudje',
-        'USER': 'inubudje',
-        'PASSWORD': 'D2JMU26UZ29wGaVqNorCAaAb5U5n_g3D',
-        'HOST': 'lallah.db.elephantsql.com',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'inubudje',
+        # 'USER': 'inubudje',
+        # 'PASSWORD': 'D2JMU26UZ29wGaVqNorCAaAb5U5n_g3D',
+        # 'HOST': 'lallah.db.elephantsql.com',
 
         
     }

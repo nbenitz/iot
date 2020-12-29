@@ -101,6 +101,8 @@ function onMessageArrived(msg) {
 					$('#act-btn-' + id_actuador).removeClass('btn-success').addClass('btn-danger');
 				}
 			}
+			if (!retain)
+				$("#uh-act-" + id_actuador).text('Última lectura a las ' + timeNow() + ' hs');
 		}
 	}
 

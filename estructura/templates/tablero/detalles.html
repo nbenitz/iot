@@ -31,7 +31,7 @@
 				{% elif sensor.tipo|stringformat:"s" == "Ph" %}
 				{% include "sensor/type/ph.html" %}
 				{% elif sensor.tipo|stringformat:"s" == "Ec" %}
-				{% include "sensor/type/tds.html" %}
+				{% include "sensor/type/ec.html" %}
 				{% elif sensor.tipo|stringformat:"s" == "Sensor de Puerta" %}
 				{% include "sensor/type/door.html" %}
 				{% endif %}

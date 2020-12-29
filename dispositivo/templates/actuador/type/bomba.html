@@ -17,14 +17,6 @@
                     </button>
                 </div>
             </div>
-            <div id="uh-act-{{actuador.id}}" class="text-xs text-gray-700 mx-0">
-                Última lectura hace 
-                {% for pub in object.act_last_pub.all %}
-                {% if pub.id_actuador_fk__id == actuador.id %}
-                {{ pub.fecha__max|timesince }} 
-                {% endif %}
-                {% endfor %}
-            </div>
         </div>
     </div>
 </div>

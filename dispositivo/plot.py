@@ -64,7 +64,7 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
         elif sensor.tipo.descripcion == 'Ph':
             max_val = 14
         elif sensor.tipo.descripcion == 'Ec':
-            max_val = 1000
+            max_val = 2100
 
         fig.update_yaxes(type="linear",
                          range=[min_val, max_val],
