@@ -29,8 +29,10 @@ class SensorListado(LoginRequiredMixin, ListView):
                      'plural': 'Sensores'}
 
 
+
 class SensorMonitorr(LoginRequiredMixin, ListView):
     model = Sensor
+
 
 
 class SensorMonitor(LoginRequiredMixin, TemplateView):
@@ -42,6 +44,7 @@ class SensorMonitor(LoginRequiredMixin, TemplateView):
                 'actuadores': actuadores}
 
 
+
 class SensorMonitor2(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
@@ -49,6 +52,7 @@ class SensorMonitor2(TemplateView):
         actuadores = Actuador.objects.all()
         return {'sensores': sensores,
                 'actuadores': actuadores}
+
 
 
 class SensorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -62,9 +66,11 @@ class SensorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse('leerSensor')
 
 
+
 class SensorDetalle(LoginRequiredMixin, DetailView):
     model = Sensor
     extra_context = {'titulo': 'Detalles del Sensor'}
+
 
 
 class SensorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -76,6 +82,7 @@ class SensorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('leerSensor')
+
 
 
 class SensorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -97,6 +104,7 @@ class ActuadorListado(LoginRequiredMixin, ListView):
                      'plural': 'Actuadores'}
 
 
+
 class ActuadorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Actuador
     form = Actuador
@@ -108,9 +116,11 @@ class ActuadorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse('leerActuador')
 
 
+
 class ActuadorDetalle(LoginRequiredMixin, DetailView):
     model = Actuador
     extra_context = {'titulo': 'Detalles del Actuador'}
+
 
 
 class ActuadorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -122,6 +132,7 @@ class ActuadorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('leerActuador')
+
 
 
 class ActuadorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -143,6 +154,7 @@ class DispositivoListado(LoginRequiredMixin, ListView):
                      'plural': 'Controladores'}
 
 
+
 class DispositivoCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Dispositivo
     form = Dispositivo
@@ -154,9 +166,11 @@ class DispositivoCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse('leerDispositivo')
 
 
+
 class DispositivoDetalle(LoginRequiredMixin, DetailView):
     model = Dispositivo
     extra_context = {'titulo': 'Detalles del Controlador'}
+
 
 
 class DispositivoActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -168,6 +182,7 @@ class DispositivoActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
 
     def get_success_url(self):
         return reverse('leerUserDispositivo')
+
 
 
 class DispositivoEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -189,6 +204,7 @@ class TipoSensorListado(LoginRequiredMixin, ListView):
                      'plural': 'Tipos de Sensores'}
 
 
+
 class TipoSensorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = TipoSensor
     form = TipoSensor
@@ -200,9 +216,11 @@ class TipoSensorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse('leerTipoSensor')
 
 
+
 class TipoSensorDetalle(LoginRequiredMixin, DetailView):
     model = TipoSensor
     extra_context = {'titulo': 'Detalles del Tipo de Sensor'}
+
 
 
 class TipoSensorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -214,6 +232,7 @@ class TipoSensorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('leerTipoSensor')
+
 
 
 class TipoSensorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -235,6 +254,7 @@ class TipoActuadorListado(LoginRequiredMixin, ListView):
                      'plural': 'Tipos de Actuadores'}
 
 
+
 class TipoActuadorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = TipoActuador
     form = TipoActuador
@@ -246,9 +266,11 @@ class TipoActuadorCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse('leerTipoActuador')
 
 
+
 class TipoActuadorDetalle(LoginRequiredMixin, DetailView):
     model = TipoActuador
     extra_context = {'titulo': 'Detalles del Tipo de Actuador'}
+
 
 
 class TipoActuadorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -260,6 +282,7 @@ class TipoActuadorActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView
 
     def get_success_url(self):
         return reverse('leerTipoActuador')
+
 
 
 class TipoActuadorEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -341,6 +364,7 @@ def ajax_sensor_pubs(request, id_sensor):
                                       request=request,
                                       context={'object_list': pubs})
     return JsonResponse(data)
+
 
 def ajax_status_pubs(request, id_controller):
     start = request.GET.get('start')

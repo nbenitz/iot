@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Bienvenidos{% endblock %}
+
+
+{% block content %}
+
+<div class='row justify-content-center'>
+	<div class='col-md-12 col-sm-offset-3'>
+		<div class="card border-0 rounded-0" style="min-height: calc(100vh - 76px);">
+
+			<div class="row">
+				<div class="col-md-3 card-side p-0 border-right rounded-0" style="min-height: calc(100vh - 76px);">
+					<div>
+						<h4 class="pt-3 pb2 pl-4 ml-4">Dispositivos</h4>
+					</div>
+					<div class="accordion" id="accordion">
+
+						<button class="btn card-collapse" type="button" data-toggle="collapse" data-target="#collapse1"
+							aria-expanded="true" aria-controls="collapse1">
+							<div><i class="fas fa-fw fa-microchip"></i>&nbsp;&nbsp;Control de Riego Timer</div>
+							<i class="fa fa-chevron-down" aria-hidden="true"></i>
+						</button>
+						<div id="collapse1" class="collapse" data-parent="#accordion">
+
+							<div class="accordion" id="accordion1">
+								<button class="btn card-collapse-sub" type="button" data-toggle="collapse"
+									data-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+									<div><i class="fas fa-fw fa-chart-area"></i>&nbsp;&nbsp;Sensores</div>
+									<i class="fa fa-chevron-down" aria-hidden="true"></i>
+								</button>
+								<div id="collapse11" class="collapse" data-parent="#accordion1">
+
+									<button class="btn card-collapse-item" type="button">
+										Sensor 1<i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+									<button class="btn card-collapse-item" type="button">
+										Sensor 2<i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+
+								</div>
+							</div>
+
+
+
+
+						</div>
+
+
+						<button class="btn card-collapse" type="button" data-toggle="collapse" data-target="#collapse2"
+							aria-expanded="false" aria-controls="collapse2">
+							<div><i class="fas fa-fw fa-microchip"></i>&nbsp;&nbsp;Control de Clima</div>
+							<i class="fa fa-chevron-down" aria-hidden="true"></i>
+						</button>
+						<div id="collapse2" class="collapse" data-parent="#accordion">
+							<div class="card-body">
+								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+								richardson ad squid.
+							</div>
+						</div>
+
+						<button class="btn card-collapse" type="button" data-toggle="collapse" data-target="#collapse3"
+							aria-expanded="false" aria-controls="collapse3">
+							<div><i class="fas fa-fw fa-microchip"></i>&nbsp;&nbsp;Dosificador Ph Ec</div>
+							<i class="fa fa-chevron-down" aria-hidden="true"></i>
+						</button>
+						<div id="collapse3" class="collapse" data-parent="#accordion">
+							<div class="card-body">
+								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+								richardson ad squid.
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div> <!-- Card -->
+	</div> <!-- Col -->
+</div> <!-- Row -->
+
+{% endblock %}
+
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+	style="min-height: calc(100vh - 150px)">
+
+	<!-- Sidebar - Brand -->
+	<div class="h5 mx-3 my-3" style="color: darkgray;">Dispositivos</div>
+
+	<!-- Divider -->
+	<!-- <hr class="sidebar-divider py-0"> -->
+	<!-- Divider -->
+	<hr class="sidebar-divider d-none d-md-block">
+
+	<!-- Nav Item -->
+	<li class="nav-item">
+		<a class="nav-link py-2" href="#">
+			<i class="fas fa-fw fa-microchip"></i>
+			<span>Controladores</span>
+		</a>
+	</li>
+
+	<!-- Nav Item - Pages Collapse Menu -->
+	<li class="nav-item">
+		<a class="nav-link collapsed py-2" href="#" data-toggle="collapse" data-target="#collapseSensor"
+			aria-expanded="true" aria-controls="collapseSensor">
+			<i class="fas fa-fw fa-tachometer-alt"></i>
+			<span>Sensores</span>
+		</a>
+		<div id="collapseSensor" class="collapse" aria-labelledby="headingSensor" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="#">Controladores</a>
+				<a class="collapse-item" href="{% url 'leerSensor' %}">Sensores</a>
+				<a class="collapse-item" href="#">Actuadores</a>
+			</div>
+		</div>
+	</li>
+
+	<!-- Nav Item - Pages Collapse Menu -->
+	<li class="nav-item">
+		<a class="nav-link collapsed py-2" href="#" data-toggle="collapse" data-target="#collapsePages"
+			aria-expanded="true" aria-controls="collapsePages">
+			<i class="fas fa-fw fa-chart-area"></i>
+			<span>Actuadores</span>
+		</a>
+		<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="#">Controladores</a>
+				<a class="collapse-item" href="{% url 'leerSensor' %}">Sensores</a>
+				<a class="collapse-item" href="#">Actuadores</a>
+			</div>
+		</div>
+	</li>
+
+
+</ul>
+<!-- End of Sidebar -->
+
+
+
+
+
+
+
+
+<div id="accordion">
+
+	<div class="card">
+		<div class="card-header">
+			<a class="card-link" data-toggle="collapse" href="#collapseOne">
+				Collapsible Group Item #1
+			</a>
+		</div>
+		<div id="collapseOne" class="collapse show" data-parent="#accordion">
+			<div class="card-body">
+				Lorem ipsum..
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-header">
+			<a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+				Collapsible Group Item #2
+			</a>
+		</div>
+		<div id="collapseTwo" class="collapse" data-parent="#accordion">
+			<div class="card-body">
+				Lorem ipsum..
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-header">
+			<a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+				Collapsible Group Item #3
+			</a>
+		</div>
+		<div id="collapseThree" class="collapse" data-parent="#accordion">
+			<div class="card-body">
+				Lorem ipsum..
+			</div>
+		</div>
+	</div>
+
+</div>

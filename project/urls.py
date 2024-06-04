@@ -29,7 +29,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('inicio/', inicio, name='inicio'),
+    path('', inicio, name='inicio'),
     path('contact/', contact, name='contact'),
     path('about/', about, name='about'),
     #path('tablero/', tablero, name='tablero'),
