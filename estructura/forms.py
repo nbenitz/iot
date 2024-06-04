@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserDispositivo
+from .models import UserDispositivo, Tablero
 from django.forms.models import ModelForm
 from django.forms.widgets import TextInput
 
@@ -22,3 +22,11 @@ class ControllerAddForm(ModelForm):
             raise forms.ValidationError("El Dispositivo ya existe en tu Lista de Dispositivos")
 
         return dispositivo 
+    
+
+
+class TableroForm(forms.ModelForm):
+    class Meta:
+        model = Tablero
+        fields = ['nombre', 'sensor', 'actuador']
+        exclude = ['id_user_fk'] 

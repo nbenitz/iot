@@ -11,11 +11,11 @@
 {% block content %}
 <div class='row justify-content-center'>
 	<div class='col-md-12 col-md-offset-3'>
-		<div class="card border-0 rounded-0" style="min-height: calc(100vh - 76px);">
+		<div class="card border-0 rounded-0" style="min-height: calc(100vh - 80px);">
 			<div id="messages" class="alert alert-primary" role="alert"></div>
 
 			<div class="row justify-content-center py-2 ">
-				<span class="h3 mb-0 font-weight-light">Invernadero Smart</span>
+				<span class="h3 mb-0 font-weight-light">{{ object.nombre }}</span>
 			</div>
 
 			{% if object.sensor.all %}
@@ -24,17 +24,27 @@
 			</div>
 			<div class="row m-0 justify-content-center">
 				{% for sensor in object.sensor.all %}
-				{% if sensor.tipo|stringformat:"s" == "Temperatura" %}
-				{% include "sensor/type/temperature.html" %}
-				{% elif sensor.tipo|stringformat:"s" == "Humedad" %}
-				{% include "sensor/type/humidity.html" %}
-				{% elif sensor.tipo|stringformat:"s" == "Ph" %}
-				{% include "sensor/type/ph.html" %}
-				{% elif sensor.tipo|stringformat:"s" == "Ec" %}
-				{% include "sensor/type/ec.html" %}
-				{% elif sensor.tipo|stringformat:"s" == "Sensor de Puerta" %}
-				{% include "sensor/type/door.html" %}
-				{% endif %}
+					{% if sensor.tipo|stringformat:"s" == "Temperatura" %}
+						{% include "sensor/type/temperature.html" %}
+					{% elif sensor.tipo|stringformat:"s" == "Humedad" %}
+						{% include "sensor/type/humidity.html" %}
+					{% elif sensor.tipo|stringformat:"s" == "Ph" %}
+						{% include "sensor/type/ph.html" %}
+					{% elif sensor.tipo|stringformat:"s" == "Ec" %}
+						{% include "sensor/type/ec.html" %}
+					{% elif sensor.tipo|stringformat:"s" == "Sensor de Puerta" %}
+						{% include "sensor/type/door.html" %}
+					{% elif sensor.tipo|stringformat:"s" == "Velocidad del Viento" %}
+						{% include "sensor/type/wind.html" %}
+					{% elif sensor.tipo|stringformat:"s" == "Presión Atmosférica" %}
+						{% include "sensor/type/pressure.html" %}
+					{% elif sensor.tipo|stringformat:"s" == "Corriente" %}
+						{% include "sensor/type/current.html" %}
+					{% elif sensor.tipo|stringformat:"s" == "Voltaje" %}
+						{% include "sensor/type/bolt.html" %}
+					{% else %}
+						{% include "sensor/type/humidity.html" %}
+					{% endif %}
 				{% endfor %}
 			</div>
 			{% endif %}

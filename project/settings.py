@@ -32,7 +32,9 @@ DEBUG = config('DJANGO_DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = [
     'myiot.pythonanywhere.com',
+    'localhost',
     '127.0.0.1',
+    '192.168.0.6',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -107,12 +109,15 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',        
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
+        #'ENGINE': 'django.db.backends.mysql',        
     
-        'NAME': 'data',
-        'USER': 'root',
-        'PASSWORD': '1223',
-        'HOST': '127.0.0.1',
+        #'NAME': 'data',
+        #'USER': 'root',
+        #'PASSWORD': 'Z.Checoslovaquia#',
+        #'HOST': '127.0.0.1',
         
         #'NAME': 'lucatronic$gestion',
         #'USER': 'lucatronic',

@@ -1,0 +1,58 @@
+{% extends "crud/card.html" %}
+{% load form_tags %}
+
+{% block card %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.nombre.label_tag }}
+        {{ form.nombre|add_class:"form-control" }}
+        {% if form.nombre.errors %}
+        <ul class="errors">
+            {% for error in form.nombre.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form.sensor.label_tag }}
+        {{ form.sensor|add_class:"form-control" }}
+		{% for error in form.sensor.errors %}
+		<p style="color: red; margin-left: 0.5rem;">{{ error }}</p>
+		{% endfor %}
+        {% if form.sensor.errors %}
+        <ul class="errors">
+            {% for error in form.sensor.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form.actuador.label_tag }}
+        {{ form.actuador|add_class:"form-control" }}
+        {% if form.actuador.errors %}
+        <ul class="errors">
+            {% for error in form.actuador.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i>
+        Aceptar
+    </button>
+
+    <a href="{{request.META.HTTP_REFERER}}" type="submit" class="btn btn-primary">
+        <i class="fas fa-caret-left"></i>
+        Cancelar
+    </a>
+</form>
+
+{% endblock %}

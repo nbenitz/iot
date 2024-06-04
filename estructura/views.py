@@ -7,9 +7,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from estructura.models import UserDispositivo, Tablero
 from django.db.models import Avg
-from estructura.forms import ControllerAddForm
+from estructura.forms import ControllerAddForm, TableroForm
 from dispositivo.models import Sensor, Actuador, Dispositivo, PublicacionSensor, PublicacionActuador, PublicacionControlador
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -75,9 +75,11 @@ class UserDispositivoCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse('leerUserDispositivo')
 
 
+
 class UserDispositivoDetalle(LoginRequiredMixin, DetailView):
     model = UserDispositivo
     extra_context = {'titulo': 'Detalles del Controlador'}
+
 
 
 class UserDispositivoActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -89,6 +91,7 @@ class UserDispositivoActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateV
 
     def get_success_url(self):
         return reverse('leerUserDispositivo')
+
 
 
 class UserDispositivoEliminar(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -116,13 +119,14 @@ class TableroListado(LoginRequiredMixin, ListView):
 
 class TableroCrear(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Tablero
-    form = Tablero
-    fields = "__all__"
+    form_class = TableroForm
     success_message = 'Tablero Creado Correctamente !'
     extra_context = {'titulo': 'Crear Tablero'}
+    success_url = reverse_lazy('leerTablero')
 
-    def get_success_url(self):
-        return reverse('leerTablero')
+    def form_valid(self, form):
+        form.instance.id_user_fk = self.request.user
+        return super().form_valid(form)
 
 
 class TableroDetalle(LoginRequiredMixin, DetailView):
@@ -168,10 +172,10 @@ class TableroStats(LoginRequiredMixin, DetailView):
 
 class TableroActualizar(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Tablero
-    form = Tablero
-    fields = "__all__"
+    form_class = TableroForm
     success_message = 'Tablero Actualizado Correctamente !'
     extra_context = {'titulo': 'Editar Tablero'}
+    #success_url = reverse_lazy('leerTablero')
 
     def get_success_url(self):
         return reverse('leerTablero')

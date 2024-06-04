@@ -111,6 +111,7 @@ class PublicacionControlador(models.Model):
         return str(self.controlador) + " | " + str(self.fecha)
 
 
+
 class Logs(models.Model):
     fecha = models.DateTimeField()
     evento = models.TextField()

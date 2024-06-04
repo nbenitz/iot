@@ -5,6 +5,19 @@
 
 {% block content %}
 
+	{% if form.errors %}
+	<div class="alert alert-danger" role="alert">
+		<h4 class="alert-heading">¡Ups! Se encontraron algunos errores:</h4>
+		<ul>
+			{% for field, errors in form.errors.items %}
+			{% for error in errors %}
+			<li>{{field}}. {{ error }}</li>
+			{% endfor %}
+			{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+
 	<div class='row justify-content-center align-items-center' style="min-height: calc(100vh - 76px);">
 		<div class='col-md-6 col-sm-offset-3'>				
 			<div class="card shadow my-3">

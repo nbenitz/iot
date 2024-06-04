@@ -1,0 +1,52 @@
+<!-- Card Temperatura -->
+<div id="disp-{{sensor.id_dispositivo_fk.id}}" class="col-md-2 m-2 p-0 disp">
+    <div class="card border-left-danger h-100 py-0 pb-3">
+        <div class="card-body p-0">
+
+            <div class="d-flex flex-row align-items-center justify-content-between">
+                <span class="align-middle"></span>
+                <div class="dropdown no-arrow align-items-right mx-2">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdown{{ sensor.id_dispositivo_fk.id }}"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-xs  text-gray-500"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                        aria-labelledby="dropdown{{ sensor.id_dispositivo_fk.id }}">
+                        <a class="dropdown-item list_button" href="#" data-href="{% url 'ajax_sensor_pub' sensor.id %}"
+                            data-toggle="modal" data-target=".bd-modal-lg">
+                            Historial</a>
+                        <a class="dropdown-item chart_button" href="#" data-href="{% url 'ajax_sensor_plot' sensor.id %}"
+                            data-toggle="modal" data-target=".bd-modal-lg">
+                            Gráfico</a>
+                        <a class="dropdown-item stat_button" href="{% url 'statsTablero' object.id %}">
+                            Estadísticas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters align-items-center mx-3 pb-1">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                        {{ sensor.descripcion }}</div>
+                    <div class="row no-gutters align-items-center pb-1">
+                        <div id="sensor-{{sensor.id}}" class="h5 mb-0 font-weight-bold text-gray-800 sensor">
+                            ---</div>
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                            &deg;C</div>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-temperature-low fa-2x text-gray-500 mt-2"></i>
+                </div>
+            </div>
+            <div id="uh-{{sensor.id}}" class="text-xs text-gray-700 mx-3">
+                Última lectura hace 
+                {% for pub in object.sens_last_pub.all %}
+                {% if pub.id_sensor_fk__id == sensor.id %}
+                {{ pub.fecha__max|timesince }} 
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

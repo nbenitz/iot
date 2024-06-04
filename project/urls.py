@@ -24,7 +24,8 @@ from django.conf.urls.static import static
 
 from .views import about, contact, inicio, tablero, set_user_timezone
 # from .mqtt_to_pg import mqtt_loop
-# from concurrent.futures import ThreadPoolExecutor
+from .mqtt_to_database import mqtt_loop
+from concurrent.futures import ThreadPoolExecutor
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,4 +46,4 @@ urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.sites.AdminSite.site_header = 'Administración'
 
-# mqtt_loop()
+mqtt_loop()

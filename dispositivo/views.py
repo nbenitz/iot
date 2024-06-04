@@ -380,13 +380,14 @@ def ajax_sensor_plot(request, id_sensor):
     if not timezone:
         timezone = 'America/Asuncion'
 
-    context = {"plot_sensor": plot_sensor(
-        id_sensor_list, timezone, start, end)}
+    context = {"plot_sensor": plot_sensor(id_sensor_list, timezone, start, end)}
 
     data = dict()
-    data['result'] = render_to_string(template_name='include/plot_sensor_container.html',
-                                      request=request,
-                                      context=context)
+    data['result'] = render_to_string(
+        template_name='include/plot_sensor_container.html',
+        request=request,
+        context=context
+    )
     return JsonResponse(data)
 
 

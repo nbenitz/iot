@@ -1,6 +1,6 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
-import settings
+#import settings
 from dispositivo.models import Sensor, Actuador, Dispositivo, PublicacionSensor, PublicacionActuador, PublicacionControlador, Logs
 from django.utils import timezone
 import pytz
@@ -25,11 +25,14 @@ def registrar_sensor(id_sensor, msg, retain):
         # last_pub = PublicacionSensor.objects.filter(id_sensor_fk=sensor).last()
         # seconds_diff = (now - last_pub.fecha).total_seconds()
         # if seconds_diff > 60:
-        pub = PublicacionSensor(id_sensor_fk=sensor,
-                                valor=msg, fecha=now, retain=retain)
+        pub = PublicacionSensor(
+            id_sensor_fk=sensor,
+            valor=msg,
+            fecha=now,
+        )
         pub.save()
-    except:
-        print("\nError :(\n")
+    except Exception as e:
+        print("\nError al registrar el sensor: " + str(e) + "\n")
 
 
 def registrar_feedback(id_actuador, msg, retain):
@@ -40,10 +43,13 @@ def registrar_feedback(id_actuador, msg, retain):
         # seconds_diff = (now - last_pub.fecha).total_seconds()
         # if seconds_diff > 60:
         pub = PublicacionActuador(
-            id_actuador_fk=actuador, valor=msg, fecha=now, retain=retain)
+            id_actuador_fk=actuador,
+            valor=msg,
+            fecha=now,
+        )
         pub.save()
-    except:
-        print("\nError :(\n")
+    except Exception as e:
+        print("\nError al registrar el feedback: " + str(e) + "\n")
 
 
 def registrar_status(id_controlador, msg, retain):
@@ -54,10 +60,13 @@ def registrar_status(id_controlador, msg, retain):
         # seconds_diff = (now - last_pub.fecha).total_seconds()
         # if seconds_diff > 60:
         pub = PublicacionControlador(
-            controlador=controlador, valor=msg, fecha=now, retain=retain)
+            controlador=controlador,
+            valor=msg,
+            fecha=now,
+        )
         pub.save()
-    except:
-        print("\nError :(\n")
+    except Exception as e:
+        print("\nError al registrar el estado: " + str(e) + "\n")
 
 
 def registrar_log(log):
@@ -65,8 +74,8 @@ def registrar_log(log):
     try:
         pub = Logs(fecha=now, evento=log)
         pub.save()
-    except:
-        print("\nError :(\n")
+    except Exception as e:
+        print("\nError al registrar log: " + str(e) + "\n")
 
 
 def on_connect(client, userdata, flags, rc):
@@ -122,5 +131,5 @@ def mqtt_loop():
     try:
         client.connect(broker_address, broker_port, 60)
         client.loop_start()
-    except:
-        print("\nError en la conexión MQTT.\n")
+    except Exception as e:
+        print("\nError en la Conexión: " + str(e) + "\n")

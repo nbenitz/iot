@@ -1,0 +1,45 @@
+# Archivos y directorios de Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+*.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de log
+*.log
+
+# Archivos y carpetas de Django
+#db.sqlite3
+media/
+staticfiles/
+
+# Carpetas de migraciones (opcional, si no quieres versionarlas)
+*/migrations/
+
+# Archivos de configuración de pytest
+.pytest_cache/
+__pycache__/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+
+# Otros archivos temporales
+*.tmp
+*.temp
