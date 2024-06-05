@@ -7,7 +7,7 @@ var reconnectTimeOut = 2000;
 //var host = 'broker.hivemq.com';
 //var host = 'test.mosquitto.org';
 //var port   = 8080;
-var host = 'broker.mqtt-dashboard.com'
+var host = 'broker.mqttdashboard.com'
 var port = 8000;
 var user;
 var sensor_topic = 'myiot87/sensor/';

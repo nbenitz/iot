@@ -1,0 +1,132 @@
+[
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/cores/esp32"
+  },
+  {
+    "Sourcefile": null,
+    "Include": "",
+    "Includepath": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/variants/esp32"
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Escritorio/capacitacion/iot/hardware/build/sketch/hardware.ino.cpp",
+    "Include": "WiFi.h",
+    "Includepath": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src"
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Escritorio/capacitacion/iot/hardware/build/sketch/hardware.ino.cpp",
+    "Include": "Network.h",
+    "Includepath": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/Network/src"
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Escritorio/capacitacion/iot/hardware/build/sketch/hardware.ino.cpp",
+    "Include": "PubSubClient.h",
+    "Includepath": "/home/desarrollo/Arduino/libraries/PubSubClient/src"
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Escritorio/capacitacion/iot/hardware/build/sketch/hardware.ino.cpp",
+    "Include": "DHT.h",
+    "Includepath": "/home/desarrollo/Arduino/libraries/DHT_sensor_library"
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Escritorio/capacitacion/iot/hardware/build/sketch/hardware.ino.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src/AP.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src/STA.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src/WiFi.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src/WiFiAP.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src/WiFiGeneric.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src/WiFiMulti.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src/WiFiSTA.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/WiFi/src/WiFiScan.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/Network/src/NetworkClient.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/Network/src/NetworkEvents.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/Network/src/NetworkInterface.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/Network/src/NetworkManager.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/Network/src/NetworkServer.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/.arduino15/packages/esp32/hardware/esp32/3.0.0/libraries/Network/src/NetworkUdp.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Arduino/libraries/PubSubClient/src/PubSubClient.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Arduino/libraries/DHT_sensor_library/DHT.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Arduino/libraries/DHT_sensor_library/DHT_U.cpp",
+    "Include": "Adafruit_Sensor.h",
+    "Includepath": "/home/desarrollo/Arduino/libraries/Adafruit_Unified_Sensor"
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Arduino/libraries/DHT_sensor_library/DHT_U.cpp",
+    "Include": "",
+    "Includepath": null
+  },
+  {
+    "Sourcefile": "/home/desarrollo/Arduino/libraries/Adafruit_Unified_Sensor/Adafruit_Sensor.cpp",
+    "Include": "",
+    "Includepath": null
+  }
+]

@@ -10,7 +10,7 @@ import random
 import string
 # from decouple import config
 
-broker_address = "broker.mqtt-dashboard.com"
+broker_address = "broker.mqttdashboard.com"
 broker_port = 1883
 topic = "myiot87/#"
 client_name = 'myiot87-' + \
