@@ -3,13 +3,12 @@ from django.utils import timezone
 import pytz
 from datetime import datetime, timedelta
 
-import pandas as pd
+#import pandas as pd
 import plotly.offline as py
 import plotly.graph_objs as go
 from plotly.subplots import make_subplots
 import numpy as np
 import plotly.express as px
-from .covid19_data_clean import clean_data
 from .models import Sensor, Dispositivo, PublicacionSensor, PublicacionControlador
 
 
@@ -25,8 +24,6 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
     end = end + timedelta(days=1)
 
     colors = ['red', ]
-    #mode_size = [6, 8]
-    #fig = go.Figure()
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
     for i, id_sensor in enumerate(id_sensor_list):
@@ -39,12 +36,9 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
             return "<div class='row justify-content-center my-5 py-5'>" + \
                 "No hay resultados para el rango de fechas</div>"
 
-        x_df = pd.DataFrame(qs.values('fecha'))
-        x_df['fecha'] = x_df['fecha'].map(
-            lambda fecha: timezone.localtime(fecha, lz))
+        x_data = [timezone.localtime(entry.fecha, lz) for entry in qs]
+        y_data = [entry.valor for entry in qs]
 
-        x_data = np.array(list(x_df['fecha']))
-        y_data = np.array(list(qs.values_list('valor', flat=True)))
         fig.add_trace(go.Scatter(x=x_data, y=y_data, mode='lines+markers',
                                  name=sensor.tipo.descripcion,
                                  line=dict(
@@ -65,6 +59,16 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
             max_val = 14
         elif sensor.tipo.descripcion == 'Ec':
             max_val = 2100
+        elif sensor.tipo.descripcion == 'Sensor de Puerta':
+            max_val = 1.2
+        elif sensor.tipo.descripcion == 'Velocidad del Viento':
+            max_val = 130
+        elif sensor.tipo.descripcion == 'Presión Atmosférica':
+            max_val = 1015
+        elif sensor.tipo.descripcion == 'Corriente':
+            max_val = 500
+        elif sensor.tipo.descripcion == 'Voltaje':
+            max_val = 5.2
 
         fig.update_yaxes(type="linear",
                          range=[min_val, max_val],
@@ -90,27 +94,6 @@ def plot_sensor(id_sensor_list, timezone_name, start, end):
     # Add range slider
     fig.update_layout(
         xaxis=go.layout.XAxis(
-            # rangeselector=dict(
-            #     buttons=list([
-            #         dict(count=1,
-            #             label="1m",
-            #             step="month",
-            #             stepmode="backward"),
-            #         dict(count=6,
-            #             label="6m",
-            #             step="month",
-            #             stepmode="backward"),
-            #         dict(count=1,
-            #             label="YTD",
-            #             step="year",
-            #             stepmode="todate"),
-            #         dict(count=1,
-            #             label="1y",
-            #             step="year",
-            #             stepmode="backward"),
-            #         dict(step="all")
-            #     ])
-            # ),
             rangeslider=dict(
                 visible=True
             ),
@@ -151,11 +134,9 @@ def plot_controller(id_controller_list, timezone_name, start, end):
             return "<div class='row justify-content-center my-5 py-5'>" + \
                 "No hay resultados para el rango de fechas</div>"
 
-        x_df = pd.DataFrame(qs.values('fecha'))
-        x_df['fecha'] = x_df['fecha'].map(
-            lambda fecha: timezone.localtime(fecha, lz))
-        x_data = np.array(list(x_df['fecha']))
-        y_data = np.array(list(qs.values_list('valor', flat=True)))
+        x_data = [timezone.localtime(entry.fecha, lz) for entry in qs]
+        y_data = [entry.valor for entry in qs]
+
         fig.add_trace(go.Scatter(x=x_data,
                                  y=y_data,
                                  mode='lines+markers',
